@@ -46,6 +46,24 @@ petRouter.get=('/:petId', async (req,res)=>{
 
 
 
+//postPet
+petRouter.post('/', async (req,res)=>{
+    const {name,age,size,type,image,apa}=req.body
+    try {
+        if (!name || !age || !size || !type || !image || !apa){
+            res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema'})
+        } else {
+            const newPet=await Pet.create(name,age,size,type,image,apa)
+            if (newPet) {
+                res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
+            } else {
+                res.status(400).json({error: 'La mascota no ha podido ser dada de alta'})
+            }
+        }
+    } catch (error) {
+        res.status(400).json(error) 
+    }
+})
 
 
 
