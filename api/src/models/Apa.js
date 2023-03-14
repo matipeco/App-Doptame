@@ -10,7 +10,6 @@ const apaSchema = new Schema({
   description: { type: String, required: true },
   location: { type: String, required: true },
   url: { type: String, required: true },
-  // location: hacer conexión con APA
 });
 const Apa = mongoose.model("Apa", apaSchema);
 
