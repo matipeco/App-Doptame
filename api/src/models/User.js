@@ -10,6 +10,7 @@ const userSchema = new Schema({
   location: { type: String, required: true },
   image: { type: String, required: true },
   pet: { type: Schema.Types.ObjectId, ref: "Pet" },
+  address: { type: String, required: true }
 });
 const User = mongoose.model("User", userSchema);
 
