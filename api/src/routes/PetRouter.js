@@ -62,8 +62,6 @@ petRouter.get=('/:petId', async (req,res)=>{
 // })
 
 
-
-
 //postPet FORMA NUEVA
 
 petRouter.post('/', async (req,res)=>{
