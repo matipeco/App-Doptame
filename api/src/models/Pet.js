@@ -10,7 +10,7 @@ const petSchema = new Schema(
       enum: ["chico", "mediano", "grande"],
       required: true,
     },
-    type: { type: String, required: true },
+    type: { type: String, enum: ["perro", "gato", "otros"], required: true },
     image: { type: String, required: true },
     adoption: { type: Boolean, default: true },
     status: { type: Boolean, default: true },
