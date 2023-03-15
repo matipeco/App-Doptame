@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+.link{
+    text-decoration: none;
+    text-decoration-style: none;
+    color: black;
+}
+
 nav{
     display: flex;
     flex-direction: row;

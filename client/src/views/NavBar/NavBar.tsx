@@ -12,11 +12,18 @@ function NavBar() {
       <label htmlFor="check" className='checkbtn'>
         <i><FiAlignJustify/></i>
       </label>
+
       <ul className='izq'>
-        <li>Sobre la App</li>
-        <li className='somos'>Quienes Somos</li>
+        <Link to='/aboutApp' className='link'>
+          <li>Sobre la App</li>
+        </Link>
+        <Link to='/aboutUs' className='link'>
+          <li >Quienes Somos</li>
+        </Link>
       </ul>
-      <img src={imgLogo} alt='logo'/>
+      <Link to='/home' className='link'>
+        <img src={imgLogo} alt='logo'/>
+      </Link>
       <ul className='der'>
         <li >Preguntas frecuentes</li>
         <li >Ingresar</li>
