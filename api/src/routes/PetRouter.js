@@ -1,7 +1,9 @@
 const petRouter = require('express').Router();
+// const { Router } = require("express");
+// const petRouter = Router();
 const petSchema = require('../models/Pet');
-
-const {getPetWithLocation} = require('../controllers/petController');
+const Pet= require('../models/Pet');
+// const {getPetWithLocation} = require('../controllers/petController');
 
 //getAllPets
 petRouter.get =('/', async (req,res)=>{
@@ -66,16 +68,15 @@ petRouter.get=('/:petId', async (req,res)=>{
 
 petRouter.post('/', async (req,res)=>{
     if (!req.body){
-        res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema'})
+        res.status(400).json(error.message)
     } else{
-        const newPet= petSchema(req.body);
-        newPet
+        const pet= petSchema(req.body);
+        pet
             .save()
             .then((data)=>res.json(data))
             .catch((error)=>res.json({message: error}));
     }
 })
-
 
 
 
@@ -105,4 +106,4 @@ petRouter.post('/', async (req,res)=>{
 // })
 
 
-module.exports =petRouter
+module.exports = petRouter;
