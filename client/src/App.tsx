@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      {!isLandingPage && <NavBar />}
+      { <NavBar />}
       <Routes>
         <Route path="/" element={<Landing/>}></Route>
     
