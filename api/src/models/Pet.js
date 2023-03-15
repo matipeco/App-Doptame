@@ -1,15 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const petSchema = new Schema({
-  name: { type: String, required: true },
-  age: { type: Number, required: true },
-  size: { type: String, enum: ["small", "medium", "big"], required: true },
-  type: { type: String, required: true },
-  image: { type: Text, required: true },
-  apa: { type: Schema.Types.ObjectId, ref: "Apa" }, // referencia a Apa por ID
-  // location: hacer conexión con APA
-});
+const petSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    age: { type: String, required: true },
+    size: {
+      type: String,
+      enum: ["Chico", "Mediano", "Grande"],
+      required: true,
+    },
+    type: { type: String, required: true },
+    image: { type: String, required: true },
+    adoption: { type: Boolean, default: true },
+    status: { type: Boolean, default: true },
+    apa: { type: Schema.Types.ObjectId, ref: "Apa"}
+  },
+  {
+    timestamps: true,
+  }
+);
 const Pet = mongoose.model("Pet", petSchema);
 
 module.exports = Pet;
