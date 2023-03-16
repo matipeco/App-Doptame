@@ -6,6 +6,7 @@ import './App.css';
 
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
+import FormUser from './views/FormUser/FormUser';
 
 function App() {
   const location = useLocation();
@@ -17,12 +18,14 @@ function App() {
     <div className="App">
       {<NavBar />}
       <Routes>
+
         <Route path="/" element={<Landing />}></Route>
         <Route path="/home" element={<Home />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/aboutUs" element={<AboutUs />}></Route>
         <Route path="/formApa" element={<FormApa />}></Route>
         <Route path="/formPet" element={<FormPets />}></Route>
+
 
       </Routes>
 
