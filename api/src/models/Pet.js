@@ -13,7 +13,7 @@ const petSchema = new Schema(
 
       required: true,
     },
-    type: { type: String, required: true },
+    type: { type: String, enum: ["perro", "gato", "otros"], required: true },
     image: { type: String, required: true },
 
     description: { type: String, required: true },

@@ -105,20 +105,4 @@ function About() {
     </div>
   ));
 
-  return (
-    <div>
-      <h1 className="h1">QUIENES SOMOS</h1>
-        <p  className="descrip">
-          Somos estudiantes de Henry en etapa de proyecto final del bootcamp, desarrollando una plataforma web dedicada a la adopción responsable de mascotas, que incluye una interfaz amigable e intuitiva para que los usuarios puedan navegar fácilmente y encontrar la información que necesiten; incluimos una sección de donaciones para que puedan contribuir con la causa.
-        <br/>
-          Esperamos tener un impacto positivo en la vida de las mascotas y en la de aquellos que deciden adoptarlas. Creemos que nuestra iniciativa puede ser de gran ayuda y estamos muy orgullosos de lo que hemos logrado como equipo.
-        <hr/>
-        </p>
-      <div className="members">
-        {teamMemberCards}
-      </div>
-    </div>
-  );
-}
 
-export default About;

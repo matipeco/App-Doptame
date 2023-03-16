@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
-import {Home, NavBar, Landing, Detail, Footer, AboutApp, AboutUs } from "../src/views"
+import {Home, NavBar, Landing, Detail, Footer, AboutUs } from "../src/views"
 
 import './App.css';
 import FormApa from './views/FormApa/FormApa';
@@ -25,7 +25,7 @@ function App() {
      
 
 
-        <Route path="/aboutApp" element={<AboutApp/>}></Route>
+       
         <Route path="/home" element={<Home/>}></Route>
         <Route path="/detail/:id" element={<Detail/>}></Route>
         <Route path="/aboutUs" element={<AboutUs/>}></Route>
