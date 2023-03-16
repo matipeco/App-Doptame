@@ -1,0 +1,19 @@
+.container{
+    display: flex;
+    margin: 25px;
+}
+
+.containerForm{
+    flex: 1 1 50%;
+    display: flex;
+    flex-wrap: wrap ;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+
+
+.img{
+    width: 330px;
+    height: 450px;
+}
