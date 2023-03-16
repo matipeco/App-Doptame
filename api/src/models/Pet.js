@@ -8,15 +8,19 @@ const petSchema = new Schema(
     age: { type: String, required: true },
     size: {
       type: String,
-      enum: ["Chico", "Mediano", "Grande"],
+
+      enum: ["chico", "mediano", "grande"],
+
       required: true,
     },
     type: { type: String, required: true },
     image: { type: String, required: true },
+
     description: { type: String, required: true },
     adoption: { type: Boolean, default: true },
     status: { type: Boolean, default: true },
     apa: { type: Schema.Types.ObjectId, ref: "Apa"}
+
   },
   {
     timestamps: true,
