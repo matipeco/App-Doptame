@@ -148,7 +148,7 @@ function AboutUs() {
         de aquellos que deciden adoptarlas. Creemos que nuestra iniciativa puede
         ser de gran ayuda y estamos muy orgullosos de lo que hemos logrado como
         equipo.
-        <hr />
+        <br />
       </p>
       <div className="members">{teamMemberCards}</div>
     </div>

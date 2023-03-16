@@ -18,16 +18,6 @@ function App() {
       {<NavBar />}
       <Routes>
         <Route path="/" element={<Landing />}></Route>
-
-
-        {/* Renderiza NavBar solo si la ruta actual no es la ruta de inicio */}
-
-
-
-
-
-
-
         <Route path="/home" element={<Home />}></Route>
         <Route path="/detail/:id" element={<Detail />}></Route>
         <Route path="/aboutUs" element={<AboutUs />}></Route>
@@ -35,7 +25,7 @@ function App() {
         <Route path="/formPet" element={<FormPets />}></Route>
 
       </Routes>
-      {/* Renderiza Footer solo si la ruta actual no es la ruta de inicio */}
+
       {!isLandingPage && <Footer />}
     </div>
   );
