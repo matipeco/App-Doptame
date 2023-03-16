@@ -5,6 +5,7 @@ import {Home, NavBar, Landing, Detail, Footer, AboutUs } from "../src/views"
 import './App.css';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
+import FormUser from './views/FormUser/FormUser';
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,8 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs/>}></Route>
         <Route path="/formApa" element={<FormApa/>}></Route>
         <Route path="/formPet" element={<FormPets/>}></Route>
+        <Route path="/formUser" element={<FormUser/>}></Route>
+
 
       </Routes>
        {/* Renderiza Footer solo si la ruta actual no es la ruta de inicio */}
