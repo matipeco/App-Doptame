@@ -1,35 +1,61 @@
 const petRouter = require('express').Router();
-// const { Router } = require("express");
-// const petRouter = Router();
 const petSchema = require('../models/Pet');
 const Pet= require('../models/Pet');
 // const {getPetWithLocation} = require('../controllers/petController');
 
-//getAllPets
-petRouter.get =('/', async (req,res)=>{
+
+
+// getAllPets
+// petRouter.get =('/', async (req,res)=>{
+//     try {
+//         Pet.find({},(error,data)=>{
+//             if (error) console.log(error)
+//             if(data) res.status(200).json(data)
+//         })
+//     } catch (error) {
+//         res.status(400).json(error)
+//     }
+// })
+
+
+// getAllPets
+petRouter.get("/", async (req,res)=>{
+    console.log('Hola Mundo!')
     try {
-        const allPets= await Pet.find();
+        const allPets= await Pet.find({});
         res.status(200).json(allPets);   
     } catch (error) {
-        res.status(400).json({error: 'No se pudieron obtener todas las mascotas'})
+        res.status(400).json(error)
     }
 })
 
 
 
+//getAllPets VIEJA
+// petRouter.get =('/', async (req,res)=>{
+//     try {
+//         const allPets= await Pet.find();
+//         res.status(200).json(allPets);   
+//     } catch (error) {
+//         res.status(400).json({error: 'No se pudieron obtener todas las mascotas'})
+//     }
+// })
+
+
+
 
 //getPetById (VERSIÓN ANTERIOR, SIN POPULATE)
-petRouter.get=('/:petId', async (req,res)=>{
-    const {petId}=req.params;
+petRouter.get('/:petId', async (req,res)=>{
     try {
-        const petWithApa=await Pet.findById(petId).populate('apa');
+        const petWithApa=await Pet.findById(req.params.petId).populate('apa');
 //Si encontró la Pet
         if (petWithApa) {
             res.status(200).json(petWithApa);
         //Si no encontró la Pet
-        } else{
-            res.status(404).json({error: 'Mascota no encontrada'});
-        }
+        } 
+        // else{
+        //     res.status(404).json({error: 'Mascota no encontrada'});
+        // }
     } catch (error) {
         res.status(404).json(error)
     }
@@ -65,8 +91,7 @@ petRouter.get=('/:petId', async (req,res)=>{
 
 
 //postPet FORMA NUEVA
-
-petRouter.post('/', async (req,res)=>{
+petRouter.post('/create', async (req,res)=>{
     if (!req.body){
         res.status(400).json(error.message)
     } else{
@@ -74,15 +99,9 @@ petRouter.post('/', async (req,res)=>{
         pet
             .save()
             .then((data)=>res.json(data))
-            .catch((error)=>res.json({message: error}));
+            .catch((error)=>res.json(error));
     }
 })
-
-
-
-
-
-
 
 
 // //postPet VERSION VIEJA
@@ -104,6 +123,23 @@ petRouter.post('/', async (req,res)=>{
 //         res.status(400).json(error) 
 //     }
 // })
+
+
+
+petRouter.put('/:petId', async (req, res) => {
+    try {
+        const petEdit = await Pet.findByIdAndUpdate(
+            req.params.petId,
+            req.body,
+            { new: true }
+        );
+        console.log(petEdit)
+        res.status(200).json('Mascota modificada exitosamente');
+    } catch (error) {
+        console.log(error)
+        res.status(400).json('La mascota no pudo ser editada');
+    }
+});
 
 
 module.exports = petRouter;
