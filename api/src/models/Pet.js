@@ -13,6 +13,7 @@ const petSchema = new Schema(
     },
     type: { type: String, required: true },
     image: { type: String, required: true },
+    description: { type: String, required: true },
     adoption: { type: Boolean, default: true },
     status: { type: Boolean, default: true },
     apa: { type: Schema.Types.ObjectId, ref: "Apa"}

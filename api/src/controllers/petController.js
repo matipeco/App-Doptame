@@ -28,9 +28,9 @@ const getPetById= async (req,res)=>{
 }
 
 const createPet =async (req,res)=>{
-    const {name,age,size,type,image,apa}=req.body
+    const {name,age,size,type,image,apa,description}=req.body
     try {
-        if (!name || !age || !size || !type || !image || !apa) {
+        if (!name || !age || !size || !type || !image || !apa || !description) {
             res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema.'})
         } else {
             const newPet=await Pet.create(req.body)
