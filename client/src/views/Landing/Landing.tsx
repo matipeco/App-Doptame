@@ -1,9 +1,29 @@
-import React from 'react'
+import React from 'react';
+import './Landing.css';
+import perrito from '../../assets/perrito.gif';
 
-function Landing() {
+
+const Landing: React.FC = () => {
   return (
-    <div>hola</div>
-  )
-}
+    <div>
+      <div className="title-container">
+        <h1 className="title">App<img className="img"src="https://i.imgur.com/rNsmaGi.png" alt="" />Doptame</h1>
+      </div>
+      <div className="container">
+        <div className="gifDiv">
+           <img src={perrito} alt="Descripción del GIF" />
+        </div>
+        <div className="content-column">
+          <div className="description">
+            <p>Le faltan pelos a tu ropa<br />adoptá una mascota!</p>
+          </div>
+          <div className="button">
+            <a href="/home">Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Landing
+export default Landing;
