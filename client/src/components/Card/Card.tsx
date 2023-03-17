@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { Pet } from '../Cards/Cards'
+import { Pet } from '../../redux/types'
 import style from './Card.module.css'
 import { Link } from 'react-router-dom'
 

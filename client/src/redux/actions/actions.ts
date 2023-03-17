@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL } from "./actionsTypes";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -24,7 +24,7 @@ type dispatchGet = {
 
 type dispatchDetail = {
   type: string
-  payload: object
+  payload: Pet
 }
 
 
@@ -40,8 +40,6 @@ export const getApas = () => {
   };
 };
 
-
-
 export const postApa = (payload: Apa) => {
   return async (dispatch: Dispatch<dispatch>) => {
     const createApa = await axios.post<Apa>("http://localhost:3001/apa", payload);
@@ -55,7 +53,6 @@ export const postApa = (payload: Apa) => {
 export const getPets = () => {
   return async (dispatch: Dispatch<dispatchGet>) => {
     const response = await axios.get<Pet[]>("http://localhost:3001/pets");
-
     return dispatch({
       type: GET_PETS,
       payload: response.data
@@ -64,18 +61,15 @@ export const getPets = () => {
 };
 
 export const getDetailPets = (id: string) => {
-  return async (dispatch: Dispatch<dispatchDetail>) => {
-    try {
-      const response = await axios.get<Pet>(`http://localhost:3001/pets/${id}`);
-      const dataId = response.data;
-      return dispatch({
+  return (dispatch: Dispatch<dispatchDetail>) => {
+
+    return axios.get<Pet>(`http://localhost:3001/pets/${id}`)
+      .then((res) => dispatch({
         //despacho la action
         type: GET_DETAIL_PET,
-        payload: dataId,
-      });
-    } catch (error) {
-      return error
-    }
+        payload: res.data,
+      }))
+
   };
 };
 
@@ -93,3 +87,10 @@ export const postPet = (payload: Pet) => {
     });
   };
 };
+
+export const setSelectedCategory = (category: string) => {
+  return {
+    type: SET_SELECTED_CATEGORY,
+    payload: category
+  }
+}
