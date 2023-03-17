@@ -10,20 +10,22 @@ function FormPets(){
                 <div className="row">
                     <div className="containerInputs"> 
                         <input
+                        className="input"
                         type='text'
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Nombre</label>
+                        <label className="label" htmlFor="name">Nombre</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     <div className="containerInputs"> 
                         <input
                         type='text'
+                        className="input"
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Edad</label>
+                        <label className="label" htmlFor="name">Edad</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     </div>
@@ -65,7 +67,7 @@ function FormPets(){
                        
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
-                    <button>Agregar</button>
+                    <button className="btn">Agregar</button>
                     </div>
                 </form>
             </div>

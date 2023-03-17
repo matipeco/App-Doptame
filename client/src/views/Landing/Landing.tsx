@@ -26,10 +26,6 @@ const Landing: React.FC = () => {
   );
 };
 
-    <Link to = "/home">HOME</Link>
-    </div>
-  )
-}
-
+  
 
 export default Landing;
