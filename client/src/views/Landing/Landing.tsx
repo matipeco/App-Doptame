@@ -1,7 +1,7 @@
 import React from 'react';
 import './Landing.css';
 import perrito from '../../assets/perrito.gif';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const Landing: React.FC = () => {
   return (
@@ -18,18 +18,13 @@ const Landing: React.FC = () => {
             <p>Le faltan pelos a tu ropa<br />adoptá una mascota!</p>
           </div>
           <div className="button">
-            <a href="/home">Home</a>
+        
+         <Link to = "/home">HOME</Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-    <Link to = "/home">HOME</Link>
-    </div>
-  )
-}
-
 
 export default Landing;
