@@ -26,6 +26,7 @@ const getAllPetsWithApaDetails= async (req,res)=>{
 
         const petsWithApaDetails = await Promise.all (allPets.map(async (p)=>{
             return await {
+                _id: p._id,
                 name: p.name,
                 age: p.age,
                 size: p.size,
