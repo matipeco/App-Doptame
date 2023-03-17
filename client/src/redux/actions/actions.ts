@@ -6,15 +6,15 @@ import { Dispatch } from "react";
 
 
 
-type dispatch = {
+type dispatchApa = {
   type: string
-  createApa: Apa
+  payload: Apa
 
 }
 
 type dispatchPet = {
   type: string
-  createPet: Pet
+  payload: Pet
 }
 
 type dispatchGet = {
@@ -41,34 +41,41 @@ export const getApas = () => {
 };
 
 export const postApa = (payload: Apa) => {
-  return async (dispatch: Dispatch<dispatch>) => {
+  return async (dispatch: Dispatch<dispatchApa>) => {
     const createApa = await axios.post<Apa>("http://localhost:3001/apa", payload);
     return dispatch({
       type: POST_APA,
-      createApa: createApa.data
+      payload: createApa.data
     });
   };
 };
 
 export const getPets = () => {
   return async (dispatch: Dispatch<dispatchGet>) => {
-    const response = await axios.get<Pet[]>("http://localhost:3001/pets");
-    return dispatch({
-      type: GET_PETS,
-      payload: response.data
-    });
+    try {
+      const response = await axios.get<Pet[]>("http://localhost:3001/pets");
+
+      return dispatch({
+        type: GET_PETS,
+        payload: response.data
+      });
+    }
+    catch (error) {
+      console.log(error)
+    }
+
   };
 };
 
 export const getDetailPets = (id: string) => {
-  return (dispatch: Dispatch<dispatchDetail>) => {
+  return async (dispatch: Dispatch<dispatchDetail>) => {
 
-    return axios.get<Pet>(`http://localhost:3001/pets/${id}`)
-      .then((res) => dispatch({
-        //despacho la action
-        type: GET_DETAIL_PET,
-        payload: res.data,
-      }))
+    const res = await axios.get<Pet>(`http://localhost:3001/pets/${id}`);
+    return dispatch({
+      //despacho la action
+      type: GET_DETAIL_PET,
+      payload: res.data,
+    });
 
   };
 };
@@ -83,7 +90,7 @@ export const postPet = (payload: Pet) => {
     const createPet = await axios.post<Pet>("http://localhost:3001/pets/create", payload);
     return dispatch({
       type: ADD_PET,
-      createPet: createPet.data
+      payload: createPet.data
     });
   };
 };

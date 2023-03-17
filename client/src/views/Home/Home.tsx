@@ -17,7 +17,7 @@ function Home() {
       <section className='container'>
 
         <div className='card'>
-          <Link className='link' to="">
+          <Link className='link' to="/pets/perro">
 
             <img src={imgPerros} alt="perros" />
             <div className='name'>
@@ -27,7 +27,7 @@ function Home() {
         </div>
 
         <div className='card'>
-          <Link className='link' to="">
+          <Link className='link' to="/pets/gato">
             <img src={imgCats} alt="cats" />
             <div className='name'>
               <h1>Gatos</h1>
@@ -36,7 +36,7 @@ function Home() {
         </div>
 
         <div className='card'>
-          <Link className='link' to="">
+          <Link className='link' to="/pets/otros">
             <img src={imgOtros} alt="otros" />
             <div className='name'>
               <h1>Otros</h1>
