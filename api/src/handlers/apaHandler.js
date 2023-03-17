@@ -18,7 +18,7 @@ const putApaHandler = async (req, res) => {
   try {
       const { id } = req.params;
       const { name, password, email, cbu_cvu, description, location, url } = req.body;  
-      const modApa = await putApa(id, name, password, email, cbu_cvu, description, location, url);  // {id, name, password, email, cbu_cvu, description, location, url}
+      const modApa = await putApa(id, name, password, email, cbu_cvu, description, location, url);  
       res.status(200).json(modApa);  
   } catch (error) {
       res.status(404).send(error.message);
@@ -31,7 +31,7 @@ const getApaByIdHandler = async (req, res) => {
   console.log(req.params);
     try {
         const apaById = await getApaById(id);      
-        if(!apaById) throw new Error ('La APA que deseas modificar no existe :(');  
+        if(!apaById) throw new Error ('La APA que buscas no existe :(');  
         res.status(200).json(apaById);  
     } catch (error) {
         res.status(404).send(error.message);
@@ -43,7 +43,7 @@ const getAllApasHandler =  async (req, res) => {
   const { name }  = req.query;  
   try {
       const results = name ? await getApasByName(name) : await getAllApas()
-      if(!results) throw new Error('Apa no encontrada :(');
+      if(!results) throw new Error('Aún no hay APAs cargadas :(');
       res.status(200).json(results);
   } catch (error) {
       res.status(404).send(error.message);
@@ -70,4 +70,4 @@ module.exports = {
     getApaByIdHandler,
     getAllApasHandler,
     deleteApaByIdHandler
- }; // Diego: Acá puedo hacer destructuring y mandar handler por handler. Antes apaHandler
+ };

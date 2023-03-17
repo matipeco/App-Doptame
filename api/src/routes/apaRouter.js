@@ -6,11 +6,8 @@ const {
         getApaByIdHandler, 
         getAllApasHandler, 
         deleteApaByIdHandler 
-    } = require("../handlers/apaHandler"); // Diego: Traerme todos los handlers con destructuring (antes solo apaHandler)
-
-// apaRouter.post("/", apaHandler); ---> Nati
-
-// Diego: Voy a modularizar todas las rutas para más orden. 
+    } = require("../handlers/apaHandler"); 
+    
 
 apaRouter.post('/', createApaHandler);
 
