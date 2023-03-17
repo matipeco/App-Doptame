@@ -1,6 +1,7 @@
 const petRouter = require('express').Router();
 const petSchema = require('../models/Pet');
 const Pet= require('../models/Pet');
+const {getApaById} = require ('./apaController');
 
 const getAllPets= async (req,res)=>{
     try {
@@ -10,6 +11,41 @@ const getAllPets= async (req,res)=>{
         res.status(400).json(error)
     }
 }
+
+//Me traigo un array de todas las pets.
+//Entro a cada una de ellas y busco la propiedad "apa"
+//Uso fn getApaById para traerme la info de esa apa, especificament su propiedad location
+
+
+const getAllPetsWithApaDetails= async (req,res)=>{
+    try {
+        const allPets= await Pet.find({});
+// console.log(allPets)
+// console.log(await getApaById(allPets[0].apa))
+// console.log(await getApaById(allPets[0].apa).location)
+
+        const petsWithApaDetails = await Promise.all (allPets.map(async (p)=>{
+            return await {
+                name: p.name,
+                age: p.age,
+                size: p.size,
+                type: p.type,
+                image: p.image,
+                description: p.description,
+                adoption: p.adoption,
+                status: p.status,
+                apa: await getApaById(p.apa)
+                // location: await getApaById(p.apa)
+                // location: await getApaById(p.apa).location
+            }
+        }))
+        res.status(200).json(petsWithApaDetails);
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
+
 
 const getPetById= async (req,res)=>{
     try {
@@ -73,6 +109,7 @@ const deletePet =async (req, res) => {
 
 module.exports={
     getAllPets,
+    getAllPetsWithApaDetails,
     getPetById,
     createPet,
     editPet,

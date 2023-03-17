@@ -1,9 +1,10 @@
 const petRouter = require('express').Router();
 const petSchema = require('../models/Pet');
 const Pet= require('../models/Pet');
-const {getAllPets,getPetById,createPet,editPet,deletePet} = require('../controllers/petController');
+const {getAllPets,getAllPetsWithApaDetails,getPetById,createPet,editPet,deletePet} = require('../controllers/petController');
 
-petRouter.get("/",getAllPets)
+// petRouter.get("/",getAllPets)
+petRouter.get("/",getAllPetsWithApaDetails)
 petRouter.get('/:petId',getPetById)
 petRouter.post('/create',createPet)
 petRouter.put('/edit/:petId',editPet);
