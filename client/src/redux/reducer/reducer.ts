@@ -1,21 +1,35 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY } from "../actions/actionsTypes"
 
 import { Pet, Apa } from "../types"
 
+const emptyDetail = {
+  id: "",
+  adoption: false,
+  age: 0,
+  apa: "",
+  image: "",
+  name: "",
+  size: "",
+  status: true,
+  type: "",
+  description: ""
+}
 
-
-interface StateType {
+export interface StateType {
   allPets: Pet[]
   allApas: Apa[]
-  detail: {}
+  detail: Pet
+  selectedCategory: string
 }
 
 const initialState: StateType = {
   allPets: [],
   allApas: [],
-  detail: {}
+  selectedCategory: '',
+  detail: emptyDetail
+}
 
-};
+
 
 type ActionType = {
   type: string;
@@ -27,6 +41,13 @@ const reducer = (
   action: ActionType
 ): StateType => {
   switch (action.type) {
+    //Setea el estado selectedCategory segun la card que elija el usuario en Home
+    case SET_SELECTED_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.payload
+      }
+
     case POST_APA:
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
@@ -50,7 +71,7 @@ const reducer = (
     case CLEAN_DETAIL:
       return {
         ...state,
-        detail: {}
+        detail: emptyDetail
       }
 
     case GET_DETAIL_PET:
@@ -58,6 +79,7 @@ const reducer = (
         ...state,
         detail: action.payload
       }
+
 
     default:
       return state;
