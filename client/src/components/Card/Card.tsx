@@ -14,7 +14,7 @@ export const Card: FunctionComponent<Props> = ({ pet }) => {
 
       <img src={pet.image} alt={pet.name} />
       <h3>{pet.name}</h3>
-      <Link className={style.link} to={`/detail/${pet.id}`}>
+      <Link className={style.link} to={`/detail/${pet._id}`}>
         Conoceme...
       </Link>
     </article>

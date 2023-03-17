@@ -1,5 +1,5 @@
 export interface Pet {
-  id: string
+  _id: string
   name: string
   age: number
   size: string
@@ -12,7 +12,7 @@ export interface Pet {
 }
 
 export interface Apa {
-  id: string
+  _id: string
   name: string
   password: string
   email: string

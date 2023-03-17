@@ -1,9 +1,9 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY, GET_PETS } from "../actions/actionsTypes"
 
 import { Pet, Apa } from "../types"
 
 const emptyDetail = {
-  id: "",
+  _id: "",
   adoption: false,
   age: 0,
   apa: "",
@@ -40,6 +40,7 @@ const reducer = (
   state: StateType = initialState,
   action: ActionType
 ): StateType => {
+
   switch (action.type) {
     //Setea el estado selectedCategory segun la card que elija el usuario en Home
     case SET_SELECTED_CATEGORY:
@@ -74,10 +75,20 @@ const reducer = (
         detail: emptyDetail
       }
 
+
     case GET_DETAIL_PET:
       return {
         ...state,
         detail: action.payload
+      }
+
+
+
+
+    case GET_PETS:
+      return {
+        ...state,
+        allPets: action.payload
       }
 
 

@@ -5,13 +5,15 @@ import { Pet } from '../../redux/types'
 import { useEffect } from 'react'
 import { getPets } from '../../redux/actions/actions'
 import { AnyAction } from 'redux'
+import { useParams } from 'react-router-dom'
 
 
 export const Cards = () => {
-  const { selectedCategory, allPets } = useSelector((state: StateType) => state)
-
+  const { allPets } = useSelector((state: StateType) => state)
+  const { category } = useParams()
   // Filtramos los animales según la categoría seleccionada
-  const filteredPets = allPets.filter((pet: Pet) => pet.type === selectedCategory)
+  const filteredPets = allPets.filter((pet: Pet) => pet.type === category)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export const Cards = () => {
   return (
     <div>
       {filteredPets.map((pet: Pet) => (
-        <Card key={pet.id} pet={pet} />
+        <Card key={pet._id} pet={pet} />
       ))}
     </div>
   )
