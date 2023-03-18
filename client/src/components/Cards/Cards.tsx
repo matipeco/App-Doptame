@@ -17,7 +17,7 @@ export const Cards = () => {
 
   const dispatch = useDispatch();
   const [currentPets, setCurrentPets] = useState<Pet[]>([])
-
+  
   useEffect(() => {
     dispatch(getPets() as unknown as AnyAction)
   }, [])
