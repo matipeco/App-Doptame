@@ -16,37 +16,41 @@ function FormUser(){
                 <div className="containerInputs"> 
                         <input
                         type='text'
+                        className="input"
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Nombre y Apellido</label>
+                        <label className="label" htmlFor="name">Nombre y Apellido</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     <div className="containerInputs"> 
                         <input
                         type='text'
+                        className="input"
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Usuario</label>
+                        <label className="label" htmlFor="name">Usuario</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     <div className="containerInputs"> 
                         <input
                         type='text'
+                        className="input"
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Contraseña</label>
+                        <label className="label" htmlFor="name">Contraseña</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     <div className="containerInputs"> 
                         <input
                         type='text'
+                        className="input"
                         name="name"
                         required
                         />
-                        <label htmlFor="name">Email</label>
+                        <label className="label" htmlFor="name">Email</label>
                         {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                     </div>
                     <button>Crear</button>
