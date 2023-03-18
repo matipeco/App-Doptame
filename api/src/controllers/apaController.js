@@ -8,16 +8,17 @@ const createApa = async(name, password, email, cbu_cvu, description, location, u
     return newApa;
 }
 
+
 // PUT| /edit/:id - OK (apretar dos veces Send)
-const putApa = async(id, name, password, email, cbu_cvu, description, location, url) => { 
-    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url}); 
+const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets) => { 
+    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets}); 
     return modifyApa;
 }
 
 
 // GET BY ID| /:id - OK
 const getApaById = async(id) => {
-    const newApa = await Apa.findById(id); // Diego: revisar si el metodo find está bien para Mongo
+    const newApa = await Apa.findById(id).populate('pets');
     return newApa;
 };
 
@@ -25,7 +26,7 @@ const getApaById = async(id) => {
 const getAllApas = async() => {
     const allApas = await Apa.find({});
     return allApas;
-};
+}
 const getApasByName = async(name) => {
     const ApaByName = await getAllApas();
     const ApaFounded = await ApaByName.filter(el => el.name.toLowerCase().includes(name.toLowerCase()));
