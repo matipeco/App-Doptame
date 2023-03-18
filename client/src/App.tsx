@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Home, NavBar, Landing, Detail, Footer, AboutUs } from "../src/views"
+import { Cards } from './components/Cards/Cards';
 
 import './App.css';
 
@@ -16,7 +17,8 @@ function App() {
 
   return (
     <div className="App">
-      {<NavBar />}
+      {!isLandingPage && <NavBar />}
+
       <Routes>
 
         <Route path="/" element={<Landing />}></Route>
@@ -25,7 +27,7 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />}></Route>
         <Route path="/formApa" element={<FormApa />}></Route>
         <Route path="/formPet" element={<FormPets />}></Route>
-
+        <Route path='/pets/:category' element={<Cards />}></Route>
 
       </Routes>
 

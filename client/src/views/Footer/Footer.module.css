@@ -1,0 +1,20 @@
+.container {
+    background-color: #E2986C;
+    height: 200px;
+    width: 100%;
+    transition: 300ms ease-in-out;
+    color: black;
+
+
+}
+
+.container:hover {
+
+
+    color: black;
+}
+
+.container p {
+    margin: 15px;
+    font-weight: 600;
+}
