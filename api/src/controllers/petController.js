@@ -1,6 +1,7 @@
 const petRouter = require('express').Router();
 const petSchema = require('../models/Pet');
 const Pet= require('../models/Pet');
+const Apa= require('../models/Apa');
 
 const getAllPets= async (req,res)=>{
     try {
@@ -28,13 +29,16 @@ const getPetById= async (req,res)=>{
 }
 
 const createPet =async (req,res)=>{
-    const {name,age,size,type,image,apa,description}=req.body
+    
     try {
-        if (!name || !age || !size || !type || !image || !apa || !description) {
+        
+        const {name,age,size,type,image,description}=req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
+        if (!name || !age || !size || !type || !image || !description) {
             res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema.'})
         } else {
             const newPet=await Pet.create(req.body)
-            
+            const {apaId} = req.params
+            await Apa.findByIdAndUpdate(apaId, {$push:{pets: newPet._id}}, {useFindAndModify: false})
             if (newPet) {
                 res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
             } else {
@@ -42,6 +46,7 @@ const createPet =async (req,res)=>{
             }
         }
     } catch (error) {
+        console.log(error.message);
         res.status(400).json(error) 
     }
 }

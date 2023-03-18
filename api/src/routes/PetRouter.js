@@ -5,7 +5,7 @@ const {getAllPets,getPetById,createPet,editPet,deletePet} = require('../controll
 
 petRouter.get("/",getAllPets)
 petRouter.get('/:petId',getPetById)
-petRouter.post('/create',createPet)
+petRouter.post('/create/:apaId',createPet) // Diego: Agregamos params a la ruta para que tenga en cuenta la id de la Apa desde donde se crea la mascota
 petRouter.put('/edit/:petId',editPet);
 petRouter.delete('/delete/:petId',deletePet)
 
