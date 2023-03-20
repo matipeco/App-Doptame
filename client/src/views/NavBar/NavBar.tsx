@@ -21,7 +21,7 @@ function NavBar() {
           <img className='logo' src={imgLogo} alt='logo' />
         </Link>
         <ul>
-          <li>Inicio</li>
+          <li><Link to="/home" className='linkAbout'>Inicio</Link></li>
           <li><Link to="/aboutUs" className='linkAbout'>Quienes somos</Link></li>
           <li>
             <a onClick={handleDropdownClick}>
