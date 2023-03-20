@@ -1,50 +1,54 @@
 import React from 'react'
+import './Home.css';
 import { Link } from 'react-router-dom'
-import "./Home.css"
+import imgAlimento from "../../assets/assetsHome/ImagenesHome/alimento.png"
+import imgHome from "../../assets/assetsHome/ImagenesHome/Casita.png"
+import imgVacuna from "../../assets/assetsHome/ImagenesHome/vacuna.png"
+
 
 function Home() {
-  const imgPerros = `https://iaabcjournal.org/wp-content/uploads/2021/02/street-dogs.jpg`
-  const imgCats = `https://cdn.colombia.com/sdi/2022/03/22/hablar-gatos-callejeros-metodo-japones-recuperar-mascota-perdida-1009467.jpg`
-  const imgOtros = `https://st4.depositphotos.com/12293812/20005/i/600/depositphotos_200058304-stock-photo-rabbit-and-turtle-are-discussing.jpg`
-  const imgPng = `https://i.pinimg.com/originals/bd/f7/d1/bdf7d1ee91ea3cbb9736555dbead5ed1.png`
-  const imgAlimento = `https://cdn-icons-png.flaticon.com/512/26/26190.png`
-  const imgHome = `https://cdn-icons-png.flaticon.com/512/5871/5871586.png`
+  const imgPerros = "https://iaabcjournal.org/wp-content/uploads/2021/02/street-dogs.jpg"
+  const imgCats = "https://cdn.colombia.com/sdi/2022/03/22/hablar-gatos-callejeros-metodo-japones-recuperar-mascota-perdida-1009467.jpg"
+  const imgOtros = "https://st4.depositphotos.com/12293812/20005/i/600/depositphotos_200058304-stock-photo-rabbit-and-turtle-are-discussing.jpg"
+
 
   return (
-    <div>
+    <>
+      <div id="conteItemsCarrusel">
+        <div className="itemCarrusel" id="itemCarrusel-1">
+          <div className="tarjetaCarrusel"><img className='carruselImg' src={imgPerros} alt="perritos" /></div>
 
-      <h1 className='title'>Appdoptame</h1>
-      <section className='container'>
+          <div className="flechasCarrusel">
+            <a href="#itemCarrusel-3"><i>I</i></a>
+            <a href="#itemCarrusel-2">  <i>D</i></a>
+          </div>
 
-        <div className='card'>
-          <Link className='link' to="/pets/perro">
 
-            <img src={imgPerros} alt="perros" />
-            <div className='name'>
-              <h1>Perros</h1>
-            </div>
-          </Link>
+
         </div>
 
-        <div className='card'>
-          <Link className='link' to="/pets/gato">
-            <img src={imgCats} alt="cats" />
-            <div className='name'>
-              <h1>Gatos</h1>
-            </div>
-          </Link>
+        <div className="itemCarrusel">
+          <div className="tarjetaCarrusel" id="itemCarrusel-2"><img className='carruselImg' src={imgCats} alt="perritos1" /></div>
+          <div className="flechasCarrusel">
+            <a href="#itemCarrusel-2"><i>I</i></a>
+            <a href="#itemCarrusel-3">  <i>D</i></a>
+          </div>
         </div>
 
-        <div className='card'>
-          <Link className='link' to="/pets/otros">
-            <img src={imgOtros} alt="otros" />
-            <div className='name'>
-              <h1>Otros</h1>
-            </div>
-          </Link>
-        </div>
-      </section>
+        <div className="itemCarrusel">
+          <div className="tarjetaCarrusel" id="itemCarrusel-3"><img className='carruselImgOtros' src={imgOtros} alt="perritos" /></div>
 
+          <div className="flechasCarrusel">
+            <a href="#itemCarrusel-2"><i>I</i></a>
+
+            <a href="#itemCarrusel-1">  <i>D</i></a>
+          </div>
+        </div>
+
+
+
+
+      </div>
       <section className="info">
         <div className='divDonar'>
 
@@ -61,18 +65,18 @@ function Home() {
         <div className='alimentoPng'>
           <img className='imgAlimento' src={imgAlimento} alt="" />
           <div className="contVacuna">
-            <img className='vacuna' src={imgPng} alt="" />
+            <img className='vacuna' src={imgVacuna} alt="" />
           </div>
         </div>
 
 
-        {/* <div className='dogPng'> */}
+        {/* <div className='dogPng'> /}
 
-        {/* </div> */}
+        {/ </div> /}
 
-        {/* <div className='Homeimg'> */}
+        {/ <div className='Homeimg'> /}
 
-        {/* </div> */}
+        {/ </div> */}
       </section>
       <section className="saberMas">
         <div className="contImg">
@@ -89,9 +93,8 @@ function Home() {
         </div>
 
       </section>
-
-
-    </div>
+    </>
   );
 }
+
 export default Home

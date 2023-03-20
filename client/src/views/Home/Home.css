@@ -1,240 +1,202 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Roboto:wght@300&family=Titillium+Web:ital,wght@0,200;1,200;1,400&display=swap');
-
-* {
-    margin: 0px;
-    padding: 0px;
-    font-family: sans-serif;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    align-items: center;
-    margin-top: 90px;
-    overflow-y: auto;
-    /* background-color: #D2D2D2; */
-  
-  
-  }
-
-  
-  .card {
-    width: 400px;
-    height: 290px;
-    margin: 40px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-    background-color: #f6be68;
-    position: relative;
-    transition: all 0.2s ease-in-out;
-   
-
-  }
-  
-  .card:hover {
-    box-shadow: 5px 5px 20px black;
-  
-    transform: translateY(-5px);
-  }
-  
-  .link {
-    text-decoration: none;
-    color: #000;
-    
-  
-  }
-  
-  .card h1 {
-    font-size: 20px;
-    font-family: 'Fira Sans Condense';
-  }
-  
-  .card img {
-    height: 250px;
-    width: 100%;
-    object-fit: cover;
-    
-
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
 
 
-  .card img h1:hover {
-   width: 50px;
-  }
+#conteItemsCarrusel{
+  margin-top: 20px;
+  height: 500px;
 
-  /* section donar */
+  overflow: hidden;
+}
 
-  .info{
-    display: flex;
-    justify-content: center;
-    flex-direction:row;
-    margin-top: 200px;
-    margin-bottom: 200px;
-    padding: 70px;
-    background-color: #ebd3bc;
-    border-radius: 20px;
+.itemCarrusel {
 
-  }
-  .divDonar {
-    flex: 1 1 50%;
-    text-align: start;  
-    width: 50%;
-    margin: 20px;
+  height:500px;
+  position: relative;
+}
 
-  }
+.tarjetaCarrusel {
+  background-color: antiquewhite;
+  height: 100%;
+}
 
-  
-  .divDonar h3 {
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
-  
-  .divDonar p {
-    margin: 40px 0px;
-    font-size: 17px;
- 
-  }
+.flechasCarrusel {
 
-  .alimentoPng{
+  height: 100%;
+  position: absolute;
+  top:0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.carruselImg{
+  object-fit: cover;
+
+  width: 100%;
+  height: 100%;
+}
+
+.carruselImgOtros{
+  object-fit:fill;
+
+  width: 100%;
+  height: 100%;
+}
+
+
+/* section donar */
+
+.info{
+  display: flex;
+  justify-content: center;
+  flex-direction:row;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  padding: 70px;
+  background-color: #ebd3bc;
+  border-radius: 20px;
+
+}
+
+
+
+.divDonar {
+  flex: 1 1 50%;
+  text-align: start;
+  width: 50%;
+  margin: 20px;
+
+}
+
+
+.divDonar h3 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.divDonar p {
+  margin: 40px 0px;
+  font-size: 17px;
+
+}
+
+.alimentoPng{
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
+
+}
+.imgAlimento{
+  width: 150px;
+  height: 150px;
+  margin-left: 50px;
+}
+
+.contVacuna{
+  display: flex;
+  justify-content: end;
+}
+.vacuna{
+  width: 150px;
+  height: 150px;
+  margin-right: 50px;
+}
+
+/* section saber mas */
+
+.saberMas{
+  display: flex;
+  justify-content: center;
+  flex-direction:row;
+  margin-top: 200px;
+  margin-bottom: 200px;
+  padding: 70px;
+  background-color: #dde67f;
+  border-radius: 20px;
+
+}
+
+
+.divSaberMas {
+  flex: 1 1 50%;
+  text-align: start;
+  width: 50%;
+  margin: 20px;
+}
+
+.divSaberMas h3{
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.divSaberMas p{
+  margin: 40px 0px;
+  font-size: 17px;
+}
+
+.contImg{
     display: flex;
     flex-direction: column;
     flex: 1 1 50%;
 
-  }
-  .imgAlimento{
-    width: 150px;
-    height: 150px;
-    margin-left: 50px;
-  }
+}
 
-  .contVacuna{
-    display: flex;
-    justify-content: end;
-  }
-  .vacuna{
-    width: 150px;
-    height: 150px;
-    margin-right: 50px;
-  }
+.contImg img{
+  width: 350px;
+  height: 350px;
+} 
+.btn{
+  display: flex;
+  justify-content: end;
+}
+.button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #E08122;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
 
-  /* section saber mas */
+.button:hover {
+  background-color: #f6be68;
+  color: #ffffff;
 
-  .saberMas{
-    display: flex;
-    justify-content: center;
-    flex-direction:row;
-    margin-top: 200px;
-    margin-bottom: 200px;
-    padding: 70px;
-    background-color: #dde67f;
-    border-radius: 20px;
-
-  }
+}
 
 
-.divSaberMas {
-    flex: 1 1 50%;
-    text-align: start;  
-    width: 50%;
-    margin: 20px;
-  }
+.button_2{
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #E08122;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
 
-  .divSaberMas h3{
-    font-size: 40px;
-    margin-bottom: 20px;
-  }
- 
-  .divSaberMas p{
-    margin: 40px 0px;
-    font-size: 17px;
-  }
+}
 
-  .contImg{
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 50%;
-  
-  }
+.button_2:hover{
 
-  .contImg img{
-    width: 350px;
-    height: 350px;
-  }
-  .btn{
-    display: flex;
-    justify-content: end;
-  }
-  .button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #ffffff;
-    color: #E08122;
-    font-size: 20px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-  }
+      background-color: #f6be68;
+      color: #ffffff;
 
-  .button:hover {
-    background-color: #f6be68;
-    color: #ffffff;
-   
-  }
-  
-  
-  .button_2{
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #ffffff;
-    color: #E08122;
-    font-size: 20px;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-   
-  }
-
-  .button_2:hover{
- 
-        background-color: #f6be68;
-        color: #ffffff;
-     
-  }
-  
- 
-
-  .dogPng{
-    /* position: absolute; */
-    left: 550px;
-    top:680px;
-    
-  }
-
-  /* .dogPng img{
-    width:100px;
-    height: 100px;
-  }
-
-  .alimentoPng{
-    /* position: absolute; */
-    /* left: 595px;
-    bottom: 80px;
-    */
-  /* }  */
-
- 
-  .Homeimg{
-   
-    position:absolute;
-    top:540px;
-    right: 120px;
+}
 
 
-  }
 
+.dogPng{
+  position: absolute;
+  left: 550px;
+  top:680px;
 
-  .Homeimg img{
-    width: 250px;
-    height: 250px;
-    display: flex;
-  }
+}
