@@ -12,42 +12,42 @@ function NavBar() {
   };
   return (
     <>
-       <nav>
-        <input type="checkbox" id="check"/>
+      <nav>
+        <input type="checkbox" id="check" />
         <label htmlFor="check" className="checkbtn">
-            <i><FiAlignJustify /></i>      
+          <i><FiAlignJustify /></i>
         </label>
         <Link to='/home' className='link'>
           <img className='logo' src={imgLogo} alt='logo' />
         </Link>
-    <ul>
-        <li>Inicio</li>
-        <li>Quienes somos</li>
-        <li>
+        <ul>
+          <li>Inicio</li>
+          <li><Link to="/aboutUs" className='linkAbout'>Quienes somos</Link></li>
+          <li>
             <a onClick={handleDropdownClick}>
               Ingresar
             </a>
             {showDropdown && (
               <ul className='submenu'>
-                 <Link to="/formApa">
-                <li className='liOp'>
-                 Ingresar como Apa
-                </li>
+                <Link to="/formApa">
+                  <li className='liOp'>
+                    Ingresar como Apa
+                  </li>
                 </Link>
                 <Link to='/formUser'>
-                <li className='liOp'>
-                  Ingresar como Usuario
-                </li>
+                  <li className='liOp'>
+                    Ingresar como Usuario
+                  </li>
                 </Link>
               </ul>
             )}
           </li>
 
-    </ul>
-   
+        </ul>
 
 
-    </nav>
+
+      </nav>
     </>
   )
 
