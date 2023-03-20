@@ -1,37 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { FiAlignJustify } from 'react-icons/fi'
 import imgLogo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
 
 function NavBar() {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleDropdownClick = () => {
+    setShowDropdown(!showDropdown);
+  };
   return (
     <>
-      <nav>
-        <input type='checkbox' id='check' />
-        <label htmlFor="check" className='checkbtn'>
-          <i><FiAlignJustify /></i>
+       <nav>
+        <input type="checkbox" id="check"/>
+        <label htmlFor="check" className="checkbtn">
+            <i><FiAlignJustify /></i>      
         </label>
-
-        <ul className='izq'>
-          <Link to='/aboutApp' className='link'>
-            <li>Sobre la App</li>
-          </Link>
-          <Link to='/pets' className='link'>
-            <li>Pets</li>
-          </Link>
-          <Link to='/aboutUs' className='link'>
-            <li >Quienes Somos</li>
-          </Link>
-        </ul>
         <Link to='/home' className='link'>
-          <img src={imgLogo} alt='logo' />
+          <img className='logo' src={imgLogo} alt='logo' />
         </Link>
-        <ul className='der'>
-          <li >Preguntas frecuentes</li>
-          <li >Ingresar</li>
-        </ul>
-      </nav>
+    <ul>
+        <li>Inicio</li>
+        <li>Quienes somos</li>
+        <li>
+            <a onClick={handleDropdownClick}>
+              Ingresar
+            </a>
+            {showDropdown && (
+              <ul className='submenu'>
+                 <Link to="/formApa">
+                <li className='liOp'>
+                 Ingresar como Apa
+                </li>
+                </Link>
+                <Link to='/formUser'>
+                <li className='liOp'>
+                  Ingresar como Usuario
+                </li>
+                </Link>
+              </ul>
+            )}
+          </li>
+
+    </ul>
+   
+
+
+    </nav>
     </>
   )
 

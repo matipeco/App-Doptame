@@ -43,6 +43,8 @@
     border:none;
     border-bottom:3px solid #F6BE68;
     font-family: 'Arvo', serif;
+    z-index: 1;
+
 }
 
 .input:focus 		{ outline:none; }
