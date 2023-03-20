@@ -28,6 +28,9 @@ function App() {
         <Route path="/formApa" element={<FormApa />}></Route>
         <Route path="/formPet" element={<FormPets />}></Route>
         <Route path='/pets/:category' element={<Cards/>}></Route>
+        <Route path='/formUser' element={<FormUser/>}></Route>
+
+        
 
       </Routes>
 
