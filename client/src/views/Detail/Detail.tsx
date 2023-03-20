@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // import { StateType } from '../../redux/reducer/reducer';
-import { getDetailPets } from '../../redux/actions/actions';
+import { getDetailPets, clearDetail } from '../../redux/actions/actions';
 import { AnyAction } from 'redux';
 import { Reducer } from '../../redux/store/store';
 
@@ -14,7 +14,8 @@ export const Detail = () => {
   const pet = useSelector((state: Reducer) => state.detail);
 
   useEffect(() => {
-    dispatch(getDetailPets(id!) as unknown as AnyAction);
+    dispatch(getDetailPets(id!) as unknown as AnyAction)
+    dispatch(clearDetail());
   }, [id, dispatch]);
 
   return (

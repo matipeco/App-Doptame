@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import imgAlimento from "../../assets/assetsHome/ImagenesHome/alimento.png"
 import imgHome from "../../assets/assetsHome/ImagenesHome/Casita.png"
 import imgVacuna from "../../assets/assetsHome/ImagenesHome/vacuna.png"
+import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi"
 
 
 function Home() {
@@ -15,40 +16,53 @@ function Home() {
   return (
     <>
       <div id="conteItemsCarrusel">
+
         <div className="itemCarrusel" id="itemCarrusel-1">
+
           <div className="tarjetaCarrusel"><img className='carruselImg' src={imgPerros} alt="perritos" /></div>
 
           <div className="flechasCarrusel">
-            <a href="#itemCarrusel-3"><i>I</i></a>
-            <a href="#itemCarrusel-2">  <i>D</i></a>
+            <a href="#itemCarrusel-3"><i><HiArrowSmLeft className="arrows" /></i></a>
+            <a href="#itemCarrusel-2">  <i><HiArrowSmRight className="arrows" /></i></a>
+
           </div>
-
-
-
+          <Link to="/pets/perro"><button className='buttonPets'>Perros</button></Link>
         </div>
+
+
 
         <div className="itemCarrusel">
-          <div className="tarjetaCarrusel" id="itemCarrusel-2"><img className='carruselImg' src={imgCats} alt="perritos1" /></div>
+
+          <div className="tarjetaCarrusel" id="itemCarrusel-2">
+            <img className='carruselImg' src={imgCats} alt="cats1" />  </div>
+
           <div className="flechasCarrusel">
-            <a href="#itemCarrusel-2"><i>I</i></a>
-            <a href="#itemCarrusel-3">  <i>D</i></a>
+
+            <a href="#itemCarrusel-1"><i><HiArrowSmLeft className="arrows" /></i></a>
+            <a href="#itemCarrusel-3">  <i><HiArrowSmRight className="arrows" /></i></a>
+
           </div>
+          <Link to="/pets/gato"><button className='buttonPets'>Gatos</button></Link>
         </div>
+
+
+
 
         <div className="itemCarrusel">
           <div className="tarjetaCarrusel" id="itemCarrusel-3"><img className='carruselImgOtros' src={imgOtros} alt="perritos" /></div>
 
           <div className="flechasCarrusel">
-            <a href="#itemCarrusel-2"><i>I</i></a>
 
-            <a href="#itemCarrusel-1">  <i>D</i></a>
+            <a href="#itemCarrusel-2"><i className="arrowLeft"><HiArrowSmLeft className="arrows" /></i></a>
+            <a href="#itemCarrusel-1">  <i><HiArrowSmRight className="arrows" /></i></a>
+
           </div>
+          <Link to="/pets/otros">   <button className='buttonPets'>Otros</button>  </Link>
         </div>
 
-
-
-
       </div>
+
+
       <section className="info">
         <div className='divDonar'>
 
