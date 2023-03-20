@@ -17,10 +17,12 @@ export const Cards = () => {
 
   const dispatch = useDispatch();
   const [currentPets, setCurrentPets] = useState<Pet[]>([])
-  
+
   useEffect(() => {
     dispatch(getPets() as unknown as AnyAction)
   }, [])
+
+  //Hola este es un comentario que hay que borrar//
 
   // Mostramos las tarjetas filtradas en el componente
   return (
@@ -29,7 +31,7 @@ export const Cards = () => {
         <Card key={pet._id} pet={pet} />
       ))}
     </div>
-    <PaginationControlled filteredPets={filteredPets} setCurrentPets={setCurrentPets} /></>
+      <PaginationControlled filteredPets={filteredPets} setCurrentPets={setCurrentPets} /></>
 
   )
 }
