@@ -1,5 +1,5 @@
 export interface Pet {
-  _id: string
+  _id?: string
   name: string
   age: number
   size: string
@@ -7,7 +7,7 @@ export interface Pet {
   image: string
   adoption: boolean
   status: boolean
-  apa: string
+  apa?: string
   description: string
 }
 
