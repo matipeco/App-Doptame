@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY } from "./actionsTypes";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY, EDIT_PET } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -91,6 +91,16 @@ export const postPet = (id: string, payload: Pet) => {
     return dispatch({
       type: ADD_PET,
       payload: createPet.data
+    });
+  };
+};
+
+export const putPet = (id: string, payload: Pet) => {
+  return async (dispatch: Dispatch<dispatchPet>) => {
+    const editPet = await axios.put<Pet>(`http://localhost:3001/edit/${id}`, payload);
+    return dispatch({
+      type: EDIT_PET,
+      payload: editPet.data
     });
   };
 };

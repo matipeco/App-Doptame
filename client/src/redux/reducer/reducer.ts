@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY, GET_PETS } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY, GET_PETS, EDIT_PET} from "../actions/actionsTypes"
 
 import { Pet, Apa } from "../types"
 
@@ -82,14 +82,18 @@ const reducer = (
         detail: action.payload
       }
 
-
-
-
     case GET_PETS:
       return {
         ...state,
         allPets: action.payload
       }
+
+      case EDIT_PET:
+        const withoutOldPetVersion= state.allPets.filter(p=>p._id !== action.payload._id)
+        return {
+          ...state,
+          allPets: [withoutOldPetVersion, action.payload]
+        };
 
 
     default:
