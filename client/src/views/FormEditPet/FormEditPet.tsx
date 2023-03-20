@@ -1,11 +1,11 @@
-
 import './FormEditPet.css';
 import petCat from '../../assets/perritoFormPet.png'
 import { getDetailPets,clearDetail,putPet } from "../../redux/actions/actions";
 import React, { useState, useEffect } from "react";
 import { AnyAction } from 'redux';
-import { StateType } from '../../redux/reducer/reducer'
 import { useDispatch, useSelector } from 'react-redux';
+import { StateType } from '../../redux/reducer/reducer'
+import { Pet} from "../../redux/types"
 // import { useParams } from 'react-router-dom';
 
 
@@ -18,16 +18,24 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
 
     useEffect(()=>{
         dispatch(getDetailPets(petId)as unknown as AnyAction)
-        return ()=> dispatch(clearDetail())
+        //
+        // return (): any=> dispatch(clearDetail())
     },[dispatch])
 //Ahora tengo los details de la pet en la propiedad "detail" del Global State
 
+
 //Me guardo los details de la pet en el estado local input:
-    const petDetails = useSelector((state: StateType) => state.detail); 
+    let petDetails: Pet= useSelector((state: StateType) => state.detail); 
+console.log(petDetails)
+// ESTO ESTA OK.
+
+ 
+
     const [input, setInput] = useState({
         ...petDetails
     })
-    // const size=['chico', 'mediano', 'grande']
+
+      // const size=['chico', 'mediano', 'grande']
     // const type= ['perro', 'gato', 'otros']
 
     // const [input, setInput] = useState({
@@ -41,6 +49,18 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
     //     adoption: false
     // })
 
+    // const [input, setInput] = useState({
+    //     name: petDetails.name,
+    //     age: petDetails.age,
+    //     size: petDetails.size,
+    //     type: petDetails.type,
+    //     image:petDetails.image,
+    //     description: petDetails.description,
+    //     status: petDetails.status,
+    //     adoption: petDetails.adoption
+    // })
+
+console.log(input)
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -49,6 +69,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
             ...prevInput,
             [name]: value
         }));
+// console.log(input)
     };
 
 
@@ -72,6 +93,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 type='text'
                                 name="name"
                                 value={input.name}
+                                // value= {name}
                             />
                             <label className="label" htmlFor="name">Nombre</label>
                             {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
@@ -110,10 +132,33 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 <option value="grande">Grande</option>
                             </select>
                             <label className="tam" htmlFor="size">Tamaño</label>
-
-
                             {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                         </div>
+
+                        <div className="containerInputs">
+                            <select name="adoption"
+                                onChange={handleInputChange}
+                                >
+                                <option value="" >Seleccione una opción</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
+                            <label className="tam" htmlFor="adoption">Buscando Hogar</label>
+                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                        </div>
+
+                        <div className="containerInputs">
+                            <select name="status"
+                                onChange={handleInputChange}
+                                >
+                                <option value="" >Seleccione una opicón</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
+                            <label className="tam" htmlFor="status">Publicado</label>
+                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                        </div>
+
                         <div className="containerInputs">
                             <select name="type"
                                 onChange={handleInputChange}
@@ -144,7 +189,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                             {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                         </div>
 
-                        <button className="btn">Agregar</button>
+                        <button className="btn">Modificar</button>
                     </div>
                 </form>
             </div>
