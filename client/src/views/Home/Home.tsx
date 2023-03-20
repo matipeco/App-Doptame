@@ -72,7 +72,7 @@ function Home() {
             podemos proveer atención médica, alimento y refugio a los animales más vulnerables. ¡Sumate a nuestra causa y hacé
             la diferencia!
           </p>
-          <Link className="button" to="/donate">
+          <Link className="boton_home" to="/donate">
             Donar ahora
           </Link>
         </div>

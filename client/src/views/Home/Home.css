@@ -1,19 +1,19 @@
-*{
-  margin:0;
-  padding:0;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 
-#conteItemsCarrusel{
+#conteItemsCarrusel {
   height: 500px;
   overflow: hidden;
-  
+
 }
 
 .itemCarrusel {
 
-  height:500px;
+  height: 500px;
   position: relative;
 }
 
@@ -26,7 +26,7 @@
 
   height: 100%;
   position: absolute;
-  top:0;
+  top: 0;
   height: 100%;
   width: 100%;
   display: flex;
@@ -35,15 +35,15 @@
 
 }
 
-.carruselImg{
+.carruselImg {
   object-fit: cover;
 
   width: 100%;
   height: 500px;
 }
 
-.carruselImgOtros{
-  object-fit:fill;
+.carruselImgOtros {
+  object-fit: fill;
 
   width: 100%;
   height: 100%;
@@ -52,10 +52,10 @@
 
 /* section donar */
 
-.info{
+.info {
   display: flex;
   justify-content: center;
-  flex-direction:row;
+  flex-direction: row;
   margin-top: 200px;
   margin-bottom: 200px;
   padding: 70px;
@@ -86,23 +86,25 @@
 
 }
 
-.alimentoPng{
+.alimentoPng {
   display: flex;
   flex-direction: column;
   flex: 1 1 50%;
 
 }
-.imgAlimento{
+
+.imgAlimento {
   width: 150px;
   height: 150px;
   margin-left: 50px;
 }
 
-.contVacuna{
+.contVacuna {
   display: flex;
   justify-content: end;
 }
-.vacuna{
+
+.vacuna {
   width: 150px;
   height: 150px;
   margin-right: 50px;
@@ -110,10 +112,10 @@
 
 /* section saber mas */
 
-.saberMas{
+.saberMas {
   display: flex;
   justify-content: center;
-  flex-direction:row;
+  flex-direction: row;
   margin-top: 200px;
   margin-bottom: 200px;
   padding: 70px;
@@ -130,32 +132,34 @@
   margin: 20px;
 }
 
-.divSaberMas h3{
+.divSaberMas h3 {
   font-size: 40px;
   margin-bottom: 20px;
 }
 
-.divSaberMas p{
+.divSaberMas p {
   margin: 40px 0px;
   font-size: 17px;
 }
 
-.contImg{
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 50%;
+.contImg {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 50%;
 
 }
 
-.contImg img{
+.contImg img {
   width: 350px;
   height: 350px;
-} 
-.btn{
+}
+
+.btn {
   display: flex;
   justify-content: end;
 }
-.button {
+
+.boton_home {
   padding: 10px 20px;
   border-radius: 5px;
   background-color: #ffffff;
@@ -165,14 +169,14 @@
   transition: all 0.2s ease-in-out;
 }
 
-.button:hover {
+.boton_home:hover {
   background-color: #f6be68;
   color: #ffffff;
 
 }
 
 
-.button_2{
+.button_2 {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 5px;
@@ -184,29 +188,29 @@
 
 }
 
-.button_2:hover{
+.button_2:hover {
 
-      background-color: #f6be68;
-      color: #ffffff;
+  background-color: #f6be68;
+  color: #ffffff;
 
 }
 
 
 
-.dogPng{
+.dogPng {
   position: absolute;
   left: 550px;
-  top:680px;
+  top: 680px;
 
 }
 
 
-.buttonPets{
+.buttonPets {
   position: absolute;
-  margin:0 auto;
-  bottom:50px;
+  margin: 0 auto;
+  bottom: 50px;
   width: 100px;
-  background:#FF5C00;
+  background: #FF5C00;
   cursor: pointer;
   font-size: 30px;
   color: #ffffff;
@@ -214,7 +218,7 @@
   border: none;
 }
 
-.arrows{
-  font-size: 40px ;
+.arrows {
+  font-size: 40px;
   color: #FF5C00;
 }
