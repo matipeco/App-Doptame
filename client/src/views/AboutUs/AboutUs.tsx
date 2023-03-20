@@ -117,7 +117,9 @@ function AboutUs() {
     (
       member //Luego, creamos las tarjetas del equipo (teamMemberCards) utilizando el nuevo array mezclado (shuffledTeamMembers). Finalmente, renderizamos las tarjetas de manera aleatoria en el componente div con la clase members.
     ) => (
-      <div className="card">
+
+      <div className="card" key={member.name}>
+
         <img src={member.photoUrl} alt={member.name} />
         <h2>{member.name}</h2>
         <p>{member.description}</p>

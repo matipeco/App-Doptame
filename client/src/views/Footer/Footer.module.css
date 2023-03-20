@@ -1,20 +1,53 @@
 .container {
     background-color: #E2986C;
-    height: 200px;
+    min-height: 90px;
     width: 100%;
     transition: 300ms ease-in-out;
     color: black;
-
+    margin-top: 25px;
 
 }
 
 .container:hover {
-
-
     color: black;
 }
 
-.container p {
-    margin: 15px;
+.arrowUp {
+    font-size: 35px;
+    margin-top: 20px;
+    transition: 300ms;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #e1e1d7;
+}
+
+.arrowUp:hover {
+    background-color: #e1e1d7;
+    transform: translateY(-5px);
+}
+
+.iconsP {
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
     font-weight: 600;
+    margin: 15px;
+}
+
+.reactIcon {
+    flex-direction: column;
+    font-size: 20px;
+    display: flex;
+    margin-right: 30px;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.copyright {
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
