@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, NavBar, Landing, Detail, Footer, AboutUs } from "../src/views"
+import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users } from "../src/views"
 import { Cards } from './components/Cards/Cards';
 
 import './App.css';
@@ -9,6 +9,7 @@ import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
+
 
 function App() {
   const location = useLocation();
@@ -30,7 +31,10 @@ function App() {
         <Route path="/formPet" element={<FormPets />}></Route>
         <Route path='/pets/:category' element={<Cards />}></Route>
         <Route path='/formUser' element={<FormUser />}></Route>
+        <Route path='/usuario/:id' element={<Users />}></Route>
         <Route path='/login' element={<Login />}></Route>
+
+
 
 
       </Routes>

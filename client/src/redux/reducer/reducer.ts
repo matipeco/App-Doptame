@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -15,11 +15,22 @@ const emptyDetail = {
   description: ""
 }
 
+const emptyDetailUser = {
+  _id: "",
+  name: "",
+  username: "",
+  last_name: "",
+  email: "",
+  location: "",
+  image: ""
+}
+
 export interface StateType {
   allPets: Pet[]
   allApas: Apa[]
   detail: Pet
   allUsers: User[]
+  detailUser: User
 
 }
 
@@ -27,6 +38,7 @@ const initialState: StateType = {
   allPets: [],
   allApas: [],
   allUsers: [],
+  detailUser: emptyDetailUser,
   detail: emptyDetail
 }
 
@@ -88,6 +100,12 @@ const reducer = (
       return {
         ...state,
         detail: action.payload
+      }
+
+    case GET_DETAIL_USERS:
+      return {
+        ...state,
+        detailUser: action.payload
       }
 
 

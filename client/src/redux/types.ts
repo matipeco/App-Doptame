@@ -31,7 +31,7 @@ export interface User {
   name: string
   last_name: string
   username: string
-  password: string
+  password?: string
   email: string
   location: string
   image: string

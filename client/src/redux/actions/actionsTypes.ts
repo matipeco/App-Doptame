@@ -7,3 +7,4 @@ export const GET_APA = "GET_APA";
 export const PET_DETAIL = "PET_DETAIL";
 export const GET_USER = "GET_USER"
 export const POST_USER = "POST_USER"
+export const GET_DETAIL_USERS = "GET_DETAIL_USERS"

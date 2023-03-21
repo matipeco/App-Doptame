@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER } from "./actionsTypes";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -31,6 +31,13 @@ type dispatchUser = {
   type: string
   payload: User
 }
+
+type dispatchDetailUser = {
+  type: string
+  payload: User
+}
+
+
 
 
 export const getApas = () => {
@@ -120,5 +127,19 @@ export const getUsers = () => {
       type: GET_USER,
       payload: response.data
     });
+  };
+};
+
+
+export const getDetailUsers = (id: string) => {
+  return async (dispatch: Dispatch<dispatchDetailUser>) => {
+
+    const res = await axios.get<User>(`http://localhost:3001/users/${id}`);
+    return dispatch({
+      //despacho la action
+      type: GET_DETAIL_USERS,
+      payload: res.data,
+    });
+
   };
 };
