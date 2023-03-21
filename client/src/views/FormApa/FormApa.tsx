@@ -4,10 +4,13 @@ import imgForm from '../../assets/perrito2.png';
 import { useDispatch } from "react-redux";
 import { postApa } from "../../redux/actions/actions";
 import { AnyAction } from "redux";
-import { validation } from "../../validation/validation";
+import { validation } from "../../validation/validationApa"
+import { useNavigate } from "react-router-dom";
+
 
 function FormApa(){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [input, setInput] = useState({
         name: "",
@@ -19,7 +22,7 @@ function FormApa(){
         cbu_cvu: "",
         url: "",  
         provincia: "",
-        phone: ""
+        telephone: ""
     })
 
     const [touched, setTouched] = useState({
@@ -32,7 +35,7 @@ function FormApa(){
         cbu_cvu: false,
         url: false,  
         provincia: false,
-        phone: false
+        telephone: false
 
     });
     const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -52,8 +55,8 @@ function FormApa(){
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-    
+        console.log(errorsInput);
+        console.log(input)
         if (Object.keys(errorsInput).length === 0) {
             dispatch(postApa(input) as unknown as AnyAction);
             alert("Usuario creado")
@@ -68,8 +71,10 @@ function FormApa(){
                 cbu_cvu: "",
                 url: "",  
                 provincia: "",
-                phone: ""
+                telephone: ""
             });
+            navigate('/home')
+
         }
     }
 
@@ -167,11 +172,11 @@ function FormApa(){
                         onBlur={handleBlur}
                         onChange={handleInputChange}
                         type='text'
-                        name="phone"
+                        name="telephone"
                         required
                         />
-                        <label className="label" htmlFor="phone">Telefono</label>
-                        {touched.phone && errorsInput.phone && <p className="error">{errorsInput.phone}</p>}
+                        <label className="label" htmlFor="telephone">Telefono</label>
+                        {touched.telephone && errorsInput.telephone && <p className="error">{errorsInput.telephone}</p>}
                     </div>
                     <div className="containerInputs"> 
                         <input
@@ -212,7 +217,7 @@ function FormApa(){
                         {touched.description && errorsInput.description && <p className="error">{errorsInput.description}</p>}
                     </div>
                     </div>
-                    <button  disabled={Object.keys(errorsInput).length !== 0} className="btn">Agregar</button>
+                    <button type='submit' className="btn">Agregar</button>
 
                     
                     

@@ -21,6 +21,9 @@ export interface Apa {
   cbu_cvu: string
   url: string
   pets?: []
+  telephone: string
+  provincia: string
+  cuit: string
 }
 
 export interface User {
@@ -43,6 +46,12 @@ export interface InputData {
   last_name?: string;
   email?: string
   location?: string
+  description?: string
+  cbu_cvu?: string
+  url?: string
+  cuit?: string
+  telephone?: string
+  provincia?: string
 }
 
 export type errorsInput = {
@@ -52,25 +61,14 @@ export type errorsInput = {
   last_name?: string;
   email?: string
   location?: string
+  description?: string
+  cbu_cvu?: string
+  url?: string
+  cuit?: string
+  provincia?: string
+  telephone?: string
 
 };
 
-export interface inputApa extends InputData {
-  description?: string
-  cbu_cvu?: string
-  url?: string
-  cuit?: string
-  phone?: string
-  provincia?: string
-}
-
-export interface errorsInputApa extends errorsInput {
-  description?: string
-  cbu_cvu?: string
-  url?: string
-  cuit?: string
-  provincia?: string
-  phone?: string
 
 
-}
