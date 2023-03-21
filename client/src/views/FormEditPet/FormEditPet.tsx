@@ -103,8 +103,8 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
         //     name: input.name? input.name : oldVersionPet.name,
 
         // }
-console.log(petId)
-console.log(input)
+// console.log(petId)
+// console.log(input)
         dispatch(putPet(petId, input) as unknown as AnyAction); //Action creada en el reducer.
         alert("Mascota editada correctamente")
 
