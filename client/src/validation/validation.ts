@@ -1,11 +1,11 @@
-import { InputData, errorsInput } from "../redux/types";
+import { errorsInput, InputData } from "../redux/types";
 
 
 
 const regexName = /^[a-zA-Z]+$/
 const regexPassword = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^/s@]+$/
-export const validationPets = (input: InputData) => {
+export const validation = (input: InputData) => {
     let errors: errorsInput = {}
 
     if (!input.name) {
@@ -26,7 +26,6 @@ export const validationPets = (input: InputData) => {
     }
 
 
-
     if (!input.password) {
         errors.password = "elegir contraseña";
     } else if (!regexPassword.test(input.password)) {
@@ -40,6 +39,6 @@ export const validationPets = (input: InputData) => {
         errors.email = "el email ingresado es inválido"
     }
 
-
+    
     return errors;
 };

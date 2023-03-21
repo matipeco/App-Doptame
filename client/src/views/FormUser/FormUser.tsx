@@ -7,6 +7,7 @@ import { AnyAction } from "redux";
 import { validationPets } from "../../validation/validation";
 import { useNavigate } from "react-router-dom";
 
+
 function FormUser() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -50,7 +51,7 @@ function FormUser() {
     };
 
 
-    const errorsInput = validationPets(input);
+    const errorsInput = validation(input);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -95,7 +96,7 @@ function FormUser() {
 
                         />
                         <label className="label" htmlFor="name">Nombre</label>
-                        {touched.name && errorsInput.name && <p>{errorsInput.name}</p>}
+                        {touched.name && errorsInput.name && <p className="error">{errorsInput.name}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -107,7 +108,7 @@ function FormUser() {
                             onBlur={handleBlur}
                         />
                         <label className="label" htmlFor="username">Apellido</label>
-                        {touched.last_name && errorsInput.last_name && <p>{errorsInput.last_name}</p>}
+                        {touched.last_name && errorsInput.last_name && <p className="error">{errorsInput.last_name}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -119,7 +120,7 @@ function FormUser() {
 
                         />
                         <label className="label" htmlFor="username">Usuario</label>
-                        {touched.username && errorsInput.username && <p>{errorsInput.username}</p>}
+                        {touched.username && errorsInput.username && <p className="error">{errorsInput.username}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -130,8 +131,8 @@ function FormUser() {
                             onBlur={handleBlur}
 
                         />
-                        <label className="label" htmlFor="password">Contraseña</label>
-                        {touched.password && errorsInput.password && <p>{errorsInput.password}</p>}
+                        <label className="label" htmlFor="password" >Contraseña</label>
+                        {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -143,7 +144,7 @@ function FormUser() {
 
                         />
                         <label className="label" htmlFor="name">Email</label>
-                        {touched.email && errorsInput.email && <p>{errorsInput.email}</p>}
+                        {touched.email && errorsInput.email && <p className="error">{errorsInput.email}</p>}
                     </div>
                     <div className="containerInputs">
                         <input

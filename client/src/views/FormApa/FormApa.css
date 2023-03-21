@@ -83,3 +83,15 @@
     margin-right: 150px;
     font-size: 16px;
   }
+
+  .error {
+    display: block;
+    position: absolute;
+    background-color: #ffcccc;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 0.8rem;
+    color: #333;
+  }

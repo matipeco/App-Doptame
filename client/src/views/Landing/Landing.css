@@ -1,82 +1,48 @@
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.title-container {
-  margin-bottom: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
+.hero{
+background-image: linear-gradient(-60deg, #ff5858b8 0%, #f09619b8 100%), url(https://www.prensalibre.com/wp-content/uploads/2022/08/WhatsApp-Image-2022-08-09-at-11.30.24-AM.jpeg?quality=52);
+width: 100%;
 
-.title {
-  font-size: 60px;
-  /* margin: 20px; */
-  font-family: Arial, sans-serif;
-  text-transform: uppercase;
-  color: #f5efef;
-  background-color: #ed930e95;
-  box-shadow: 5px 5px 5px #888888;
+height: 100vh;
+background-repeat: no-repeat;
+background-size: cover;
 
-}
-
-.gifDiv {
-  flex: 1 1 50%;
-  display: flex;
-  margin: 0 20px;
-  margin-top: 0;
-}
-
-.gifDiv img {
-  display: flow-root;
-  width: 650px;
-  height: 450px;
-}
-
-.img_logo {
-  padding-top: 10px;
-}
-
-/* content */
-.content-column {
-  flex: 1 1 50%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 60px;
-  margin-right: 20px;
+background-position: center;
+background-attachment: fixed;
+position: relative;
+overflow: hidden;
 
 }
 
-.description {
-  text-align: center;
-  font-size: 40px;
+.textos-hero{
+    height: 500px;
+    color : #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
 }
 
-.button {
-  text-align: center;
+.textos-hero h1{
+    font-size: 60px;
+}
+.textos-hero p{
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
-.button a {
-  display: inline-block;
-  background-color: #f99843;
-  color: #fff;
-  padding: 15px 30px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.button a:hover {
-  background-color: #96999ca4;
-}
-
-.img {
-  margin-top: 20px;
-  width: 65px;
-  height: 65px;
-
+.botonLanding{
+    display: inline-block;
+    text-decoration: none;
+    padding: 12px 15px;
+    background-color: #ff5858;
+    border-radius: 8px;
+    color:#fff;
 }
