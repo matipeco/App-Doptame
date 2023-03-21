@@ -5,8 +5,8 @@ const { createApa, putApa, getApaById, getAllApas, getApasByName, deleteApaById 
 // POST| /create
 const createApaHandler = async (req, res) => {
   try {
-      const { name, password, email, cbu_cvu, description, location, url } = req.body;  
-      const newApa = await createApa(name, password, email, cbu_cvu, description, location, url);  
+      const { name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit} = req.body;  
+      const newApa = await createApa(name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit);  
       res.status(200).json(newApa);  
   } catch (error) {
       res.status(404).send(error.message);
