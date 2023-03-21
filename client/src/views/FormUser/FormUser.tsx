@@ -5,13 +5,10 @@ import { useDispatch } from "react-redux";
 import { postUser } from "../../redux/actions/actions";
 import { AnyAction } from "redux";
 import { validationPets } from "../../validation/validation";
-import { style } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 function FormUser() {
-
-
-
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
@@ -71,10 +68,9 @@ function FormUser() {
                 email: "",
                 location: "",
                 image: ""
-            });
+            })
+            navigate("/home")
         }
-
-
     }
 
 
