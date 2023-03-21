@@ -96,8 +96,9 @@ export const postPet = (id: string, payload: Pet) => {
 };
 
 export const putPet = (id: string, payload: Pet) => {
+  console.log(payload)
   return async (dispatch: Dispatch<dispatchPet>) => {
-    const editPet = await axios.put<Pet>(`http://localhost:3001/edit/${id}`, payload);
+    const editPet = await axios.put<Pet>(`http://localhost:3001/pets/edit/${id}`, payload);
     return dispatch({
       type: EDIT_PET,
       payload: editPet.data

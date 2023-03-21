@@ -89,10 +89,8 @@ const reducer = (
       }
 
       case EDIT_PET:
-        const withoutOldPetVersion= state.allPets.filter(p=>p._id !== action.payload._id)
         return {
           ...state,
-          allPets: [withoutOldPetVersion, action.payload]
         };
 
 
