@@ -4,4 +4,5 @@ import Landing from "./Landing/Landing";
 import Detail from "./Detail/Detail";
 import Footer from "./Footer/Footer";
 import AboutUs from "./AboutUs/AboutUs";
-export { Home, NavBar, Landing, Detail, Footer, AboutUs };
+import Users from "./User/Users";
+export { Home, NavBar, Landing, Detail, Footer, AboutUs, Users };
