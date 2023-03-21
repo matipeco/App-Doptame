@@ -1,8 +1,9 @@
 import { errorsInput, InputData } from "../redux/types";
 
 
+
 const regexName = /^[a-zA-Z]+$/
-const regexPassword = /^(?=.\d)(?=.[A-Z]).{8,}$/
+const regexPassword = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^/s@]+$/
 export const validation = (input: InputData) => {
     let errors: errorsInput = {}
@@ -17,7 +18,7 @@ export const validation = (input: InputData) => {
 
     if (!input.username) {
         errors.username = "usuario requerido"
-    } else if (input.username.length > 10) {
+    } else if (input.username.length > 20) {
         errors.username = "el usuario no puede contener mas de 10 carateres";
     }
     if (!input.last_name) {
@@ -33,7 +34,7 @@ export const validation = (input: InputData) => {
     }
 
     if (!input.email) {
-        errors.email = "ingresar un mail"
+        errors.email = "ingresar email"
     } else if (!regexEmail.test(input.email)) {
         errors.email = "el email ingresado es inválido"
     }
