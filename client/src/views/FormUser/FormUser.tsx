@@ -4,7 +4,7 @@ import img from '../../assets/completo.png'
 import { useDispatch } from "react-redux";
 import { postUser } from "../../redux/actions/actions";
 import { AnyAction } from "redux";
-import { validationPets } from "../../validation/validation";
+import { validation } from "../../validation/validation";
 import { useNavigate } from "react-router-dom";
 
 
