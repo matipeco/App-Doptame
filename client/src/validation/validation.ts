@@ -1,10 +1,11 @@
-import { InputData, errorsInput } from "../redux/types";
+import { errorsInput, InputData } from "../redux/types";
+
 
 
 const regexName = /^[a-zA-Z]+$/
-const regexPassword = /(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}/
+const regexPassword = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^/s@]+$/
-export const validationPets = (input: InputData) => {
+export const validation = (input: InputData) => {
     let errors: errorsInput = {}
 
     if (!input.name) {
@@ -17,7 +18,7 @@ export const validationPets = (input: InputData) => {
 
     if (!input.username) {
         errors.username = "usuario requerido"
-    } else if (input.username.length > 10) {
+    } else if (input.username.length > 20) {
         errors.username = "el usuario no puede contener mas de 10 carateres";
     }
     if (!input.last_name) {
@@ -25,20 +26,19 @@ export const validationPets = (input: InputData) => {
     }
 
 
-
     if (!input.password) {
         errors.password = "elegir contraseña";
     } else if (!regexPassword.test(input.password)) {
-        errors.password = "La contraseña debe tener al menos 8 caracteres y contener al menos un número, una letra mayúscula, una letra minúscula y un carácter especial.";
+        errors.password = "La contraseña debe tener al menos 8 caracteres y por lo menos un número y una letra mayúscula";
 
     }
 
     if (!input.email) {
-        errors.email = "ingresar un mail"
+        errors.email = "ingresar email"
     } else if (!regexEmail.test(input.email)) {
         errors.email = "el email ingresado es inválido"
     }
 
-
+    
     return errors;
 };

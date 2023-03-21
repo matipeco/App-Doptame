@@ -3,6 +3,8 @@ import { FiAlignJustify } from 'react-icons/fi'
 import imgLogo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
+import { AuthForm } from '../../components/AuthForm/AuthForm';
+
 
 function NavBar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -31,12 +33,17 @@ function NavBar() {
               <ul className='submenu'>
                 <Link to="/formApa">
                   <li className='liOp'>
-                    Ingresar como Apa
+                    Registrarse como Apa
                   </li>
                 </Link>
                 <Link to='/formUser'>
                   <li className='liOp'>
-                    Ingresar como Usuario
+                    Registrarse como Usuario
+                  </li>
+                </Link>
+                <Link to='/login'>
+                  <li className='liOp'>
+                    Login
                   </li>
                 </Link>
               </ul>

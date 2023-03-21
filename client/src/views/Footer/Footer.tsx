@@ -13,7 +13,7 @@ const Footer = () => {
 
   return (
 
-    <footer className={style.container}>
+    <footer className={style.containerFooter}>
       <div className={style.arrowContainer} onClick={scrollToTop}>
         <HiOutlineArrowSmUp className={style.arrowUp} />
       </div>

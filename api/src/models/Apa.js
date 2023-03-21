@@ -10,6 +10,9 @@ const apaSchema = new Schema(
     description: { type: String, required: true },
     location: { type: String, required: true },
     url: { type: String, required: true },
+    telephone: {type: Number, required: true},
+    provincia: {type: String, required: true},
+    cuit: {type: Number, required: true},
     pets: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
   },
   {
