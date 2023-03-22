@@ -8,49 +8,48 @@ import { AnyAction } from 'redux'
 import { useParams } from 'react-router-dom'
 import PaginationControlled from '../Pagination/PaginationTry'
 
-export const Cards = () => {
-  const { allPets } = useSelector((state: StateType) => state)
-  const { category } = useParams()
+export const Cards= () => {
+  const { allPets } = useSelector((state: StateType) => state);
+  const { category } = useParams();
 
-  // Filtramos los animales según la categoría seleccionada
-  const filteredPets = allPets.filter((pet: Pet) => pet.type === category)
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(1); // Agregamos estado para currentPage
+
+  const PageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber); // Actualizamos el estado de currentPage al seleccionar una página
+  };
 
   useEffect(() => {
     dispatch(getPets() as unknown as AnyAction)
-  }, [])
+  }, [dispatch])
 
-  // Definimos el número de elementos que deseamos mostrar por página
-  const itemsPerPage = 5
+  
+  const filteredPets = allPets.filter((pet: Pet) => pet.type === category);
+  const itemsPerPage = 5;
+  const totalItems = filteredPets.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = filteredPets.slice(startIndex, endIndex);
 
-  // Calculamos el número total de elementos y el número de páginas necesarias
-  const totalItems = filteredPets.length
-  const totalPages = Math.ceil(totalItems / itemsPerPage)
-
-  // Mantenemos un array con los elementos a mostrar en la página actual
-  const [currentItems, setCurrentItems] = useState<Pet[]>([])
-
-  // Actualizamos los elementos a mostrar cada vez que cambia la página
-  const handlePageChange = (pageNumber: number) => {
-    const startIndex = (pageNumber - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    setCurrentItems(filteredPets.slice(startIndex, endIndex))
-  }
-
-  // Mostramos las tarjetas filtradas en el componente, paginadas
+  console.log(filteredPets)
   return (
-    <>
-      <div>
-        {currentItems.map((pet: Pet) => (
-          <Card key={pet._id} pet={pet} />
-        ))}
-      </div>
-      <PaginationControlled
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        onPageChange={handlePageChange}
-      />
-    </>
-  )
-}
+  
+        <>
+          <div>
+            {currentItems.map((pet: Pet) => (
+              <Card key={pet._id} pet={pet} />
+            ))}
+          </div>
+          <PaginationControlled
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={PageChange}
+          />
+        </>
+
+  );
+};
+
+

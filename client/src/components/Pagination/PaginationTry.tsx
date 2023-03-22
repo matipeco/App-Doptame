@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -16,24 +16,19 @@ interface Props {
   onPageChange,
  }) => {
  
-   const [currentPage, setCurrentPage] = useState(1);
-   const totalPages= Math.ceil(totalItems/itemsPerPage)
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages= Math.ceil(totalItems/itemsPerPage)
 
    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
     onPageChange(value);
   };
-  
-  useEffect(() => {
-    onPageChange(currentPage);
-  }, []);
 
   return (
   <>
    {totalItems > 0 ? (
         <Stack spacing={2}>
-          
-          <Pagination  count={totalPages} page={currentPage} onChange={handleChange} />
+          <Pagination count={totalPages} page={currentPage} onChange={handleChange}  />
         </Stack>
       ) : (
         <Typography>No items found.</Typography>
