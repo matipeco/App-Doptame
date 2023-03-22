@@ -8,18 +8,22 @@ const postFavorite = async (req, res) => {
     const { userId, petId } = req.body;
 
     const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     const pet = await Pet.findById(petId);
+    if (!pet) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
 
-    const favorite = new Favorites({
-      user: user._id,
-      pet: pet._id,
-    });
+    user.favorites.push(petId);
+    await user.save();
 
-    await favorite.save();
-
-    res.status(201).json({ message: "Agregado a favoritos" });
+    res.status(201).json({ message: "Pet added to favorites" });
   } catch (error) {
-    res.status(500).json({ message: "No se pudo agregar a favoritos" });
+    console.error(error);
+    res.status(500).json({ message: "Could not add pet to favorites" });
   }
 };
 
