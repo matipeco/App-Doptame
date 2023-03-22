@@ -43,15 +43,15 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
-  const { name, last_name, username, password, email, location, image, pet } =
-    req.body;
-  try {
-    const newUser = await User.create(req.body);
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
+// const createUser = async (req, res) => {
+//   const { name, last_name, username, password, email, location, image, pet } =
+//     req.body;
+//   try {
+//     const newUser = await User.create(req.body);
+//     res.status(201).json(newUser);
+//   } catch (error) {
+//     res.status(400).json(error);
+//   }
+// };
 
-module.exports = { createUser, getUserById, putUser, getAllUsers, deleteUser };
+module.exports = { getUserById, putUser, getAllUsers, deleteUser };

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const petSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -21,8 +20,8 @@ const petSchema = new Schema(
     description: { type: String, required: true },
     adoption: { type: Boolean, default: true },
     status: { type: Boolean, default: true },
-    apa: { type: Schema.Types.ObjectId, ref: "Apa"}
-
+    apa: { type: Schema.Types.ObjectId, ref: "Apa" },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
   },
   {
     timestamps: true,
