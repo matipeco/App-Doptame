@@ -12,7 +12,7 @@ export interface Pet {
 }
 
 export interface Apa {
-  _id: string
+  _id?: string
   name: string
   password: string
   email: string
@@ -20,6 +20,54 @@ export interface Apa {
   description: string
   cbu_cvu: string
   url: string
-  pets: []
+  pets?: []
+  telephone: string
+  provincia: string
+  cuit: string
 }
+
+export interface User {
+  _id?: string
+  name: string
+  last_name: string
+  username: string
+  password?: string
+  email: string
+  location: string
+  image: string
+  pet?: {}
+}
+
+
+export interface InputData {
+  name?: string;
+  username?: string;
+  password?: string;
+  last_name?: string;
+  email?: string
+  location?: string
+  description?: string
+  cbu_cvu?: string
+  url?: string
+  cuit?: string
+  telephone?: string
+  provincia?: string
+}
+
+export type errorsInput = {
+  name?: string;
+  username?: string;
+  password?: string;
+  last_name?: string;
+  email?: string
+  location?: string
+  description?: string
+  cbu_cvu?: string
+  url?: string
+  cuit?: string
+  provincia?: string
+  telephone?: string
+
+};
+
 

@@ -8,6 +8,7 @@ import './App.css';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormEditPet from './views/FormEditPet/FormEditPet';
+import FormEditApa from './views/FormEditApa/FormEditApa';
 import FormUser from './views/FormUser/FormUser';
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/formApa" element={<FormApa />}></Route>
         <Route path="/formPet" element={<FormPets />}></Route>
         <Route path="/formEditPet" element={<FormEditPet />}></Route>
+        <Route path="/formEditApa" element={<FormEditApa />}></Route>
         <Route path='/pets/:category' element={<Cards/>}></Route>
         <Route path='/formUser' element={<FormUser/>}></Route>
 

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Apa, Pet } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, SET_SELECTED_CATEGORY, EDIT_PET } from "./actionsTypes";
+import { Apa, Pet, User } from "../types";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -27,6 +27,17 @@ type dispatchDetail = {
   payload: Pet
 }
 
+type dispatchUser = {
+  type: string
+  payload: User
+}
+
+type dispatchDetailUser = {
+  type: string
+  payload: User
+}
+
+
 
 
 export const getApas = () => {
@@ -39,6 +50,20 @@ export const getApas = () => {
     });
   };
 };
+
+export const getApaById = (id: string) => {
+  return async (dispatch: Dispatch<dispatchApa>) => {
+
+    const res = await axios.get<Apa>(`http://localhost:3001/apa/${id}`);
+    return dispatch({
+      //despacho la action
+      type: GET_APA_DETAIL,
+      payload: res.data,
+    });
+
+  };
+};
+
 
 export const postApa = (payload: Apa) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
@@ -95,6 +120,45 @@ export const postPet = (id: string, payload: Pet) => {
   };
 };
 
+
+
+
+export const postUser = (payload: User) => {
+  return async (dispatch: Dispatch<dispatchUser>) => {
+    const createUser = await axios.post<User>(`http://localhost:3001/users/`, payload);
+    return dispatch({
+      type: POST_USER,
+      payload: createUser.data
+    });
+  };
+};
+
+export const getUsers = () => {
+  return async (dispatch: Dispatch<dispatchGet>) => {
+    const response = await axios.get<Apa[]>("http://localhost:3001/users");
+
+    return dispatch({
+      type: GET_USER,
+      payload: response.data
+    });
+  };
+};
+
+
+export const getDetailUsers = (id: string) => {
+  return async (dispatch: Dispatch<dispatchDetailUser>) => {
+
+    const res = await axios.get<User>(`http://localhost:3001/users/${id}`);
+    return dispatch({
+      //despacho la action
+      type: GET_DETAIL_USERS,
+      payload: res.data,
+    });
+
+  };
+};
+
+
 export const putPet = (id: string, payload: Pet) => {
   console.log(payload)
   return async (dispatch: Dispatch<dispatchPet>) => {
@@ -106,9 +170,13 @@ export const putPet = (id: string, payload: Pet) => {
   };
 };
 
-export const setSelectedCategory = (category: string) => {
-  return {
-    type: SET_SELECTED_CATEGORY,
-    payload: category
-  }
-}
+export const putApa = (id: string, payload: Apa) => {
+  console.log(payload)
+  return async (dispatch: Dispatch<dispatchApa>) => {
+    const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${id}`, payload);
+    return dispatch({
+      type: EDIT_APA,
+      payload: editApa.data
+    });
+  };
+};

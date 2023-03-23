@@ -1,74 +1,68 @@
-import './FormEditPet.css';
+import './FormEditApa.css';
 import petCat from '../../assets/perritoFormPet.png'
-import { getDetailPets,clearDetail,putPet,getPets } from "../../redux/actions/actions";
+import { getApaById, putApa} from "../../redux/actions/actions"; //TODAVIA NO CREADA LA ACTION. HABLAR CON DAMI A VER SI EL YA LA HIZO
 import React, { useState, useEffect } from "react";
 import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
-import { Pet} from "../../redux/types"
-import validate from './JSvalidationsFormEditPet';
-
+import { Apa} from "../../redux/types"
+import validate from './JSvalidationsFormEditApa';
 // import { useParams} from 'react-router-dom';
 
 
-function FormEditPet() { //Podemos hacer q reciba la petId por props o por params.
+function FormEditApa() { //Podemos hacer q reciba la apaId por props o por params.
 
+    const provincias = []
+
+    
 
 
 
     const dispatch = useDispatch()
-    // const { petId } = useParams<{ petId: string }>();
-    const petId = "64147391609d26ab82537579" //Provisorio, hasta tener la petId por params o props
+    // const { apaId } = useParams<{ petId: string }>();
+    const apaId = "6413a3b26f405e54c5c7399f" //Provisorio, hasta tener la apaId por params o props
 
 //Me aseguro de q los details de la pet y allPets esten cargados en el State Global
     useEffect (()=>{
-        dispatch(getPets() as unknown as AnyAction)
-        dispatch(getDetailPets(petId)as unknown as AnyAction)
-        //
-        // return (): any=> dispatch(clearDetail())
+        dispatch(getApaById(apaId)as unknown as AnyAction)
     },[dispatch])
 
     //Me guardo los details para meterselos al estado local "input"
-    let petDetails: Pet= useSelector((state: StateType) => state.detail); 
-console.log(petDetails)
-
-
-//Me traigo todas las pets
-    const allPets = useSelector((state: StateType) => state.allPets); 
-    const oldVersionPet= allPets.find(p=>p._id === petId) //  petId HASTA Q LA PODAMOS TRAER POR PARAMS O X PROPS
-// console.log(oldVersionPet)
-
-
-//NO ME TRAE INPUT LLENO!!
-    // const [input, setInput] = useState({
-    //     ...petDetails
-    // })
-// console.log(input)
+    let apaDetails: Apa= useSelector((state: StateType) => state.detailApa); 
+// console.log(apaDetails)
 
 
     const [input, setInput] = useState({
-        name: "",
-        age: 0,
-        size: "",
-        type: "",
-        image: "",
-        description: "",
-        status: true,
-        adoption: false
-    })
+    name: "",
+    password: "",
+    email: "",
+    description: "",
+    provincia: "",
+    location: "",
+    telephone: "",
+    cuit: "",
+    image: "",
+    cbu_cvu: "",
+    url: "",
+})
+
+// console.log(input)
+
 
 
     const [errors, setErrors] = useState({
         name:'Ingrese un Nombre',
-        description: 'Ingrese una Descripción',
-        image:'Cargue una imagen',
-        size:'Seleccione un Tamaño',
-        type:'Seleccione un Tipo de Mascota',
-        adoption:'Buscando Hogar: Seleccione una opción',
-        status:'Mascota Publicada: Seleccione una opción',
-        age:'Ingrese una Edad'
+        password: 'Ingrese una Contraseña',
+        email:'Ingrese un email',
+        provincia: "Seleccione su Provincia",
+        location: "Ingrese su Localidad",
+        description: "Ingrese una Descripción",
+        cbu_cvu: "Ingrese su CBU/CVU (22 dígitos)",
+        // url: "Ingrese su sitio web o red social", //No required, puede no tener.
+        telephone: "Ingrese su número de contacto sin espacios ni guiones",
+        cuit: "Ingrese su CUIT, sin espacios ni guiones",
     })
-// console.log(input)
+
 
 
 
@@ -87,7 +81,7 @@ console.log(petDetails)
     };
 
 
-//QUIERO Q EL PAYLOAD Q MANDE SEA: EL PET VIEJO, ACTUALIZANDO SOLO LAS PROPIEDADES EN LAS Q SE HAYAN HECHO CAMBIOS (NO ESTEN VACIAS)
+
 
 
 
@@ -97,10 +91,10 @@ console.log(petDetails)
         //     name: input.name? input.name : oldVersionPet.name,
 
         // }
-// console.log(petId)
+// console.log(apaId)
 // console.log(input)
-        dispatch(putPet(petId, input) as unknown as AnyAction); //Action creada en el reducer.
-        alert("Mascota editada correctamente")
+        dispatch(putApa(apaId, input) as unknown as AnyAction); //Action creada en el reducer.
+        alert("Datos modificados correctamente")
         window.location.assign('/home');
     }
 
@@ -123,28 +117,36 @@ console.log(petDetails)
             <div>
             <h2>Datos Actuales</h2>
                 <label className='labelCurrentInfo' htmlFor="name">Nombre:</label>
-                <h5>{petDetails.name}</h5>
+                <h5>{apaDetails.name}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="age">Edad:</label>
-                <h5>{petDetails.age}</h5>
+                <label className='labelCurrentInfo' htmlFor="email">Email:</label>
+                <h5>{apaDetails.email}</h5>
 
                 <label className='labelCurrentInfo' htmlFor="description">Descripción:</label>
-                <h5>{petDetails.description}</h5>
+                <h5>{apaDetails.description}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="size">Tamaño:</label>
-                <h5>{petDetails.size}</h5>
+                <label className='labelCurrentInfo' htmlFor="provincia">Provincia:</label>
+                <h5>{apaDetails.provincia}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="adoption">Buscando Hogar:</label>
-                <h5>{petDetails.adoption ? 'Sí' : 'No'}</h5>
+                <label className='labelCurrentInfo' htmlFor="location">Localidad:</label>
+                <h5>{apaDetails.location}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="status">Publicado:</label>
-                <h5>{petDetails.status ? 'Sí' : 'No'}</h5>
+                <label className='labelCurrentInfo' htmlFor="telephone">Teléfono:</label>
+                <h5>{apaDetails.telephone}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="type">Tipo de Mascota</label>
-                <h5>{petDetails.type}</h5>
+                <label className='labelCurrentInfo' htmlFor="cuit">CUIT:</label>
+                <h5>{apaDetails.cuit}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
-                <img src={petDetails.image} alt="imagen de la mascota" className='imagenCargada' />
+                {/* <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
+                <img src={apaDetails.image} alt="imagen de la mascota" className='imagenCargada' /> */}
+
+                <label className='labelCurrentInfo' htmlFor="cbu_cvu">CBU / CVU:</label>
+                <h5>{apaDetails.cbu_cvu}</h5>
+
+                <label className='labelCurrentInfo' htmlFor="url">Sitio Web / Red Social:</label>
+                <h5>{apaDetails.url}</h5>
+
+
                 
 
             </div>
@@ -273,4 +275,4 @@ console.log(petDetails)
     )
 }
 
-export default FormEditPet;
+export default FormEditApa;
