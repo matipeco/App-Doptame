@@ -61,26 +61,41 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     location: "",
     telephone: "",
     cuit: "",
-    image: "",
     cbu_cvu: "",
     url: "",
+    // image: "",
 })
 
 // console.log(input)
 
 
 
+    // const [errors, setErrors] = useState({
+    //     name:'Ingrese un Nombre',
+    //     password: 'Ingrese una Contraseña',
+    //     email:'Ingrese un email',
+    //     description: "Ingrese una Descripción",
+    //     provincia: "Seleccione su Provincia",
+    //     location: "Ingrese su Localidad",
+    //     telephone: "Ingrese solo números",
+    //     cuit: "Ingrese su CUIT, sin espacios ni guiones",
+    //     cbu_cvu: "Ingrese su CBU/CVU (22 dígitos)",
+    //     url: "Ingrese su sitio web o red social",
+    //     // image: "Cargue una imagen",
+    // })
+
     const [errors, setErrors] = useState({
-        name:'Ingrese un Nombre',
-        password: 'Ingrese una Contraseña',
-        email:'Ingrese un email',
-        provincia: "Seleccione su Provincia",
-        location: "Ingrese su Localidad",
-        description: "Ingrese una Descripción",
-        cbu_cvu: "Ingrese su CBU/CVU (22 dígitos)",
-        url: "Ingrese su sitio web o red social",
-        telephone: "Ingrese su número de contacto sin espacios ni guiones",
-        cuit: "Ingrese su CUIT, sin espacios ni guiones",
+        name:'',
+        password:'',
+        email:'',
+        description:'',
+        provincia:'',
+        location:'',
+        telephone:'',
+        cuit:'',
+        cbu_cvu:'',
+        url:'',
+        // image: "Cargue una imagen",
     })
 
 
@@ -92,10 +107,10 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
             ...input,
             [name]: value
         })
-        // setErrors(validate({
-        //     ...input,
-        //     [e.target.name]: e.target.value
-        // }));
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
 // console.log(input)
 // console.log(errors)
     };
@@ -113,7 +128,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
         // }
 // console.log(apaId)
 // console.log(input)
-        dispatch(putApa(apaId, input) as unknown as AnyAction); //Action creada en el reducer.
+        dispatch(putApa(apaId, input) as unknown as AnyAction);
         alert("Datos modificados correctamente")
         window.location.assign('/home');
     }
@@ -121,7 +136,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     const handleDisabledButton = ()=>{
         if(Object.values(input)[0]==="") {
             return true;
-        }else if (Object.keys(errors).length>50) { //Originalmente este valor era 0 (si hay más de 0 errores, se deshabilita el button)
+        }else if (Object.keys(errors).length>0) {
             return true
         } else{
             return false;
@@ -184,8 +199,20 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="name"
                                 value={input.name}
                             />
-                            <label className= "label" htmlFor="name">Nombre</label>
+                            <label className= "label" htmlFor="name">Nombre:</label>
                             {errors.name && <p>{errors.name}</p>}
+                        </div>
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                className="input"
+                                type='text'
+                                name="email"
+                                value={input.email}
+                            />
+                            <label className= "label" htmlFor="email">Email:</label>
+                            {errors.email && <p>{errors.email}</p>}
                         </div>
 
                         <div className="containerInputs">
@@ -193,10 +220,10 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 onChange={handleInputChange}
                                 type='password'
                                 className="input"
-                                name="age"
+                                name="password"                         
                                 value={input.password}
                             />
-                            <label className="label" htmlFor="password">Contraseña</label>
+                            <label className="label" htmlFor="password">Contraseña:</label>
                             {errors.password && <p className='errors'>{errors.password}</p>}
                         </div>
                         <div className="containerInputs">
@@ -207,9 +234,10 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="description"
                                 value={input.description}
                             />
-                            <label className="label" htmlFor="descripcion">Descripción</label>
+                            <label className="label" htmlFor="descripcion">Descripción:</label>
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
+                        
 
                     </div>
                     <div className="row">
@@ -226,7 +254,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                         })
                                     }
                             </select>
-                            <label className="tam" htmlFor="provincia">Provincia</label>
+                            <label className="tam" htmlFor="provincia">Provincia:</label>
                             {errors.provincia && <p className='error'>{errors.provincia}</p>}
                         </div>
 
@@ -240,7 +268,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="location"
                                 value={input.location}
                             />
-                            <label className="label" htmlFor="location: ">Localidad</label>
+                            <label className="label" htmlFor="location: ">Localidad:</label>
                             {errors.location && <p className='errors'>{errors.location}</p>}
                         </div>
 
@@ -253,7 +281,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="telephone"
                                 value={input.telephone}
                             />
-                            <label className="label" htmlFor="descripcion">Teléfono</label>
+                            <label className="label" htmlFor="descripcion">Teléfono:</label>
                             {errors.telephone && <p className='errors'>{errors.telephone}</p>}
                         </div>
 
@@ -267,7 +295,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="cuit"
                                 value={input.cuit}
                             />
-                            <label className="label" htmlFor="descripcion">CUIT</label>
+                            <label className="label" htmlFor="descripcion">CUIT:</label>
                             {errors.cuit && <p className='errors'>{errors.cuit}</p>}
                         </div>
 
@@ -280,7 +308,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="cbu_cvu"
                                 value={input.cbu_cvu}
                             />
-                            <label className="label" htmlFor="descripcion">CBU / CVU</label>
+                            <label className="label" htmlFor="descripcion">CBU / CVU:</label>
                             {errors.cbu_cvu && <p className='errors'>{errors.cbu_cvu}</p>}
                         </div>
 
@@ -293,7 +321,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 name="url"
                                 value={input.url}
                             />
-                            <label className="label" htmlFor="descripcion"> Dirección Web o Red Social</label>
+                            <label className="label" htmlFor="descripcion"> Dirección Web o Red Social:</label>
                             {/* {errors.url && <p className='errors'>{errors.telephone}</p>} */}
                         </div>
                         
@@ -323,8 +351,9 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                     {/* </div> */}
                 </form>
             </div>
+
             <div className="containerTitle">
-                <h1>Editar Mascota</h1>
+                <h1>Editar APA</h1>
                 <img className="imgPerrito" src={petCat} alt="foto perrito" />
             </div>
 
