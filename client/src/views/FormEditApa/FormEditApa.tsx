@@ -1,6 +1,6 @@
 import './FormEditApa.css';
 import petCat from '../../assets/perritoFormPet.png'
-import { getApaById, putApa} from "../../redux/actions/actions"; //TODAVIA NO CREADA LA ACTION. HABLAR CON DAMI A VER SI EL YA LA HIZO
+import { getApaById, putApa} from "../../redux/actions/actions";
 import React, { useState, useEffect } from "react";
 import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,9 +12,29 @@ import validate from './JSvalidationsFormEditApa';
 
 function FormEditApa() { //Podemos hacer q reciba la apaId por props o por params.
 
-    const provincias = []
-
-    
+    const provincias = ["Ciudad Autónoma de Buenos Aires",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Córdoba",
+    "Corrientes",
+    "Entre Ríos",
+    "Formosa",
+    "Jujuy",
+    "La Pampa",
+    "La Rioja",
+    "Mendoza",
+    "Misiones",
+    "Neuquén",
+    "Río Negro",
+    "Salta",
+    "San Juan",
+    "San Luis",
+    "Santa Cruz",
+    "Santa Fe",
+    "Santiago del Estero",
+    "Tierra del Fuego, Antártida e Islas del Atlántico Sur",
+    "Tucumán"]
 
 
 
@@ -22,7 +42,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     // const { apaId } = useParams<{ petId: string }>();
     const apaId = "6413a3b26f405e54c5c7399f" //Provisorio, hasta tener la apaId por params o props
 
-//Me aseguro de q los details de la pet y allPets esten cargados en el State Global
+//Me aseguro de q los details de la APA esten cargados en el State Global
     useEffect (()=>{
         dispatch(getApaById(apaId)as unknown as AnyAction)
     },[dispatch])
@@ -58,7 +78,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
         location: "Ingrese su Localidad",
         description: "Ingrese una Descripción",
         cbu_cvu: "Ingrese su CBU/CVU (22 dígitos)",
-        // url: "Ingrese su sitio web o red social", //No required, puede no tener.
+        url: "Ingrese su sitio web o red social",
         telephone: "Ingrese su número de contacto sin espacios ni guiones",
         cuit: "Ingrese su CUIT, sin espacios ni guiones",
     })
@@ -72,10 +92,10 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
             ...input,
             [name]: value
         })
-        setErrors(validate({
-            ...input,
-            [e.target.name]: e.target.value
-        }));
+        // setErrors(validate({
+        //     ...input,
+        //     [e.target.name]: e.target.value
+        // }));
 // console.log(input)
 // console.log(errors)
     };
@@ -101,7 +121,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     const handleDisabledButton = ()=>{
         if(Object.values(input)[0]==="") {
             return true;
-        }else if (Object.keys(errors).length>0) {
+        }else if (Object.keys(errors).length>50) { //Originalmente este valor era 0 (si hay más de 0 errores, se deshabilita el button)
             return true
         } else{
             return false;
@@ -163,21 +183,21 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                                 type='text'
                                 name="name"
                                 value={input.name}
-                                // value= {name}
                             />
                             <label className= "label" htmlFor="name">Nombre</label>
                             {errors.name && <p>{errors.name}</p>}
                         </div>
+
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
-                                type='text'
+                                type='password'
                                 className="input"
                                 name="age"
-                                value={input.age}
+                                value={input.password}
                             />
-                            <label className="label" htmlFor="age">Edad</label>
-                            {errors.age && <p className='errors'>{errors.age}</p>}
+                            <label className="label" htmlFor="password">Contraseña</label>
+                            {errors.password && <p className='errors'>{errors.password}</p>}
                         </div>
                         <div className="containerInputs">
                             <input
@@ -190,59 +210,96 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                             <label className="label" htmlFor="descripcion">Descripción</label>
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
+
                     </div>
                     <div className="row">
                         <div className="containerInputs">
-                            <select name="size"
+                            <select name="provincia"
                                 onChange={handleInputChange}
                                 >
-                                <option value="" >Seleccione un tamaño</option>
-                                <option value="chico">Pequeño</option>
-                                <option value="mediano">Mediano</option>
-                                <option value="grande">Grande</option>
+                                    <option value="" >Seleccione una Provincia</option>
+                                    {
+                                        provincias.map((p,i)=>{
+                                            return (
+                                                <option value={p} key={i}>{p}</option>
+                                            )
+                                        })
+                                    }
                             </select>
-                            <label className="tam" htmlFor="size">Tamaño</label>
-                            {errors.size && <p className='error'>{errors.size}</p>}
+                            <label className="tam" htmlFor="provincia">Provincia</label>
+                            {errors.provincia && <p className='error'>{errors.provincia}</p>}
                         </div>
 
-                        <div className="containerInputs">
-                            <select name="adoption"
-                                onChange={handleInputChange}
-                                >
-                                <option value="" >Seleccione una opción</option>
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
-                            </select>
-                            <label className="tam" htmlFor="adoption">Buscando Hogar</label>
-                            {errors.adoption && <p className='error'>{errors.adoption}</p>}
-                        </div>
+
 
                         <div className="containerInputs">
-                            <select name="status"
+                            <input
                                 onChange={handleInputChange}
-                                >
-                                <option value="" >Seleccione una opicón</option>
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
-                            </select>
-                            <label className="tam" htmlFor="status">Publicado</label>
-                            {errors.status && <p className='error'>{errors.status}</p>}
+                                type='text'
+                                className="input"
+                                name="location"
+                                value={input.location}
+                            />
+                            <label className="label" htmlFor="location: ">Localidad</label>
+                            {errors.location && <p className='errors'>{errors.location}</p>}
                         </div>
 
+
                         <div className="containerInputs">
-                            <select name="type"
+                            <input
                                 onChange={handleInputChange}
-                                >
-                                <option value="">Seleccione Tipo</option>
-                                <option value="perro">Perro</option>
-                                <option value="gato">Gato</option>
-                                <option value="otros">Otro</option>
-                            </select>
-                            <label className="tam" htmlFor="size">Tipo</label>
-                            {errors.type && <p className='error'>{errors.type}</p>}
+                                type='text'
+                                className="input"
+                                name="telephone"
+                                value={input.telephone}
+                            />
+                            <label className="label" htmlFor="descripcion">Teléfono</label>
+                            {errors.telephone && <p className='errors'>{errors.telephone}</p>}
                         </div>
+
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                type='text'
+                                className="input"
+                                name="cuit"
+                                value={input.cuit}
+                            />
+                            <label className="label" htmlFor="descripcion">CUIT</label>
+                            {errors.cuit && <p className='errors'>{errors.cuit}</p>}
+                        </div>
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                type='text'
+                                className="input"
+                                name="cbu_cvu"
+                                value={input.cbu_cvu}
+                            />
+                            <label className="label" htmlFor="descripcion">CBU / CVU</label>
+                            {errors.cbu_cvu && <p className='errors'>{errors.cbu_cvu}</p>}
+                        </div>
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                type='text'
+                                className="input"
+                                name="url"
+                                value={input.url}
+                            />
+                            <label className="label" htmlFor="descripcion"> Dirección Web o Red Social</label>
+                            {/* {errors.url && <p className='errors'>{errors.telephone}</p>} */}
+                        </div>
+                        
                     </div>
-                    <div className="row">
+                    {/* NI EN EL TYPE NI EN EL MODEL ESTA LA IMAGEN */}
+                    {/* <div className="row">
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
@@ -259,11 +316,11 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                             <label className="tam" htmlFor="image">Imagen</label>
 
                             {errors.image && <p className='error'>{errors.image}</p>}
-                        </div>
+                        </div> */}
 
                         <button type="submit" disabled={handleDisabledButton()}>Guardar Moficicaciones Hechas</button>
-                        {/* <button type="submit" disabled={handleDisabledButton()} className="btn">Guardar Moficicaciones Hechas</button> */}
-                    </div>
+                      
+                    {/* </div> */}
                 </form>
             </div>
             <div className="containerTitle">

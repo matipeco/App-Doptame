@@ -34,9 +34,9 @@ const validate = (input)=>{
     }
 
 //No es required: no todos tienen redes sociales o sitio web propio
-    // if(!input.url){
-    //     errors.url='Ingrese la dirección de su sitio web o red social'
-    // }
+    if(!input.url){
+        errors.url='Ingrese la dirección de su sitio web o red social'
+    }
     return errors;
 }
 
