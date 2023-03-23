@@ -7,12 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet} from "../../redux/types"
 import validate from './validationsFormEditPet';
-// import { useParams } from 'react-router-dom';
+
+// import { useParams} from 'react-router-dom';
 
 
 function FormEditPet() { //Podemos hacer q reciba la petId por props o por params.
 
+
+
+
     const dispatch = useDispatch()
+    // const history: any= useHistory();
     // const { petId } = useParams<{ petId: string }>();
     const petId = "64147391609d26ab82537579" //Provisorio, hasta tener la petId por params o props
 
@@ -26,7 +31,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
 
     //Me guardo los details para meterselos al estado local "input"
     let petDetails: Pet= useSelector((state: StateType) => state.detail); 
-// console.log(petDetails)
+console.log(petDetails)
 
 
 //Me traigo todas las pets
@@ -107,6 +112,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
 // console.log(input)
         dispatch(putPet(petId, input) as unknown as AnyAction); //Action creada en el reducer.
         alert("Mascota editada correctamente")
+        // history.push("/home")
 
     }
 
@@ -192,7 +198,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 value={input.description}
                             />
                             <label className="label" htmlFor="descripcion">Descripción</label>
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
                     </div>
                     <div className="row">
@@ -206,7 +212,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 <option value="grande">Grande</option>
                             </select>
                             <label className="tam" htmlFor="size">Tamaño</label>
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.size && <p className='error'>{errors.size}</p>}
                         </div>
 
                         <div className="containerInputs">
@@ -218,7 +224,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 <option value="false">No</option>
                             </select>
                             <label className="tam" htmlFor="adoption">Buscando Hogar</label>
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.adoption && <p className='error'>{errors.adoption}</p>}
                         </div>
 
                         <div className="containerInputs">
@@ -230,7 +236,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 <option value="false">No</option>
                             </select>
                             <label className="tam" htmlFor="status">Publicado</label>
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.status && <p className='error'>{errors.status}</p>}
                         </div>
 
                         <div className="containerInputs">
@@ -243,7 +249,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                                 <option value="otros">Otro</option>
                             </select>
                             <label className="tam" htmlFor="size">Tipo</label>
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.type && <p className='error'>{errors.type}</p>}
                         </div>
                     </div>
                     <div className="row">
@@ -262,7 +268,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
                             />
                             <label className="tam" htmlFor="image">Imagen</label>
 
-                            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                            {errors.image && <p className='error'>{errors.image}</p>}
                         </div>
 
                         <button type="submit" disabled={handleDisabledButton()}>Guardar Moficicaciones Hechas</button>

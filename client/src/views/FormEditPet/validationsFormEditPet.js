@@ -21,10 +21,10 @@ const validate = (input)=>{
         errors.type='Seleccione un Tipo de Mascota'
 
     }if(!input.adoption){
-        errors.adoption='Buscando Hogar: Seleccione una opción'
+        errors.adoption='Seleccione una opción'
 
     }if(!input.status){
-        errors.status='Mascota Publicada: Seleccione una opción'
+        errors.status='Seleccione una opción'
     }
     return errors;
 }
