@@ -39,6 +39,10 @@ export const validation = (input: InputData) => {
         errors.email = "el email ingresado es inválido"
     }
 
-    
+    if (!input.passwordLogin) {
+        errors.passwordLogin = "ingrese una contraseña correcta";
+    }
+
+
     return errors;
 };

@@ -43,6 +43,7 @@ export interface InputData {
   name?: string;
   username?: string;
   password?: string;
+  passwordLogin?: string,
   last_name?: string;
   email?: string
   location?: string
@@ -58,6 +59,7 @@ export type errorsInput = {
   name?: string;
   username?: string;
   password?: string;
+  passwordLogin?: string;
   last_name?: string;
   email?: string
   location?: string

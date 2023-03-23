@@ -15,7 +15,6 @@ const root = ReactDOM.createRoot(
 const domain = env.DOMAIN;
 const clientId = env.CLIENT_ID;
 
-
 root.render(
   <Provider store={store}>
     <Auth0Provider

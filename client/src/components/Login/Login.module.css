@@ -1,0 +1,52 @@
+.containerFormLogin {
+    /* width: fit-content; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.formLogin {
+    min-width: 200px;
+    height: auto;
+    min-height: 250px;
+    background-color: bisque;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.containerFormLogin h2 {
+    display: flex;
+}
+
+.parrafosErrorsLogin {
+    display: flex;
+    font-size: 10px;
+}
+
+.labelLogin {
+    display: flex;
+    font-weight: 600;
+    margin-bottom: 5px
+}
+
+.linkOlvidasteContraseña {
+    font-size: 15px;
+    list-style: none;
+    color: black;
+    text-decoration: underline;
+}
+
+.inputLogin {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.buttonLogin {
+    display: flex;
+    margin-top: 15px;
+}

@@ -14,9 +14,9 @@ const Footer = () => {
   return (
 
     <footer className={style.containerFooter}>
-      <div className={style.arrowContainer} onClick={scrollToTop}>
-        <HiOutlineArrowSmUp className={style.arrowUp} />
-      </div>
+      <button className={style.arrowContainer} onClick={scrollToTop}>
+        <HiOutlineArrowSmUp />
+      </button>
 
       <div className={style.iconContainer}>
         <p className={style.iconsP}>React</p>
