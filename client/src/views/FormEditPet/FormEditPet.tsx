@@ -6,7 +6,8 @@ import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet} from "../../redux/types"
-import validate from './validationsFormEditPet';
+import validate from './JSvalidationsFormEditPet';
+
 
 // import { useParams} from 'react-router-dom';
 
@@ -17,7 +18,6 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
 
 
     const dispatch = useDispatch()
-    // const history: any= useHistory();
     // const { petId } = useParams<{ petId: string }>();
     const petId = "64147391609d26ab82537579" //Provisorio, hasta tener la petId por params o props
 
@@ -71,6 +71,8 @@ console.log(petDetails)
 
 // console.log(input)
 
+
+
     const [errors, setErrors] = useState({
         name:'Ingrese un Nombre',
         description: 'Ingrese una Descripción',
@@ -81,6 +83,8 @@ console.log(petDetails)
         status:'Mascota Publicada: Seleccione una opción',
         age:'Ingrese una Edad'
     })
+
+
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -112,8 +116,7 @@ console.log(petDetails)
 // console.log(input)
         dispatch(putPet(petId, input) as unknown as AnyAction); //Action creada en el reducer.
         alert("Mascota editada correctamente")
-        // history.push("/home")
-
+        window.location.assign('/home');
     }
 
     const handleDisabledButton = ()=>{
