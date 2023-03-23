@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -25,20 +25,38 @@ const emptyDetailUser = {
   image: ""
 }
 
+const emptyDetailApa = {
+  _id: "",
+  name: "",
+  password:  "",
+  email: "",
+  location:  "",
+  description:  "",
+  cbu_cvu:  "",
+  url:  "",
+  telephone: "",
+  provincia:  "",
+  cuit:  "",
+}
+
 export interface StateType {
   allPets: Pet[]
   allApas: Apa[]
   detail: Pet
   allUsers: User[]
   detailUser: User
+  detailApa: Apa
 
 }
+
+
 
 const initialState: StateType = {
   allPets: [],
   allApas: [],
   allUsers: [],
   detailUser: emptyDetailUser,
+  detailApa: emptyDetailApa,
   detail: emptyDetail
 }
 
@@ -63,6 +81,11 @@ const reducer = (
         ...state,
         allApas: [...state.allApas, action.payload]
       };
+      case GET_APA_DETAIL:
+      return {
+        ...state,
+        detailApa: action.payload
+      }
 
     case GET_APA:
       // Modifica aquí el estado en función del valor del tipo de acción
@@ -70,6 +93,7 @@ const reducer = (
         ...state,
         allApas: action.payload
       };
+
     case POST_USER:
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
