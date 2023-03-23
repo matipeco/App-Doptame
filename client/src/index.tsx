@@ -12,22 +12,22 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const domain = env.DOMAIN;
-const clientId = env.CLIENT_ID;
-
+// const domain = env.DOMAIN;
+// const clientId = env.CLIENT_ID;
+// console.log(domain, clientId)
 
 root.render(
   <Provider store={store}>
-    <Auth0Provider
+    {/* <Auth0Provider
       domain={domain}
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
-    >
+    > */}
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Auth0Provider>
+    {/* </Auth0Provider> */}
   </Provider>
 );
