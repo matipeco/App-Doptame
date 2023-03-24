@@ -1,31 +1,32 @@
 .containerFormLogin {
-    /* width: fit-content; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 85px;
 }
 
 .formLogin {
-    min-width: 200px;
+    min-width: 300px;
     height: auto;
-    min-height: 250px;
-    background-color: bisque;
-    border: 1px solid black;
+    min-height: 300px;
+    background-color: #9ae1e1;
     border-radius: 5px;
-    padding: 10px 20px;
-    /* justify-content: center;
-    align-items: center; */
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
 }
 
-.containerFormLogin h2 {
+.tituloRegistro {
     display: flex;
+    align-self: center;
 }
 
 .parrafosErrorsLogin {
     display: flex;
     font-size: 10px;
+    margin-bottom: 10px;
+    margin-left: 2px;
 }
 
 .labelLogin {
@@ -35,10 +36,12 @@
 }
 
 .linkOlvidasteContraseña {
-    font-size: 15px;
+    font-size: 13px;
     list-style: none;
     color: black;
     text-decoration: underline;
+    align-self: center;
+    margin: 10px 0 5px 0;
 }
 
 .inputLogin {
@@ -46,7 +49,53 @@
     margin-bottom: 5px;
 }
 
+.buttonLogin:enabled:hover {
+    background-color: #E2986C;
+}
+
 .buttonLogin {
+    transition: 300ms ease-in-out;
+    margin: 15px 0 30px 0;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.buttonRegisterContainer {
     display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.buttonRegister {
     margin-top: 15px;
+    align-self: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.linea {
+    position: relative;
+}
+
+.linea::after {
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+    border-bottom: 1px solid whitesmoke;
+    border-radius: 75%;
+    /* o el color que desees */
+}
+
+.noRegister {
+    margin-right: 10px;
+
+
 }

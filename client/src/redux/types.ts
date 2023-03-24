@@ -13,28 +13,29 @@ export interface Pet {
 
 export interface Apa {
   _id?: string
-  name: string
-  password: string
-  email: string
-  location: string
-  description: string
-  cbu_cvu: string
-  url: string
+  name?: string
+  username?: string
+  password?: string
+  email?: string
+  location?: string
+  description?: string
+  cbu_cvu?: string
+  url?: string
   pets?: []
-  telephone: string
-  provincia: string
-  cuit: string
+  telephone?: string
+  provincia?: string
+  cuit?: string
 }
 
 export interface User {
   _id?: string
-  name: string
-  last_name: string
-  username: string
+  name?: string
+  last_name?: string
+  username?: string
   password?: string
-  email: string
-  location: string
-  image: string
+  email?: string
+  location?: string
+  image?: string
   pet?: {}
 }
 

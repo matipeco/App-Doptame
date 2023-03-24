@@ -11,14 +11,12 @@
     color: black;
 }
 
-
 .arrowContainer {
     background-color: transparent;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     align-self: center;
-    font-size: 35px;
-    margin-top: 20px;
+    font-size: 30px;
     transition: 300ms;
     border-radius: 50%;
     cursor: pointer;
@@ -35,18 +33,19 @@
     display: flex;
     flex-direction: column;
     font-weight: 600;
-    margin: 15px;
+    margin-bottom: 25px;
+    margin-right: 10px;
 }
 
 .reactIcon {
     flex-direction: column;
-    font-size: 20px;
+    font-size: 17px;
     display: flex;
     margin-right: 30px;
 }
 
 .iconContainer {
-    margin-left: 20px;
+    margin-left: 30px;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -55,5 +54,4 @@
 .copyright {
     text-align: center;
     padding-top: 5px;
-    padding-bottom: 10px;
 }

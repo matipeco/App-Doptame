@@ -13,10 +13,11 @@ function App() {
 
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
+  const isHomePage = location.pathname === "/login"
 
   return (
     <div className='app'>
-      {!isLandingPage && <NavBar />}
+      {!isLandingPage && !isHomePage && <NavBar />}
 
       <main className='main'>
         <Routes>

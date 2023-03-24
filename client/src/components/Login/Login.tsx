@@ -67,7 +67,7 @@ export const Login = () => {
         <>
             {showLogin && <div className={style.containerFormLogin}>
                 <form onSubmit={handleSubmit} className={style.formLogin}>
-                    <h2>Bienvenidos</h2>
+                    <h2 className={style.tituloRegistro}>Bienvenidos</h2>
                     <label htmlFor="email" className={style.labelLogin}>Email</label>
                     <input
                         className={style.inputLogin}
@@ -97,7 +97,18 @@ export const Login = () => {
 
                     <button className={style.buttonLogin} disabled={!signInData.email || !signInData.password}>Continuar</button>
 
-                    <button type="button" onClick={handleClickRegistro}>¿No estas registrado?</button>
+                    <div className={style.linea}></div>
+
+                    <button>Continuar con Google</button>
+
+                    <div className={style.linea}></div>
+
+
+                    <div className={style.buttonRegisterContainer}>
+                        <p className={style.noRegister}>¿No estás registrado?</p>
+                        <button className={style.buttonRegister} type="button" onClick={handleClickRegistro}>Registrate</button>
+                    </div>
+
                 </form>
             </div>}
 

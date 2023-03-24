@@ -1,46 +1,34 @@
 import React, { useState } from "react";
 import './FormUser.css';
 import img from '../../assets/completo.png'
-import { useDispatch } from "react-redux";
-import { postUser } from "../../redux/actions/actions";
-import { AnyAction } from "redux";
-import { validation } from "../../validation/validation";
+// import { useDispatch } from "react-redux";
+// import { postUser } from "../../redux/actions/actions";
+// import { AnyAction } from "redux";
+import { validationApa } from "../../validation/validationApa";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 function FormUser() {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-
+    // const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [input, setInput] = useState({
-        name: "",
-        last_name: "",
         username: "",
-        password: "",
         email: "",
-        location: "",
-        image: ""
-
-
+        password: "",
     })
+
     const [touched, setTouched] = useState({
-        name: false,
-        last_name: false,
-        password: false,
         username: false,
-        email: false
+        password: false,
+        email: false,
 
     });
+
     const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
         const field = e.target.name;
         setTouched({ ...touched, [field]: true });
     };
-
-
-
-
-
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -50,31 +38,28 @@ function FormUser() {
         }));
     };
 
-
-    const errorsInput = validation(input);
+    const errorsInput = validationApa(input);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
         if (Object.keys(errorsInput).length === 0) {
-            dispatch(postUser(input) as unknown as AnyAction);
-            alert("Usuario creado")
-
-            setInput({
-                name: "",
-                last_name: "",
-                username: "",
-                password: "",
-                email: "",
-                location: "",
-                image: ""
-            })
-            navigate("/home")
+            axios
+                .post("http://localhost:3001/user/auth", input)
+                .then((response) => {
+                    setInput({
+                        username: "",
+                        email: "",
+                        password: "",
+                    });
+                    alert(response.data.message);
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                });
+            navigate('/login')
         }
     }
-
-
 
     return (
         <div className="container">
@@ -85,96 +70,47 @@ function FormUser() {
                 </div>
             </div>
             <div className="containerForm">
-                <form action="" onSubmit={handleSubmit}>
-                    <div className="containerInputs">
-                        <input
-                            onChange={handleInputChange}
-                            type='text'
-                            className="input"
-                            name="name"
-                            onBlur={handleBlur}
+                <form onSubmit={handleSubmit}>
 
-                        />
-                        <label className="label" htmlFor="name">Nombre</label>
-                        {touched.name && errorsInput.name && <p className="error">{errorsInput.name}</p>}
-                    </div>
                     <div className="containerInputs">
                         <input
                             onChange={handleInputChange}
-                            type='text'
-                            className="input"
-                            name="last_name"
-
                             onBlur={handleBlur}
-                        />
-                        <label className="label" htmlFor="username">Apellido</label>
-                        {touched.last_name && errorsInput.last_name && <p className="error">{errorsInput.last_name}</p>}
-                    </div>
-                    <div className="containerInputs">
-                        <input
-                            onChange={handleInputChange}
-                            type='text'
                             className="input"
+                            type='text'
                             name="username"
-                            onBlur={handleBlur}
-
+                            required
                         />
-                        <label className="label" htmlFor="username">Usuario</label>
+                        <label className="label" htmlFor="username">Nombre de usuario</label>
                         {touched.username && errorsInput.username && <p className="error">{errorsInput.username}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
-                            onChange={handleInputChange}
-                            type='text'
                             className="input"
-                            name="password"
                             onBlur={handleBlur}
-
-                        />
-                        <label className="label" htmlFor="password" >Contraseña</label>
-                        {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
-                    </div>
-                    <div className="containerInputs">
-                        <input
                             onChange={handleInputChange}
-                            type='text'
-                            className="input"
+                            type='email'
                             name="email"
-                            onBlur={handleBlur}
-
+                            required
                         />
-                        <label className="label" htmlFor="name">Email</label>
+                        <label className="label" htmlFor="email">Email</label>
                         {touched.email && errorsInput.email && <p className="error">{errorsInput.email}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
-                            onChange={handleInputChange}
-                            type='text'
                             className="input"
-                            name="location"
-
-                        />
-                        <label className="label" htmlFor="name">Localidad</label>
-
-                    </div>
-
-
-                    <div className="containerInputs">
-                        <input
+                            onBlur={handleBlur}
                             onChange={handleInputChange}
-                            className="fil"
-                            type='file'
-                            id='image'
-                            name="image"
-                            accept="image/*"
+                            type='password'
+                            name="password"
                             required
                         />
-                        <label className="tam" htmlFor="image">Imagen</label>
-
-                        {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+                        <label className="label" htmlFor="password">Contraseña</label>
+                        {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
                     </div>
-                    <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
 
+
+                    <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
                 </form>
             </div>
         </div>

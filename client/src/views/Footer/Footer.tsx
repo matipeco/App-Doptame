@@ -12,7 +12,6 @@ const Footer = () => {
   };
 
   return (
-
     <footer className={style.containerFooter}>
       <button className={style.arrowContainer} onClick={scrollToTop}>
         <HiOutlineArrowSmUp />
