@@ -50,13 +50,13 @@ const sendFavoritesEmail = async (userId) => {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.EMAIL_USERNAME,
+        user: process.env.EMAIL_ADMIN,
         pass: process.env.EMAIL_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USERNAME,
+      from: process.env.EMAIL_ADMIN,
       to: user.email,
       subject: "Tus mascotas favoritas",
       text: `Estas son tus mascotas favoritas de AppDoptame: \n\n${petList}`,
