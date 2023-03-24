@@ -157,6 +157,53 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                 <h1>Los datos de este formulario reemplazarán a los Datos Actuales</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
+
+
+                    <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                className="input"
+                                type='text'
+                                name="name"
+                                value={input.name}
+                            />
+                            <label className= "label" htmlFor="name">Nombre:</label>
+                            {errors.name && <p>{errors.name}</p>}
+                        </div>
+
+
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                className="input"
+                                type='text'
+                                name="last_name"
+                                value={input.last_name}
+                            />
+                            <label className= "label" htmlFor="last_name">Apellido:</label>
+                            {errors.last_name && <p>{errors.last_name}</p>}
+                        </div>
+
+
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                className="input"
+                                type='text'
+                                name="username"
+                                value={input.username}
+                            />
+                            <label className= "label" htmlFor="username">Usuario:</label>
+                            {errors.username && <p>{errors.username}</p>}
+                        </div>
+
+
+
+
                         
                         <div className="containerInputs">
                             <input
@@ -216,6 +263,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             <label className="label" htmlFor="location">Localidad:</label>
                             {errors.location && <p className='errors'>{errors.location}</p>}
                         </div>
+
 
                         
                     </div>

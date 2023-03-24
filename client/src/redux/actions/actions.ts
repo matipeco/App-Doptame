@@ -182,7 +182,7 @@ export const putApa = (id: string, payload: Apa) => {
 };
 
 export const putUser = (id: string, payload: User) => {
-  console.log(payload)
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchUser>) => {
     const editUser = await axios.put<User>(`http://localhost:3001/users/${id}`, payload);
     return dispatch({
