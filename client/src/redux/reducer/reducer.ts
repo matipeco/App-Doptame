@@ -23,7 +23,7 @@ const emptyDetailUser = {
   email: "",
   provincia: "",
   location: "",
-  image: ""
+  image: "",
 }
 
 const emptyDetailApa = {

@@ -1,6 +1,6 @@
 import './FormEditUser.css';
 import petCat from '../../assets/perritoFormPet.png'
-import { getDetailUsers, putUser} from "../../redux/actions/actions";
+import { getDetailUsers, putUser, getUsers} from "../../redux/actions/actions";
 import React, { useState, useEffect } from "react";
 import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,34 +36,98 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
     "Tierra del Fuego, Antártida e Islas del Atlántico Sur",
     "Tucumán"]
 
-
-
     const dispatch = useDispatch()
-    // const { userId } = useParams<{ petId: string }>();
+//     // const { userId } = useParams<{ petId: string }>();
     const userId = "64186da70e29db1d20c2003a" //Provisorio, hasta tener la userId por params o props
-
-//Me aseguro de q los details del User esten cargados en el State Global
+    
+    //Me aseguro de q los details del User esten cargados en el State Global
     useEffect (()=>{
         dispatch(getDetailUsers(userId)as unknown as AnyAction)
     },[dispatch])
 
+    
+    
     //Me guardo los details para meterselos al estado local "input"
     let userDetails: User= useSelector((state: StateType) => state.detailUser); 
-// console.log(userDetails)
+    // console.log(userDetails)
+
+    
+
+  
+
+    //   const [input, setInput] = useState({
+    //       name: userDetails.name || '',
+    //       last_name: userDetails.last_name || '',
+    //       username: userDetails.username || '',
+    //       password: userDetails.password || '',
+    //       email: userDetails.email || '',
+    //       provincia: userDetails.provincia || '',
+    //       location: userDetails.location || '',
+    //       image: userDetails.image || '',
+    //   })
+      
+
+      const [input, setInput] = useState({
+        name: userDetails.name,
+        last_name: userDetails.last_name,
+        username: userDetails.username,
+        password: userDetails.password,
+        email: userDetails.email,
+        provincia: userDetails.provincia,
+        location: userDetails.location,
+        image: userDetails.image,
+
+    })
 
 
-    const [input, setInput] = useState({
-        name: '',
-        last_name: '',
-        username: '',
-        password: '',
-        email: '',
-        provincia: '',
-        location: '',
-        image: '',
-})
 
 // console.log(input)
+
+
+
+
+
+
+
+
+
+
+
+
+// // FORMA ME PROPUSO CHAT: Pero no me trae nada de nada
+// ////////////////////////////////////////////
+//     const dispatch = useDispatch();
+//     const userId = "64186da70e29db1d20c2003a";
+//     const userDetails: User = useSelector((state: StateType) => state.detailUser);
+  
+//     const [input, setInput] = useState({
+//       name: userDetails.name || 'CARGANDO',
+//       last_name: userDetails.last_name || '',
+//       username: userDetails.username || '',
+//       password: '',
+//       email: userDetails.email || '',
+//       provincia: userDetails.provincia || '',
+//       location: userDetails.location || '',
+//       image: '',
+//     });
+  
+//     useEffect(() => {
+//       if (Object.keys(userDetails).length) {
+//         setInput((prevInput) => ({
+//           ...prevInput,
+//           name: userDetails.name,
+//           last_name: userDetails.last_name,
+//           username: userDetails.username,
+//           email: userDetails.email,
+//           provincia: userDetails.provincia,
+//           location: userDetails.location,
+//         }));
+//       } else {
+//         dispatch(getDetailUsers(userId) as unknown as AnyAction);
+//       }
+//     }, [dispatch, userDetails, userId]);
+///////////////////////////////
+  
 
 
     const [errors, setErrors] = useState({
@@ -148,7 +212,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                 <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
                 <img src={userDetails.image} alt="imagen de perfil" className='imagenCargada' />
 
-                            
+                        
 
             </div>
 
@@ -171,9 +235,6 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             {errors.name && <p>{errors.name}</p>}
                         </div>
 
-
-
-
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
@@ -186,9 +247,6 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             {errors.last_name && <p>{errors.last_name}</p>}
                         </div>
 
-
-
-
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
@@ -200,10 +258,6 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             <label className= "label" htmlFor="username">Usuario:</label>
                             {errors.username && <p>{errors.username}</p>}
                         </div>
-
-
-
-
                         
                         <div className="containerInputs">
                             <input
@@ -233,22 +287,24 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
 
                     </div>
                     <div className="row">
+                        
                         <div className="containerInputs">
                             <select name="provincia"
-                                onChange={handleInputChange}
-                                >
-                                    <option value="" >Seleccione una Provincia</option>
-                                    {
-                                        provincias.map((p,i)=>{
-                                            return (
-                                                <option value={p} key={i}>{p}</option>
-                                            )
-                                        })
-                                    }
-                            </select>
-                            <label className="tam" htmlFor="provincia">Provincia:</label>
-                            {errors.provincia && <p className='error'>{errors.provincia}</p>}
-                        </div>
+                                   onChange={handleInputChange}  
+                                   >  
+                                     <option value={input.provincia? input.provincia : 'Seleccione una provincia'} >{input.provincia? input.provincia : 'Seleccione una provincia'}</option> 
+                                     <option value="" >Seleccione una Provincia</option> 
+                                    { 
+                                          provincias.map((p,i)=>{  
+                                              return (  
+                                                  <option value={p} key={i}>{p}</option>  
+                                              )  
+                                          })  
+                                      }  
+                              </select>  
+                             <label className="tam" htmlFor="provincia">Provincia:</label> 
+                             {errors.provincia && <p className='error'>{errors.provincia}</p>} 
+                         </div> 
 
 
 
@@ -265,37 +321,34 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                         </div>
 
 
-                        
-                    </div>
-                    
-                    {/* <div className="row">
-
-                        <div className="containerInputs">
+                    <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
-                                // className="fil"
-                                // type='file'
-                                type='text'
                                 className="input"
-                                id='image'
+                                type='text'
                                 name="image"
-                                // value={input.image}
-                                // accept="image/*"
-                                
+                                value={input.image}
                             />
-                            <label className="tam" htmlFor="image">Imagen</label>
+                            <label className= "label" htmlFor="image">Foto de Perfil:</label>
+                            {errors.image && <p>{errors.image}</p>}
+                        </div>
+                        
+                    </div>
 
-                            {errors.image && <p className='error'>{errors.image}</p>}
-                        </div> */}
+
+                    
+                     <div className="row">
+
+                        
 
                         <button type="submit" disabled={handleDisabledButton()}>Guardar Moficicaciones Hechas</button>
                       
-                    {/* </div> */}
+                    </div>
                 </form>
             </div>
 
             <div className="containerTitle">
-                <h1>Editar APA</h1>
+                <h1>Editar Datos de Usuario</h1>
                 <img className="imgPerrito" src={petCat} alt="foto perrito" />
             </div>
 

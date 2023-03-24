@@ -59,14 +59,14 @@ console.log(petDetails)
 
 
     const [errors, setErrors] = useState({
-        name:'Ingrese un Nombre',
+        name:'Al menos 3 letras',
         description: 'Ingrese una Descripción',
         image:'Cargue una imagen',
         size:'Seleccione un Tamaño',
         type:'Seleccione un Tipo de Mascota',
         adoption:'Buscando Hogar: Seleccione una opción',
         status:'Mascota Publicada: Seleccione una opción',
-        age:'Ingrese una Edad'
+        age:'Ingrese una número'
     })
 // console.log(input)
 

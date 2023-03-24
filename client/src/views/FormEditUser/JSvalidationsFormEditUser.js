@@ -6,10 +6,11 @@ const last_nameRegex=/^[a-zA-Z]{3,}$/ //al menos 3 letras, sin numeros
 const validate = (input)=>{
     let errors={}
     if(!input.name||nameRegex.test(input.email)===false){
+    // if(!input.name){
         errors.name='Ingrese su Nombre'
     }
 
-    if(!input.last_name||last_nameRegex.test(input.email)===false){
+    if(!input.last_name||last_nameRegex.test(input.last_name)===false){
         errors.last_name='Ingrese su Apellido'
     }
 
@@ -17,7 +18,7 @@ const validate = (input)=>{
         errors.username='Ingrese su Nuevo Usuario'
     }
     
-    if(!input.password ||passwordRegex.test(input.email)===false){
+    if(!input.password ||passwordRegex.test(input.password)===false){
         errors.password='Ingrese al menos 8 caracreres'
     }
     if(!input.email||emailRegex.test(input.email)===false){

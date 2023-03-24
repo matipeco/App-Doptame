@@ -1,14 +1,17 @@
+const nameRegex=/^[a-zA-Z]{3,}$/ //al menos 3 letras, sin numeros
+const ageRegex=/^\d+$/ //al menos 1 numero, sin letras ni espacios
+const descriptionRegex=/^[a-zA-Z]{10,}$/ //al menos 10 letras
 
 
 const validate = (input)=>{
     let errors={}
-    if(!input.name){
+    if(!input.name||nameRegex.test(input.name)===false){
         errors.name='Ingrese un Nombre'
 
-    }if(!input.age){
-        errors.age='Ingrese una Edad'
+    }if(!input.age||ageRegex.test(input.age)===false){
+        errors.age='Ingrese una número'
 
-    }if(!input.description){
+    }if(!input.description||descriptionRegex.test(input.description)===false){
         errors.description='Ingrese una Descripción'
 
     }if(!input.image){
