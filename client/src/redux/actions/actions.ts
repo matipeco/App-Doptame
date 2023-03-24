@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL } from "./actionsTypes";
-import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL } from "./actionsTypes";import { Dispatch } from "react";
 
 
 
@@ -36,7 +35,10 @@ type dispatchDetailUser = {
   type: string
   payload: User
 }
-
+interface filtros {
+  type: string;
+  payload: string;
+}
 
 
 
@@ -157,3 +159,18 @@ export const getDetailUsers = (id: string) => {
 
   };
 };
+
+export const OrderByAge=(payload: string): filtros => {
+  return {
+    type: ORDER_BY_AGE,
+      payload: payload 
+    }
+
+}
+
+export const FilteredBySize=(payload: string): filtros =>{
+  return{
+    type: FILTER_BY_SIZE,
+    payload: payload
+  }
+}
