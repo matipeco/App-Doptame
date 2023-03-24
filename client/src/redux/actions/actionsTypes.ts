@@ -8,3 +8,7 @@ export const PET_DETAIL = "PET_DETAIL";
 export const GET_USER = "GET_USER"
 export const POST_USER = "POST_USER"
 export const GET_DETAIL_USERS = "GET_DETAIL_USERS"
+export const ORDER_BY_AGE = "ORDER_BY_AGE"
+export const FILTER_BY_SIZE = "FILTER_BY_SIZE"
+export const FILTER_BY_LOCATION = "FILTER_BY_LOCATION"
+export const GET_LOCATIONS = "GET_LOCATIONS"

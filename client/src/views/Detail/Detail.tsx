@@ -23,6 +23,7 @@ export const Detail = () => {
       <article className={style.card}>
         <img src={pet?.image} alt={pet?.name} />
         <h2>{pet?.name}</h2>
+        <p>{pet?.age}</p>
         <p>{pet?.size}</p>
         <p>{pet?.description}</p>
         <button>Adoptame</button>

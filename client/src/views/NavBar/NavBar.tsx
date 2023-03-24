@@ -3,7 +3,6 @@ import { FiAlignJustify } from 'react-icons/fi'
 import imgLogo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
-import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 
 function NavBar() {

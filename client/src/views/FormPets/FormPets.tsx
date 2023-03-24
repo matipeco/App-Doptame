@@ -71,12 +71,13 @@ function FormPets() {
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
-                                type='text'
+                                type='number'
+                                min="0"
                                 className="input"
                                 name="age"
                                 required
                             />
-                            <label className="label" htmlFor="name">Edad</label>
+                            <label className="label" htmlFor="name">Edad (años), si es menor a 1 colocar 0</label>
                             {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
                         </div>
                         <div className="containerInputs">

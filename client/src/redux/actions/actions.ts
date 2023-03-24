@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS } from "./actionsTypes";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, GET_LOCATIONS } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -38,6 +38,16 @@ type dispatchDetailUser = {
 }
 
 
+interface filtros {
+  type: string;
+  payload: string;
+}
+
+
+// type dispatchLocation = {
+//   type: string
+//   payload: string[] // array de strings que representan las locations
+// }
 
 
 export const getApas = () => {
@@ -143,3 +153,38 @@ export const getDetailUsers = (id: string) => {
 
   };
 };
+
+export const OrderByAge=(age: string): filtros => {
+  return {
+    type: ORDER_BY_AGE,
+      payload: age 
+    }
+
+}
+
+export const FilteredBySize=(size: string): filtros =>{
+  return{
+    type: FILTER_BY_SIZE,
+    payload: size
+  }
+}
+
+// export const getLocations = () => {
+//   return async (dispatch: Dispatch<dispatchLocation>) => {
+//     const response = await axios.get<Apa[]>("http://localhost:3001/apa");
+
+//     const locations = response.data.map((apa) => apa.location);
+
+//     return dispatch({
+//       type: GET_LOCATIONS,
+//       payload: locations
+//     });
+//   };
+// };
+
+// export const FilterByLocation=(payload: string): filtro =>{
+//   return {
+//     type: FILTER_BY_LOCATION,
+//     payload: payload
+//   }
+// }

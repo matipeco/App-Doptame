@@ -1,4 +1,5 @@
 export interface Pet {
+  [x: string]: any
   _id?: string
   name: string
   age: number
