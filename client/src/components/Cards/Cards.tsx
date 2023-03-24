@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet } from '../../redux/types'
 import { useEffect, useState } from 'react'
-import { getPets, OrderByAge, FilteredBySize, } from '../../redux/actions/actions'
+import { getPets, OrderByAge, FilteredBySize,FilterByLocation } from '../../redux/actions/actions'
 import { AnyAction } from 'redux'
-import { useParams } from 'react-router-dom'
+import { Route, useParams } from 'react-router-dom'
 import PaginationControlled from '../Pagination/Pagination'
 
 export const Cards = () => {
-  const { allPets } = useSelector((state: StateType) => state);
+  const { allPets, petsFilter } = useSelector((state: StateType) => state);
+  console.log(petsFilter)
   const { category } = useParams();
 
   const dispatch = useDispatch();
@@ -38,19 +39,18 @@ export const Cards = () => {
     setOrden (`Ordenado ${e.target.value}`)
   }
 
-  // const HandlerFilteredlocation: React.ChangeEventHandler<HTMLSelectElement> = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-  //   e.preventDefault();
-  //   dispatch(FilterByLocation(e.target.value))
-  //   setCurrentPage(1);
-  // }
+  const HandlerFilteredLocation: React.ChangeEventHandler<HTMLSelectElement> = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    e.preventDefault();
+    const location = e.target.value;
+    dispatch(FilterByLocation(location))
+    setCurrentPage(1);
+    setOrden (`Ordenado ${e.target.value}`)
+  }
 
   useEffect(() => {
     dispatch(getPets() as unknown as AnyAction)
   }, [dispatch])
 
-  // useEffect(() => {
-  //   dispatch(getLocations() as unknown as AnyAction);
-  // }, [dispatch]);
 
 
   const filteredPets = allPets.filter((pet: Pet) => pet.type === category);
@@ -73,32 +73,37 @@ export const Cards = () => {
     <option value="desc">Mayor</option>
     </select>
 
-    <select value="" onChange={e=>HandlerFilteredSize(e)}>
-      <option value="" disabled>(Seleccionar por tamaño)</option>
-      <option value="chico">Pequeños</option>
-      <option value="mediano">Mediano</option>
-      <option value="grande">Grande</option>
-    </select>
+    {window.location.pathname !== "/pets/gato" && (
+      <select value="" onChange={e => HandlerFilteredSize(e)}>
+        <option value="" disabled>(Seleccionar por tamaño)</option>
+        <option value="chico">Pequeños</option>
+        <option value="mediano">Mediano</option>
+        <option value="grande">Grande</option>
+      </select>
+    )}
 
+    <select onChange={HandlerFilteredLocation}>
+      <option value="Parana">Parana</option>
+      <option value="Godoy Cruz, Mendoza">Godoy Cruz, Mendoza</option>
+      <option value="Cordoba">Cordoba</option>
+    </select>
     {/* <label>
               <select
-                value=""
-                onChange={HandlerFilteredlocation}
+                onChange={HandlerFilteredLocation}
               >
                 <option value="" disabled>
                   Filter b/Location
                 </option>
                 <option value="All">Todas las localidades</option>
-                {location &&
-                  location?.map((t) => {
+                {  petsFilter.map((t) => {
                     return (
-                      <option>
-                        {t.location}
+                      <option value={t.apa?.location}>
+                        {t.apa?.location}
                       </option>
                     );
                   })}
               </select>
-      </label> */}
+      </label>  */}
 
       <div>
         {currentItems.map((pet: Pet) => (

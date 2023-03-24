@@ -7,7 +7,10 @@ export interface Pet {
   image: string
   adoption: boolean
   status: boolean
-  apa?: string
+  apa?: {
+  location: string,
+  provincia: string,
+  }
   description: string
 }
 

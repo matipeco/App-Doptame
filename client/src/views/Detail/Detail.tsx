@@ -24,6 +24,7 @@ export const Detail = () => {
         <img src={pet?.image} alt={pet?.name} />
         <h2>{pet?.name}</h2>
         <p>{pet?.size}</p>
+        <p>{pet?.age}</p>
         <p>{pet?.description}</p>
         <button>Adoptame</button>
       </article>

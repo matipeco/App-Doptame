@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const petSchema = new Schema(
   {
     name: { type: String, required: true },
-    age: { type: String, required: true },
+    age: { type: Number, required: true },
     size: {
       type: String,
 

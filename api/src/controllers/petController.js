@@ -5,7 +5,7 @@ const Apa= require('../models/Apa');
 
 const getAllPets= async (req,res)=>{
     try {
-        const allPets= await Pet.find({});
+        const allPets= await Pet.find({}).populate('apa');
         res.status(200).json(allPets);   
     } catch (error) {
         res.status(400).json(error)

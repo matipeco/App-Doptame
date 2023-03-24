@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -6,7 +6,10 @@ const emptyDetail = {
   _id: "",
   adoption: false,
   age: 0,
-  apa: "",
+  apa: {
+    location: "",
+    provincia: "",
+    },
   image: "",
   name: "",
   size: "",
@@ -47,7 +50,6 @@ export interface StateType {
   detailUser: User
   detailApa: Apa
   petsFilter: Pet[]
-
 }
 
 
@@ -59,7 +61,8 @@ const initialState: StateType = {
   detailUser: emptyDetailUser,
   detailApa: emptyDetailApa,
   detail: emptyDetail,
-  petsFilter:[]
+  petsFilter: [],
+
 }
 
 
@@ -93,7 +96,7 @@ const reducer = (
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
         ...state,
-        allApas: action.payload
+        allApas: action.payload,
       };
 
     case POST_USER:
@@ -145,6 +148,7 @@ const reducer = (
       }
 
       case ORDER_BY_AGE: 
+
       const sortedPets = action.payload === 'asc'
       ? state.petsFilter.sort(function(a,b){
           if(a.age > b.age){
@@ -164,7 +168,7 @@ const reducer = (
           }
           return 0; 
       })
-  
+     
       return {
         ...state,
         allPets: sortedPets,
@@ -178,6 +182,18 @@ const reducer = (
           ...state,
           allPets: createdFiltered
         }
+
+        case FILTER_BY_LOCATION:
+
+    const selectedLocation = action.payload === 'Parana'
+    ? state.petsFilter.filter(el=>el.apa?.location.includes(action.payload))
+    : state.petsFilter.filter(el=>el.apa?.location.includes(action.payload))
+
+    return {
+         ...state,
+         allPets: selectedLocation,
+    };
+
     default:
       return state;
   }
