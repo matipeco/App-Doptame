@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA } from "./actionsTypes";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA, EDIT_USER } from "./actionsTypes";
 import { Dispatch } from "react";
 
 
@@ -177,6 +177,17 @@ export const putApa = (id: string, payload: Apa) => {
     return dispatch({
       type: EDIT_APA,
       payload: editApa.data
+    });
+  };
+};
+
+export const putUser = (id: string, payload: User) => {
+  console.log(payload)
+  return async (dispatch: Dispatch<dispatchUser>) => {
+    const editUser = await axios.put<User>(`http://localhost:3001/users/${id}`, payload);
+    return dispatch({
+      type: EDIT_USER,
+      payload: editUser.data
     });
   };
 };

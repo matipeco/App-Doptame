@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA, EDIT_USER } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -21,6 +21,7 @@ const emptyDetailUser = {
   username: "",
   last_name: "",
   email: "",
+  provincia: "",
   location: "",
   image: ""
 }
@@ -141,8 +142,12 @@ const reducer = (
           return {
             ...state,
           };
-      
 
+          case EDIT_USER:
+            return {
+              ...state,
+            };
+      
     case GET_PETS:
       return {
         ...state,

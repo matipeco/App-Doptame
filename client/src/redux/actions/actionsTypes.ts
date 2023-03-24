@@ -11,3 +11,4 @@ export const POST_USER = "POST_USER"
 export const GET_DETAIL_USERS = "GET_DETAIL_USERS"
 export const EDIT_PET = 'EDIT_PET'
 export const EDIT_APA = 'EDIT_APA'
+export const EDIT_USER = 'EDIT_USER'

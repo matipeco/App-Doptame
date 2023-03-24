@@ -33,6 +33,7 @@ export interface User {
   username: string
   password?: string
   email: string
+  provincia: string
   location: string
   image: string
   pet?: {}
