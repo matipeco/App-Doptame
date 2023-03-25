@@ -1,6 +1,6 @@
-const nameRegex=/^[a-zA-Z]{3,}$/ //al menos 3 letras, sin numeros
+const nameRegex=/^(?=.*[a-zA-Z]{2})[\w\s\S]*$/ //comienza con 2 letras, puede tener espacios, numeros y caracteres epeciales
 const ageRegex=/^\d+$/ //al menos 1 numero, sin letras ni espacios
-const descriptionRegex=/^[a-zA-Z]{10,}$/ //al menos 10 letras
+const descriptionRegex=/^(?=.*[a-zA-Z]{2})[\w\s\S]{10,}$/ // empiece al con 2 letras, puede tener numeros y caracteres especiales, minimo 10 caracteres
 
 
 const validate = (input)=>{
@@ -32,32 +32,5 @@ const validate = (input)=>{
     return errors;
 }
 
-
-
-// const validate = (input)=>{
-//     let errors={}
-//     if(!input.name){
-//         errors.name='Debe ingresa un nombre'
-
-//     }if(!input.description){
-//         errors.description='Debe ingresa una descripción'
-
-//     }if(!input.image){
-//         errors.image='Debe subir una imagen'
-
-//     }if(!input.size){
-//         errors.size='Debe seleccionar un tamaño'
-        
-//     }if(!input.type){
-//         errors.type='Debe seleccionar un tipo de mascota'
-
-//     }if(!input.adoption){
-//         errors.adoption='Debe seleccionar una opción'
-
-//     }if(!input.status){
-//         errors.status='Debe seleccionar una opción'
-//     }
-//     return errors;
-// }
 
 export default validate;

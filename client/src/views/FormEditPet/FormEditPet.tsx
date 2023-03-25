@@ -87,10 +87,6 @@ console.log(petDetails)
     };
 
 
-//QUIERO Q EL PAYLOAD Q MANDE SEA: EL PET VIEJO, ACTUALIZANDO SOLO LAS PROPIEDADES EN LAS Q SE HAYAN HECHO CAMBIOS (NO ESTEN VACIAS)
-
-
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // const editedPet= {
@@ -125,7 +121,7 @@ console.log(petDetails)
                 <label className='labelCurrentInfo' htmlFor="name">Nombre:</label>
                 <h5>{petDetails.name}</h5>
 
-                <label className='labelCurrentInfo' htmlFor="age">Edad:</label>
+                <label className='labelCurrentInfo' htmlFor="age">Edad (años):</label>
                 <h5>{petDetails.age}</h5>
 
                 <label className='labelCurrentInfo' htmlFor="description">Descripción:</label>
@@ -174,7 +170,7 @@ console.log(petDetails)
                                 name="age"
                                 value={input.age}
                             />
-                            <label className="label" htmlFor="age">Edad</label>
+                            <label className="label" htmlFor="age">Edad (años)</label>
                             {errors.age && <p className='errors'>{errors.age}</p>}
                         </div>
                         <div className="containerInputs">
@@ -219,7 +215,7 @@ console.log(petDetails)
                             <select name="status"
                                 onChange={handleInputChange}
                                 >
-                                <option value="" >Seleccione una opicón</option>
+                                <option value="">Seleccione una opicón</option>
                                 <option value="true">Sí</option>
                                 <option value="false">No</option>
                             </select>
