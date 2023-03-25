@@ -37,6 +37,8 @@ export interface User {
   location?: string
   image?: string
   pet?: {}
+  token?: string
+  resetPasswordKey?: string
 }
 
 
@@ -78,6 +80,9 @@ export type errorsInput = {
   size?: string
   type?: string
 };
+
+
+
 
 
 

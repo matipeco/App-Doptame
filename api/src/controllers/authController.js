@@ -1,14 +1,20 @@
 const User = require("../models/User");
+const Role = require("../models/Roles");
 const authController = require("express").Router();
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
+const config = require("../../config");
+// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+const crypto = require("crypto");
+// const { OAuth2Client } = require("google-auth-library");
+// const CLIENT_ID = process.env.GOOGLE_ID_CLIENT;
+// const CLIET_SECRET = process.env.CLIENT_SECRET;
+
 require("dotenv").config();
 
-const signIn = async (req, res) => {
-  res.json("hola");
-};
-
 const signUp = async (req, res) => {
-  const { name, email, password, username } = req.body;
+  const { name, email, password, username, role } = req.body;
 
   // Buscar si el nombre de usuario ya existe
   const existingUser = await User.findOne({ username });
@@ -34,13 +40,26 @@ const signUp = async (req, res) => {
     password: await User.encryptPassword(password),
   });
 
+  if (role) {
+    const foundRole = await Role.find({ name: { $in: role } }); // de todos los que terngo guardado, se busca el role que me mande el user.
+    newUser.role = foundRole.map((role) => role._id); // mapeo los roles // se guarda
+  } else {
+    //si no ingresa role, le mando el que le asigno por default
+    const rol = await Role.findOne({ name: "user" }); // busco el rol asignado
+    newUser.role = [rol._id]; //  le asigno el id del rol .
+  }
+
   // Enviar correo electrónico de verificación
   await sendVerificationEmail(newUser.email, newUser.name);
 
   // Guardar usuario en la base de datos
-  await newUser.save();
+  const savedUser = await newUser.save(); // save nuevo usuario
+  console.log(savedUser);
+  const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
+    expiresIn: 86400, //24 hs
+  });
 
-  res.status(201).json({ message: "User created successfully" });
+  res.status(201).json({ token });
 };
 
 const sendVerificationEmail = async (email, name) => {
@@ -64,4 +83,129 @@ const sendVerificationEmail = async (email, name) => {
   await transporter.sendMail(mailOptions);
 };
 
-module.exports = { signIn, signUp };
+const signIn = async (req, res) => {
+  const { email, password } = req.body;
+  const userFound = await User.findOne({ email }).populate("role");
+  if (!userFound)
+    return res.status(400).json({ message: "Usuario no encontrado" });
+  // console.log(userFound);
+
+  // console.log("password: ", password);
+  // console.log("userFound.password: ", userFound.password);
+  const matchedPassword = await User.comparePassword(
+    password,
+    userFound.password
+  );
+  console.log("matchedPassword: ", matchedPassword);
+
+  if (matchedPassword) {
+    const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+      expiresIn: 86400, //24 hs
+    });
+    localStorage.setItem("token", token); //
+    res.json({ token });
+  } else {
+    return res
+      .status(401)
+      .json({ token: null, message: "contraseña invalida" });
+  }
+};
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  console.log(
+    `Email del usuario que solicitó restablecer contraseña: ${email}`
+  );
+
+  const user = await User.findOne({ email });
+  console.log(`Usuario encontrado: ${user}`);
+
+  if (!user) {
+    console.log("Usuario no encontrado");
+    return res.status(404).json({ message: "Usuario no encontrado" });
+  }
+
+  // Generar una clave aleatoria para restablecer la contraseña y guardarla en la base de datos
+  const resetKey = crypto.randomBytes(6).toString("hex");
+  user.resetPasswordKey = resetKey;
+  user.resetPasswordExpires = Date.now() + 3600000; // La expiración es en 1 hora
+  await user.save();
+
+  // Enviar correo electrónico con las instrucciones para restablecer la contraseña
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_ADMIN,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_ADMIN,
+    to: email,
+    subject: "Restablecer contraseña",
+    html: `<h1>Restablecer contraseña</h1>
+          <p>Para restablecer su contraseña, use la siguiente clave:</p>
+          <p>${resetKey}</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  console.log("Correo electrónico enviado");
+  res.json({
+    message:
+      "Se ha enviado un correo electrónico con una clave de restablecimiento.",
+    resetKey: resetKey,
+  });
+};
+
+const resetPasswordWithEmail = async (req, res) => {
+  const { email, resetPasswordKey, password } = req.body;
+  console.log(
+    `Email del usuario que desea restablecer su contraseña: ${email}`
+  );
+  console.log(
+    `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
+  );
+
+  try {
+    // Buscar el usuario por el correo electrónico
+    const user = await User.findOne({ email });
+
+    console.log(`Usuario encontrado: ${user}`);
+
+    if (!user || user.resetPasswordKey !== resetPasswordKey) {
+      console.log("Clave de restablecimiento inválida o expirada");
+      return res
+        .status(400)
+        .json({ message: "Clave de restablecimiento inválida o expirada" });
+    }
+
+    // Actualizar la contraseña y eliminar la clave de restablecimiento de contraseña
+    user.password = password;
+    user.resetPasswordKey = undefined;
+    await user.save();
+
+    console.log("Contraseña actualizada");
+    res.json({ message: "La contraseña se ha restablecido correctamente." });
+  } catch (err) {
+    console.error(`Error al buscar usuario: ${err}`);
+    return res.status(500).json({ message: "Error al buscar usuario" });
+  }
+};
+
+const googleInHandler = async (req, res) => {
+  //obtener el cosido de qs
+  const code = req.query.code;
+
+  // obtener id y token con el cosigo
+  //obtener user con tokens
+  //upsert user
+};
+
+module.exports = {
+  signIn,
+  signUp,
+  forgotPassword,
+  resetPasswordWithEmail,
+};

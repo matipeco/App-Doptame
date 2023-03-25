@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -14,10 +13,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <Provider store={store}>
- 
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-   
+
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+
   </Provider>
 );
