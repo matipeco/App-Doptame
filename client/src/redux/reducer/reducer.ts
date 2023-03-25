@@ -145,35 +145,25 @@ const reducer = (
       }
 
       case ORDER_BY_AGE: 
-      const sortedPets = action.payload === 'asc'
-      ? state.petsFilter.sort(function(a,b){
-          if(a.age > b.age){
-              return 1;
-          }
-          if (b.age > a.age){
-              return -1;
-          }
-          return 0;
+      const isAsc = action.payload;
+      const sortByAge = state.petsFilter.sort((a , b) => {
+        const numA = a.age
+        const numB = b.age
+        if(isAsc === 'asc'){
+          return numA > numB ? 1 : numA < numB ? -1 : 0;
+        }else{
+          return numA < numB ? 1 : numA > numB ? -1 : 0;
+        }
       })
-      : state.petsFilter.sort(function(a,b){
-          if(a.age > b.age){
-              return -1;
-          }
-          if(b.age > a.age){
-              return 1;
-          }
-          return 0; 
-      })
+      
   
       return {
         ...state,
-        allPets: sortedPets,
+        allPets: sortByAge,
       }
   
       case FILTER_BY_SIZE:  
-        const createdFiltered = action.payload === 'mediano'
-        ? state.petsFilter.filter(el=>el.size.includes(action.payload))
-        : state.petsFilter.filter(el=>el.size.includes(action.payload))
+        const createdFiltered = state.petsFilter.filter((el: Pet) => el.size === action.payload)
         return {
           ...state,
           allPets: createdFiltered

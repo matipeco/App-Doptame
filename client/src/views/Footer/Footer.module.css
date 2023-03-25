@@ -1,12 +1,11 @@
 .containerFooter {
-
+    bottom: 0;
+    left: 0;
+    width: 100%;
     background-color: #E2986C;
     min-height: 90px;
-    width: 100%;
     transition: 300ms ease-in-out;
     color: black;
-    margin-top: 25px;
-
 }
 
 .containerFooter:hover {
