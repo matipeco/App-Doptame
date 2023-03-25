@@ -6,6 +6,8 @@ import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
+import UserPassword from './components/RestorePasswordUser/UserPassword';
+
 
 
 function App() {
@@ -41,7 +43,11 @@ function App() {
 
       {!isLandingPage && <Footer />}
     </div>
-  );
+
+
+  )
 }
+
+
 
 export default App;

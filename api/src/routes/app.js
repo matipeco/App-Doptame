@@ -1,13 +1,14 @@
 const express = require("express");
-
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
 const mainRouter = require("../routes");
+const createrRole = require("../libs/initialSetup");
 
 //middlewares
-app.use(morgan("dev"));
+createrRole();
 
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 app.use(mainRouter);
