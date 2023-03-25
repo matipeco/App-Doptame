@@ -39,6 +39,11 @@ export const validation = (input: InputData) => {
         errors.email = "el email ingresado es inválido"
     }
 
+    if(!input.description){
+        errors.description = "ingresa una breve descripcion"
+    }else if(input.description.length > 140){
+        errors.description = "descripcion debe ser menor a 140 caracteres"
+    }
     
     return errors;
 };
