@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Apa} from "../../redux/types"
 import validate from './JSvalidationsFormEditApa';
-// import { useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 
 function FormEditApa() { //Podemos hacer q reciba la apaId por props o por params.
@@ -37,10 +37,9 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     "Tucumán"]
 
 
-
     const dispatch = useDispatch()
-    // const { apaId } = useParams<{ petId: string }>();
-    const apaId = "6413a3b26f405e54c5c7399f" //Provisorio, hasta tener la apaId por params o props
+    const { apaId } = useParams<{ apaId: any }>()
+
 
 //Me aseguro de q los details de la APA esten cargados en el State Global
     useEffect (()=>{

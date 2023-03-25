@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { User} from "../../redux/types"
 import validate from './JSvalidationsFormEditUser';
-// import { useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 
 function FormEditUser() { //Podemos hacer q reciba la userId por props o por params.
@@ -37,8 +37,8 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
     "Tucumán"]
 
     const dispatch = useDispatch()
-//     // const { userId } = useParams<{ petId: string }>();
-    const userId = "64186da70e29db1d20c2003a" //Provisorio, hasta tener la userId por params o props
+    const { userId } = useParams<{ userId: any }>();
+
     
     //Me aseguro de q los details del User esten cargados en el State Global
     useEffect (()=>{

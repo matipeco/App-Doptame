@@ -7,18 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet} from "../../redux/types"
 import validate from './JSvalidationsFormEditPet';
-
-// import { useParams} from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+import { AnyAaaaRecord } from 'dns';
 
 
 function FormEditPet() { //Podemos hacer q reciba la petId por props o por params.
 
-
-
-
     const dispatch = useDispatch()
-    // const { petId } = useParams<{ petId: string }>();
-    const petId = "64147391609d26ab82537579" //Provisorio, hasta tener la petId por params o props
+    const { petId } = useParams<{ petId: any }>();
+
 
 //Me aseguro de q los details de la pet y allPets esten cargados en el State Global
     useEffect (()=>{

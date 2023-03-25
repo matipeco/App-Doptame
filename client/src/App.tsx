@@ -31,9 +31,9 @@ function App() {
         <Route path="/aboutUs" element={<AboutUs />}></Route>
         <Route path="/formApa" element={<FormApa />}></Route>
         <Route path="/formPet" element={<FormPets />}></Route>
-        <Route path="/formEditPet" element={<FormEditPet />}></Route>
-        <Route path="/formEditApa" element={<FormEditApa />}></Route>
-        <Route path="/formEditUser" element={<FormEditUser />}></Route>
+        <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
+        <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
+        <Route path="/formEditUser/:userId" element={<FormEditUser />}></Route>
         <Route path='/pets/:category' element={<Cards/>}></Route>
         <Route path='/formUser' element={<FormUser/>}></Route>
 
