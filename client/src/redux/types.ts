@@ -36,6 +36,8 @@ export interface User {
   location: string
   image: string
   pet?: {}
+  token?: string
+  resetPasswordKey?: string
 }
 
 
@@ -52,6 +54,7 @@ export interface InputData {
   cuit?: string
   telephone?: string
   provincia?: string
+  passwordLogin?: string
 }
 
 export type errorsInput = {
@@ -67,8 +70,12 @@ export type errorsInput = {
   cuit?: string
   provincia?: string
   telephone?: string
+  passwordLogin?: string
 
 };
+
+
+
 
 
 

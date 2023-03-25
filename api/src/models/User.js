@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypr = require("bcryptjs");
+const bcrypt = require("bcryptjs");
+// const crypto = require("crypto");
 
 const userSchema = new Schema(
   {
@@ -11,8 +12,10 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true },
     location: { type: String },
     image: { type: String },
+    resetPasswordKey: { type: String },
+    resetPasswordExpires: { type: Date },
     favorites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
-    roles: [
+    role: [
       {
         ref: "Role",
         type: Schema.Types.ObjectId,
@@ -26,13 +29,18 @@ const userSchema = new Schema(
 );
 
 userSchema.statics.encryptPassword = async (password) => {
-  const salt = await bcrypr.genSalt(10);
-  return await bcrypr.hash(password, salt);
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
 };
 
 userSchema.statics.comparePassword = async (password, receivedPassword) => {
-  await bcrypr.compare(password, receivedPassword);
+  return await bcrypt.compare(password, receivedPassword);
 };
+
+// userSchema.statics.generateResetToken = async function () {
+//   const token = crypto.randomBytes(20).toString("hex");
+//   return token;
+// };
 
 const User = mongoose.model("User", userSchema);
 

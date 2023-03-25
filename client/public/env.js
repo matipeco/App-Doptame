@@ -1,4 +1,4 @@
 window.env = {
-  "DOMAIN": "dev-ahz03bwlw602qry1.us.auth0.com",
-  "CLIENT_ID": "WCl3I7Km9Uxp2rZXKWWgOegSjPxRKuN0"
+  DOMAIN: "dev-3zcjn0o7bvj5zwvz.us.auth0.com",
+  CLIENT_ID: "yvTZdghDSOsKVFiBvgF1he6OsOHzJrP9",
 };
