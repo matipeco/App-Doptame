@@ -2,20 +2,22 @@ const cbuRegex= /^\d{22}$/ //22 numeros
 const cuitRegex=/^\d{11}$/ //11 numeros
 const telephoneRegex=/^[0-9]+$/ //solo numeros
 const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/ //formato de mail
-const passwordRegex=/^\S{8,}$/ //al menos 8 caracteres, sin espacios
-const nameRegex=/^[a-zA-Z]{3,}$/ //al menos 3 letras, sin numeros
-const descriptionRegex=/^[a-zA-Z]{10,}$/ //al menos 3 letras
+// const passwordRegex=/^\S{8,}$/ //al menos 8 caracteres, sin espacios
+const nameRegex=/^(?=.*[a-zA-Z]{2})[\w\s\S]*$/ //comienza con 2 letras, puede tener espacios, numeros y caracteres epeciales
+const descriptionRegex=/^(?=.*[a-zA-Z]{2})[\w\s\S]{10,}$/ // empiece al con 2 letras, puede tener numeros y caracteres especiales, minimo 10 caracteres
 
 
 const validate = (input)=>{
     let errors={}
-    if(!input.name||nameRegex.test(input.email)===false){
+    if(!input.name||nameRegex.test(input.name)===false){
         errors.name='Ingrese un Nombre'
+    }
 
-    }if(!input.password ||passwordRegex.test(input.password)===false){
-        errors.password='Al menos 8 caracteres'
+    // if(!input.password ||passwordRegex.test(input.password)===false){
+    //     errors.password='Al menos 8 caracteres'
+    // }
 
-    }if(!input.description ||descriptionRegex.test(input.description)===false){
+    if(!input.description ||descriptionRegex.test(input.description)===false){
         errors.description='Ingrese una Descripción'
     }
     // if(!input.image){

@@ -54,7 +54,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
 
     const [input, setInput] = useState({
     name: "",
-    password: "",
+    // password: "",
     email: "",
     description: "",
     provincia: "",
@@ -86,7 +86,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
 
     const [errors, setErrors] = useState({
         name:'',
-        password:'',
+        // password:'',
         email:'',
         description:'',
         provincia:'',
@@ -136,7 +136,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     const handleDisabledButton = ()=>{
         if(Object.values(input)[0]==="") {
             return true;
-        }else if (Object.keys(errors).length>0) {
+        }else if (Object.keys(errors).length>1) {
             return true
         } else{
             return false;
@@ -218,17 +218,6 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
-                                type='password'
-                                className="input"
-                                name="password"                         
-                                value={input.password}
-                            />
-                            <label className="label" htmlFor="password">Contraseña:</label>
-                            {errors.password && <p className='errors'>{errors.password}</p>}
-                        </div>
-                        <div className="containerInputs">
-                            <input
-                                onChange={handleInputChange}
                                 type='text'
                                 className="input"
                                 name="description"
@@ -237,10 +226,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                             <label className="label" htmlFor="descripcion">Descripción:</label>
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
-                        
 
-                    </div>
-                    <div className="row">
                         <div className="containerInputs">
                             <select name="provincia"
                                 onChange={handleInputChange}
@@ -260,7 +246,26 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
 
 
 
-                        <div className="containerInputs">
+                        
+
+                        {/* <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                type='password'
+                                className="input"
+                                name="password"                         
+                                value={input.password}
+                            />
+                            <label className="label" htmlFor="password">Contraseña:</label>
+                            {errors.password && <p className='errors'>{errors.password}</p>}
+                        </div> */}
+                       
+                        
+
+                    </div>
+                    <div className="row">
+
+                    <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
                                 type='text'
@@ -271,6 +276,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                             <label className="label" htmlFor="location: ">Localidad:</label>
                             {errors.location && <p className='errors'>{errors.location}</p>}
                         </div>
+                        
 
 
                         <div className="containerInputs">

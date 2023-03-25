@@ -14,7 +14,7 @@ export interface Pet {
 export interface Apa {
   _id?: string
   name: string
-  password: string
+  password?: string
   email: string
   location: string
   description: string
