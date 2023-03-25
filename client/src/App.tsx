@@ -6,7 +6,7 @@ import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
-// import UserPassword from './components/RestorePasswordUser/UserPassword';
+import UserPassword from './components/RestorePasswordUser/UserPassword';
 
 
 
@@ -35,6 +35,8 @@ function App() {
           <Route path='/formUser' element={<FormUser />}></Route>
           <Route path='/usuario/:id' element={<Users />}></Route>
           <Route path='/login' element={<Login />}></Route>
+          <Route path='/restore-password' element={<UserPassword />}></Route>
+
 
         </Routes>
 

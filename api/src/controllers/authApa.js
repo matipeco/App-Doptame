@@ -29,6 +29,7 @@ const signUpApa = async (req, res) => {
 
   // Si el nombre de usuario y correo electrónico no existen, crear un nuevo usuario y guardarlo en la base de datos
   const newApa = new Apa({
+    name,
     email,
     password: await Apa.encryptPasswordApa(password),
   });
@@ -76,32 +77,32 @@ const sendVerificationEmail = async (email, name) => {
   await transporter.sendMail(mailOptions);
 };
 
-const signIn = async (req, res) => {
-  const { email, password } = req.body;
-  const apaFound = await Apa.findOne({ email }).populate("role");
-  if (!apaFound) return res.status(400).json({ message: "Apa no encontrada" });
-  // console.log(userFound);
+// const signIn = async (req, res) => {
+//   const { email, password } = req.body;
+//   const apaFound = await Apa.findOne({ email }).populate("role");
+//   if (!apaFound) return res.status(400).json({ message: "Apa no encontrada" });
+//   // console.log(userFound);
 
-  // console.log("password: ", password);
-  // console.log("userFound.password: ", userFound.password);
-  const matchedPassword = await Apa.comparePasswordApa(
-    password,
-    apaFound.password
-  );
-  console.log("matchedPassword: ", matchedPassword);
+//   // console.log("password: ", password);
+//   // console.log("userFound.password: ", userFound.password);
+//   const matchedPassword = await Apa.comparePasswordApa(
+//     password,
+//     apaFound.password
+//   );
+//   console.log("matchedPassword: ", matchedPassword);
 
-  if (matchedPassword) {
-    const token = jwt.sign({ id: apaFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
-    localStorage.setItem("token", token);
-    res.json({ token });
-  } else {
-    return res
-      .status(401)
-      .json({ token: null, message: "contraseña invalida" });
-  }
-};
+//   if (matchedPassword) {
+//     const token = jwt.sign({ id: apaFound._id }, config.SECRET, {
+//       expiresIn: 86400, //24 hs
+//     });
+
+//     res.json({ token });
+//   } else {
+//     return res
+//       .status(401)
+//       .json({ token: null, message: "contraseña invalida" });
+//   }
+// };
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -187,7 +188,6 @@ const resetPasswordWithEmail = async (req, res) => {
 };
 
 module.exports = {
-  signIn,
   signUpApa,
   forgotPassword,
   resetPasswordWithEmail,
