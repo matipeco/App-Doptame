@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -25,21 +25,41 @@ const emptyDetailUser = {
   image: ""
 }
 
+const emptyDetailApa = {
+  _id: "",
+  name: "",
+  password:  "",
+  email: "",
+  location:  "",
+  description:  "",
+  cbu_cvu:  "",
+  url:  "",
+  telephone: "",
+  provincia:  "",
+  cuit:  "",
+}
+
 export interface StateType {
   allPets: Pet[]
   allApas: Apa[]
   detail: Pet
   allUsers: User[]
   detailUser: User
+  detailApa: Apa
+  petsFilter: Pet[]
 
 }
+
+
 
 const initialState: StateType = {
   allPets: [],
   allApas: [],
   allUsers: [],
   detailUser: emptyDetailUser,
-  detail: emptyDetail
+  detailApa: emptyDetailApa,
+  detail: emptyDetail,
+  petsFilter:[]
 }
 
 
@@ -63,6 +83,11 @@ const reducer = (
         ...state,
         allApas: [...state.allApas, action.payload]
       };
+      case GET_APA_DETAIL:
+      return {
+        ...state,
+        detailApa: action.payload
+      }
 
     case GET_APA:
       // Modifica aquí el estado en función del valor del tipo de acción
@@ -70,6 +95,7 @@ const reducer = (
         ...state,
         allApas: action.payload
       };
+
     case POST_USER:
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
@@ -114,10 +140,34 @@ const reducer = (
     case GET_PETS:
       return {
         ...state,
-        allPets: action.payload
+        allPets: action.payload,
+        petsFilter: action.payload
       }
 
-
+      case ORDER_BY_AGE: 
+      const isAsc = action.payload;
+      const sortByAge = state.petsFilter.sort((a , b) => {
+        const numA = a.age
+        const numB = b.age
+        if(isAsc === 'asc'){
+          return numA > numB ? 1 : numA < numB ? -1 : 0;
+        }else{
+          return numA < numB ? 1 : numA > numB ? -1 : 0;
+        }
+      })
+      
+  
+      return {
+        ...state,
+        allPets: sortByAge,
+      }
+  
+      case FILTER_BY_SIZE:  
+        const createdFiltered = state.petsFilter.filter((el: Pet) => el.size === action.payload)
+        return {
+          ...state,
+          allPets: createdFiltered
+        }
     default:
       return state;
   }

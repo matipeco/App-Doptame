@@ -54,6 +54,10 @@ export interface InputData {
   cuit?: string
   telephone?: string
   provincia?: string
+  age?: Number
+  size?: string
+  type?: string
+
 }
 
 export type errorsInput = {
@@ -70,7 +74,9 @@ export type errorsInput = {
   cuit?: string
   provincia?: string
   telephone?: string
-
+  age?: string
+  size?: string
+  type?: string
 };
 
 

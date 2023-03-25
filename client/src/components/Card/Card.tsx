@@ -14,6 +14,8 @@ export const Card: FunctionComponent<Props> = ({ pet }) => {
 
       <img src={pet.image} alt={pet.name} />
       <h3>{pet.name}</h3>
+      <h3>{pet.age} Años</h3>
+      <h3>{pet.size}</h3>
       <Link className={style.link} to={`/detail/${pet._id}`}>
         Conoceme...
       </Link>
