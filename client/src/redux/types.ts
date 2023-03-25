@@ -30,7 +30,7 @@ export interface User {
   _id?: string
   name: string
   last_name: string
-  username: string
+  username?: string
   password?: string
   email: string
   provincia: string

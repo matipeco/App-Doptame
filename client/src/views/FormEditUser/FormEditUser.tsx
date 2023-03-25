@@ -70,8 +70,8 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
       const [input, setInput] = useState({
         name: userDetails.name,
         last_name: userDetails.last_name,
-        username: userDetails.username,
-        password: userDetails.password,
+        // username: userDetails.username,
+        // password: userDetails.password,
         email: userDetails.email,
         provincia: userDetails.provincia,
         location: userDetails.location,
@@ -82,14 +82,6 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
 
 
 // console.log(input)
-
-
-
-
-
-
-
-
 
 
 
@@ -133,8 +125,8 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
     const [errors, setErrors] = useState({
         name: '',
         last_name: '',
-        username: '',
-        password: '',
+        // username: '',
+        // password: '',
         email: '',
         provincia: '',
         location: '',
@@ -247,7 +239,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             {errors.last_name && <p>{errors.last_name}</p>}
                         </div>
 
-                        <div className="containerInputs">
+                        {/* <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
                                 className="input"
@@ -257,7 +249,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             />
                             <label className= "label" htmlFor="username">Usuario:</label>
                             {errors.username && <p>{errors.username}</p>}
-                        </div>
+                        </div> */}
                         
                         <div className="containerInputs">
                             <input
@@ -271,7 +263,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             {errors.email && <p>{errors.email}</p>}
                         </div>
 
-                        <div className="containerInputs">
+                        {/* <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
                                 type='password'
@@ -281,7 +273,7 @@ function FormEditUser() { //Podemos hacer q reciba la userId por props o por par
                             />
                             <label className="label" htmlFor="password">Contraseña:</label>
                             {errors.password && <p className='errors'>{errors.password}</p>}
-                        </div>
+                        </div> */}
                      
                         
 
