@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users, ProfileApas } from "../src/views"
+import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users } from "../src/views"
 import { Cards } from './components/Cards/Cards';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
-import UserPassword from './components/RestorePasswordUser/UserPassword';
+// import UserPassword from './components/RestorePasswordUser/UserPassword';
 
 
 
