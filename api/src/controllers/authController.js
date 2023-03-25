@@ -4,6 +4,7 @@ const authController = require("express").Router();
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
+const Apa = require("../models/Apa");
 // const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const crypto = require("crypto");
@@ -21,7 +22,7 @@ const signUp = async (req, res) => {
 
   // Si el nombre de usuario ya existe, devolver un error
   if (existingUser) {
-    return res.status(409).json({ error: "Username already exists" });
+    return res.status(409).json({ error: "username ya existe" });
   }
 
   // Buscar si el correo electrónico ya existe
@@ -29,7 +30,7 @@ const signUp = async (req, res) => {
 
   // Si el correo electrónico ya existe, devolver un error
   if (existingEmail) {
-    return res.status(409).json({ error: "Email already exists" });
+    return res.status(409).json({ error: "email ya existe" });
   }
 
   // Si el nombre de usuario y correo electrónico no existen, crear un nuevo usuario y guardarlo en la base de datos
@@ -83,33 +84,55 @@ const sendVerificationEmail = async (email, name) => {
   await transporter.sendMail(mailOptions);
 };
 
-const signIn = async (req, res) => {
-  const { email, password } = req.body;
-  const userFound = await User.findOne({ email }).populate("role");
-  if (!userFound)
-    return res.status(400).json({ message: "Usuario no encontrado" });
-  // console.log(userFound);
+// const signIn = async (req, res) => {
+//   const { email, password, userType } = req.body;
 
-  // console.log("password: ", password);
-  // console.log("userFound.password: ", userFound.password);
-  const matchedPassword = await User.comparePassword(
-    password,
-    userFound.password
-  );
-  console.log("matchedPassword: ", matchedPassword);
+//   if (userType === "user") {
+//     const userFound = await User.findOne({ email }).populate("role");
+//     if (!userFound) {
+//       return res.status(400).json({ message: "Usuario no encontrado" });
+//     }
 
-  if (matchedPassword) {
-    const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
-    localStorage.setItem("token", token); //
-    res.json({ token });
-  } else {
-    return res
-      .status(401)
-      .json({ token: null, message: "contraseña invalida" });
-  }
-};
+//     const matchedPassword = await User.comparePassword(
+//       password,
+//       userFound.password
+//     );
+//     if (!matchedPassword) {
+//       return res
+//         .status(401)
+//         .json({ token: null, message: "contraseña invalida" });
+//     }
+
+//     const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+//       expiresIn: 86400, //24 hs
+//     });
+
+//     res.json({ token });
+//   } else if (userType === "apa") {
+//     const apaFound = await Apa.findOne({ email }).populate("role");
+//     if (!apaFound) {
+//       return res.status(400).json({ message: "Apa no encontrada" });
+//     }
+
+//     const matchedPassword = await Apa.comparePasswordApa(
+//       password,
+//       apaFound.password
+//     );
+//     if (!matchedPassword) {
+//       return res
+//         .status(401)
+//         .json({ token: null, message: "contraseña invalida" });
+//     }
+
+//     const token = jwt.sign({ id: apaFound._id }, config.SECRET, {
+//       expiresIn: 86400, //24 hs
+//     });
+
+//     res.json({ token });
+//   } else {
+//     return res.status(400).json({ message: "Tipo de usuario no válido" });
+//   }
+// };
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -171,40 +194,40 @@ const resetPasswordWithEmail = async (req, res) => {
   try {
     // Buscar el usuario por el correo electrónico
     const user = await User.findOne({ email });
-
+    console.log(user);
     console.log(`Usuario encontrado: ${user}`);
 
     if (!user || user.resetPasswordKey !== resetPasswordKey) {
-      console.log("Clave de restablecimiento inválida o expirada");
+      console.log(user.resetPasswordKey, resetPasswordKey);
       return res
         .status(400)
         .json({ message: "Clave de restablecimiento inválida o expirada" });
     }
 
     // Actualizar la contraseña y eliminar la clave de restablecimiento de contraseña
+
     user.password = password;
     user.resetPasswordKey = undefined;
     await user.save();
 
     console.log("Contraseña actualizada");
+
     res.json({ message: "La contraseña se ha restablecido correctamente." });
   } catch (err) {
     console.error(`Error al buscar usuario: ${err}`);
     return res.status(500).json({ message: "Error al buscar usuario" });
   }
 };
+// // const googleInHandler = async (req, res) => {
+// //   //obtener el cosido de qs
+// //   const code = req.query.code;
 
-const googleInHandler = async (req, res) => {
-  //obtener el cosido de qs
-  const code = req.query.code;
-
-  // obtener id y token con el cosigo
-  //obtener user con tokens
-  //upsert user
-};
+//   // obtener id y token con el cosigo
+//   //obtener user con tokens
+//   //upsert user
+// };
 
 module.exports = {
-  signIn,
   signUp,
   forgotPassword,
   resetPasswordWithEmail,

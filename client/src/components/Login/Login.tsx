@@ -4,17 +4,20 @@ import axios from "axios";
 import { validation } from "../../validation/validation";
 import style from './Login.module.css'
 import { RegistroApaUser } from "../RegistroApaUser/RegistroApaUser";
+import { useNavigate } from "react-router-dom";
 
 
 export const Login = () => {
     type SignInData = {
         email: string;
         password: string;
+        userType: "apa" | "user" | undefined;
     };
-
+    const navigate = useNavigate()
     const [signInData, setSignInData] = useState<SignInData>({
         email: "",
         password: "",
+        userType: undefined
     });
 
     const handleChange = (ev: ChangeEvent<HTMLInputElement>): void => {
@@ -25,16 +28,26 @@ export const Login = () => {
         });
     };
 
+    const handleUserTypeChange = (ev: ChangeEvent<HTMLInputElement>): void => {
+        const userType = ev.target.value as SignInData["userType"];
+        setSignInData({
+            ...signInData,
+            userType
+        });
+    };
+
     const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
         axios
-            .post("http://localhost:3001/api/auth/users/signIn", signInData)
+            .post("http://localhost:3001/auth/apa/user/login", signInData)
             .then((response) => {
                 setSignInData({
                     email: "",
                     password: "",
+                    userType: undefined
                 });
-                alert(response.data.message);
+
+                navigate("/home")
             })
             .catch((error) => {
                 alert(error.response.data.message)
@@ -92,6 +105,29 @@ export const Login = () => {
                     />
                     {touched.password && errorsInput.password &&
                         <p className={style.parrafosErrorsLogin}>{errorsInput.passwordLogin}</p>}
+
+                    <div>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="userType"
+                                value="apa"
+                                checked={signInData.userType === "apa"}
+                                onChange={handleUserTypeChange}
+                            />
+                            Apa
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="userType"
+                                value="user"
+                                checked={signInData.userType === "user"}
+                                onChange={handleUserTypeChange}
+                            />
+                            User
+                        </label>
+                    </div>
 
                     <Link className={style.linkOlvidasteContraseña} to="/restore-password">¿Olvidaste tu contraseña?</Link>
 

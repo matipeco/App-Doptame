@@ -46,6 +46,7 @@ function FormApa() {
         e.preventDefault();
 
         if (Object.keys(errorsInput).length === 0) {
+            // console.log(input)
             axios
                 .post("http://localhost:3001/apa/auth", input)
                 .then((response) => {
@@ -54,12 +55,23 @@ function FormApa() {
                         email: "",
                         password: "",
                     });
-                    alert(response.data.message);
+
+                    alert("Apa creada correctamente")
+                    // alert(response.data.message);
+                    navigate("/login")
                 })
                 .catch((error) => {
-                    alert(error.response.data.message)
+                    if (error.response) {
+                        if (error.response.status === 409) {
+                            alert(error.response.data.error);
+                        } else {
+                            alert("Ocurrió un error en la solicitud");
+                        }
+                    } else {
+                        alert("No se pudo conectar con el servidor");
+                    }
                 });
-            navigate('/login')
+
         }
     }
 

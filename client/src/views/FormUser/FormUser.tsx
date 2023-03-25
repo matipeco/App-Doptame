@@ -4,7 +4,7 @@ import img from '../../assets/completo.png'
 // import { useDispatch } from "react-redux";
 // import { postUser } from "../../redux/actions/actions";
 // import { AnyAction } from "redux";
-import { validationApa } from "../../validation/validationApa";
+import { validationUser } from "../../validation/validationUser";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -38,26 +38,38 @@ function FormUser() {
         }));
     };
 
-    const errorsInput = validationApa(input);
+    const errorsInput = validationUser(input);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (Object.keys(errorsInput).length === 0) {
+            // console.log(input)
             axios
-                .post("http://localhost:3001/user/auth", input)
+                .post("http://localhost:3001/api/auth/users/signUp", input)
                 .then((response) => {
                     setInput({
                         username: "",
                         email: "",
                         password: "",
                     });
-                    alert(response.data.message);
+
+                    alert("Usuario creado correctamente")
+                    // alert(response.data.message);
+                    navigate("/login")
                 })
                 .catch((error) => {
-                    alert(error.response.data.message)
+                    if (error.response) {
+                        if (error.response.status === 409) {
+                            alert(error.response.data.error);
+                        } else {
+                            alert("Ocurrió un error en la solicitud");
+                        }
+                    } else {
+                        alert("No se pudo conectar con el servidor");
+                    }
                 });
-            navigate('/login')
+
         }
     }
 
@@ -108,7 +120,6 @@ function FormUser() {
                         <label className="label" htmlFor="password">Contraseña</label>
                         {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
                     </div>
-
 
                     <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
                 </form>

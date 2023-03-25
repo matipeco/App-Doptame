@@ -11,7 +11,7 @@ const authApaRouter = require("../controllers/authApa");
 const { verifyToken, isApa, isAdmin } = require("../middlewares/authJwt");
 //jwt
 apaRouter.post("/auth", authApaRouter.signUpApa);
-apaRouter.post("/auth/login", authApaRouter.signIn);
+// apaRouter.post("/auth/login", authApaRouter.signIn);
 apaRouter.post("/auth/changePassword", authApaRouter.resetPasswordWithEmail);
 apaRouter.post("/auth/forgotPassword", authApaRouter.forgotPassword);
 ////////////
