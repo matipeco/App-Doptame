@@ -1,0 +1,43 @@
+.containerArticle {
+    display: flex;
+    width: 100%;
+}
+
+.buttonLogin {
+    display: block;
+}
+
+.registroApa {
+    background-color: #DDE67F;
+    height: 350px;
+    width: 50%;
+    margin-right: 10px;
+
+}
+
+.registroUser {
+
+    background-color: #aebee3;
+    height: 350px;
+    width: 50%;
+    margin-right: 10px;
+}
+
+.parrafosRegistros {
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 15px;
+}
+
+.tituloRegistrate {
+    justify-items: center;
+    text-align: center;
+    margin-top: 50px;
+
+}
+
+.linkButton {
+    margin-left: 250px;
+    border: 1px solid black;
+}

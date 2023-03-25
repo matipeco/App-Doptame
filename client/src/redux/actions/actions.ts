@@ -69,6 +69,7 @@ export const getApaById = (id: string) => {
 
 export const postApa = (payload: Apa) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
+    console.log(payload)
     const createApa = await axios.post<Apa>("http://localhost:3001/apa", payload);
     return dispatch({
       type: POST_APA,
@@ -126,8 +127,9 @@ export const postPet = (id: string, payload: Pet) => {
 
 
 export const postUser = (payload: User) => {
+  console.log(payload)
   return async (dispatch: Dispatch<dispatchUser>) => {
-    const createUser = await axios.post<User>(`http://localhost:3001/users/`, payload);
+    const createUser = await axios.post<User>(`http://localhost:3001/users`, payload);
     return dispatch({
       type: POST_USER,
       payload: createUser.data
