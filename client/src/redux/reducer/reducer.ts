@@ -1,12 +1,13 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE } from "../actions/actionsTypes"
-
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION } from "../actions/actionsTypes"
 import { Pet, Apa, User } from "../types"
 
 const emptyDetail = {
   _id: "",
   adoption: false,
   age: 0,
-  apa: "",
+  apa: {
+    location: "",
+  },
   image: "",
   name: "",
   size: "",
@@ -168,6 +169,18 @@ const reducer = (
           ...state,
           allPets: createdFiltered
         }
+
+        case FILTER_BY_LOCATION:
+
+        const selectedLocation = action.payload === 'All'
+        ? state.petsFilter
+        : state.petsFilter.filter(el=>el.apa?.location.includes(action.payload))
+        
+        return {
+             ...state,
+             allPets: selectedLocation,
+        };
+
     default:
       return state;
   }
