@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet } from '../../redux/types'
 import { useEffect, useState } from 'react'
-import { getPets, OrderByAge, FilteredBySize, } from '../../redux/actions/actions'
+import { getPets, OrderByAge, FilteredBySize, FilterByLocation } from '../../redux/actions/actions'
 import { AnyAction } from 'redux'
 import { useParams } from 'react-router-dom'
 import PaginationControlled from '../Pagination/Pagination'
@@ -23,17 +23,15 @@ export const Cards = () => {
   const [orden, setOrden] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   
-  
-
   const PageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber); // Actualizamos el estado de currentPage al seleccionar una pÃ¡gina
   };
-
+  
   useEffect(() => {
     dispatch(getPets() as unknown as AnyAction)
   }, [dispatch])
-
-
+  
+  
   const HandlerFilteredSize: React.ChangeEventHandler<HTMLSelectElement> = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setOrderBy(e.target.value);
     e.preventDefault();
@@ -43,8 +41,8 @@ export const Cards = () => {
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`)
   }
-
-
+  
+  
   const HandlerOrderByAge: React.ChangeEventHandler<HTMLSelectElement> = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     setOrderBy(e.target.value);
     e.preventDefault();
@@ -53,7 +51,15 @@ export const Cards = () => {
     setCurrentPage(1);
     setOrden (`Ordenado ${age}`)
   }
-
+  
+  const HandlerFilteredLocation: React.ChangeEventHandler<HTMLSelectElement> = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    e.preventDefault();
+    const location = e.target.value;
+    dispatch(FilterByLocation(location))
+    setCurrentPage(1);
+    setOrden (`Ordenado ${e.target.value}`)
+  }
+  
   
   const filteredPets = allPets.filter((pet: Pet) => {
     if (category === 'dogs') {
@@ -69,9 +75,9 @@ export const Cards = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredPets.slice(startIndex, endIndex);
   
-
-
-
+  const originalArray = allPets.map((el: Pet) => el.apa?.location).filter(Boolean);
+  const uniqueArray = Array.from(new Set(originalArray));
+  
   return (
 
     <>
@@ -93,10 +99,17 @@ export const Cards = () => {
           <option value="grande">Grande</option>
         </select>
       )}
+      <label>
+      <select onChange={HandlerFilteredLocation}>
+      <option value="" disabled>(Seleccionar por localidad)</option>
+      <option value="All">Todos</option>
+        {uniqueArray.map((el) => (
+      <option key={el} value={el}>{el}</option>
+  ))}
+      </select>
+      </label> 
+
       </div>
-
-    
-
       <div className='container-cards-pets-wrapper'>
         <div className='container-cards-pets'>
           {currentItems.map((pet: Pet) => (
@@ -115,4 +128,3 @@ export const Cards = () => {
     </>
   );
 };
-
