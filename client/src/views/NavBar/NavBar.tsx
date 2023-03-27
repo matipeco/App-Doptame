@@ -3,15 +3,14 @@ import { FiAlignJustify } from 'react-icons/fi'
 import imgLogo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 import './NavBar.css'
-import { AuthForm } from '../../components/AuthForm/AuthForm';
 
 
 function NavBar() {
-  const [showDropdown, setShowDropdown] = useState(false);
+  // const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleDropdownClick = () => {
-    setShowDropdown(!showDropdown);
-  };
+  // const handleDropdownClick = () => {
+  //   setShowDropdown(!showDropdown);
+  // };
   return (
     <>
       <nav>
@@ -25,11 +24,8 @@ function NavBar() {
         <ul>
           <li><Link to="/home" className='linkAbout'>Inicio</Link></li>
           <li><Link to="/aboutUs" className='linkAbout'>Quienes somos</Link></li>
-          <li>
-            <a onClick={handleDropdownClick}>
-              Ingresar
-            </a>
-            {showDropdown && (
+          <li><Link to='/login' className='linkAbout'> Ingresar</Link>
+            {/* {showDropdown && (
               <ul className='submenu'>
                 <Link to="/formApa">
                   <li className='liOp'>
@@ -47,12 +43,10 @@ function NavBar() {
                   </li>
                 </Link>
               </ul>
-            )}
+            )} */}
           </li>
 
         </ul>
-
-
 
       </nav>
     </>

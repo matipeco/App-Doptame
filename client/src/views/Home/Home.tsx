@@ -4,63 +4,62 @@ import { Link } from 'react-router-dom'
 import imgAlimento from "../../assets/assetsHome/ImagenesHome/alimento.png"
 import imgHome from "../../assets/assetsHome/ImagenesHome/Casita.png"
 import imgVacuna from "../../assets/assetsHome/ImagenesHome/vacuna.png"
-import { HiArrowSmLeft, HiArrowSmRight } from "react-icons/hi"
-
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Home() {
   const imgPerros = "https://iaabcjournal.org/wp-content/uploads/2021/02/street-dogs.jpg"
   const imgCats = "https://cdn.colombia.com/sdi/2022/03/22/hablar-gatos-callejeros-metodo-japones-recuperar-mascota-perdida-1009467.jpg"
   const imgOtros = "https://st4.depositphotos.com/12293812/20005/i/600/depositphotos_200058304-stock-photo-rabbit-and-turtle-are-discussing.jpg"
 
+  const images = [imgPerros, imgCats, imgOtros];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true
+}
+
 
   return (
     <>
-      <div id="conteItemsCarrusel">
+      <div className='containerCarruselpets'>
+          <Slider {...settings}>
+          {images.map((image, index) => (
+            <div key={index}>
+                <img className='imgCarruselpets' src={image} alt={`image-${index}`} />
+                  {index === 0 && (
+                      <Link className='linkk' to="/pets/perro">
+                        <button className='buttonPets'>Perros</button>
+                      </Link>
+                    )}
+                    {index === 1 && (
 
-        <div className="itemCarrusel" id="itemCarrusel-1">
+                      <Link className='linkk' to="/pets/gato">
+                        <button className='buttonPets'>Gatos</button>
+                      </Link>
 
-          <div className="tarjetaCarrusel"><img className='carruselImg' src={imgPerros} alt="perritos" /></div>
+                    )}
+                    {index === 2 && (
+                      <Link className='linkk' to="/pets/otros">
+                        <button className='buttonPets'>Otros</button>
+                      </Link>
+                      
+                    )}
+                  </div>
+                    
+           
+                ))}
+          </Slider>
 
-          <div className="flechasCarrusel">
-            <a href="#itemCarrusel-3"><i><HiArrowSmLeft className="arrows" /></i></a>
-            <a href="#itemCarrusel-2">  <i><HiArrowSmRight className="arrows" /></i></a>
 
-          </div>
-          <Link to="/pets/perro"><button className='buttonPets'>Perros</button></Link>
         </div>
-
-
-
-        <div className="itemCarrusel">
-
-          <div className="tarjetaCarrusel" id="itemCarrusel-2">
-            <img className='carruselImg' src={imgCats} alt="cats1" />  </div>
-
-          <div className="flechasCarrusel">
-
-            <a href="#itemCarrusel-1"><i><HiArrowSmLeft className="arrows" /></i></a>
-            <a href="#itemCarrusel-3">  <i><HiArrowSmRight className="arrows" /></i></a>
-
-          </div>
-          <Link to="/pets/gato"><button className='buttonPets'>Gatos</button></Link>
-        </div>
-
-
-
-
-        <div className="itemCarrusel">
-          <div className="tarjetaCarrusel" id="itemCarrusel-3"><img className='carruselImgOtros' src={imgOtros} alt="perritos" /></div>
-
-          <div className="flechasCarrusel">
-
-            <a href="#itemCarrusel-2"><i className="arrowLeft"><HiArrowSmLeft className="arrows" /></i></a>
-            <a href="#itemCarrusel-1">  <i><HiArrowSmRight className="arrows" /></i></a>
-
-          </div>
-          <Link to="/pets/otros">   <button className='buttonPets'>Otros</button>  </Link>
-        </div>
-
-      </div>
 
 
       <section className="info">

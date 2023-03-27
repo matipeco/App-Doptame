@@ -7,7 +7,7 @@ const fs = require("fs-extra")
 
 const getAllPets= async (req,res)=>{
     try {
-        const allPets= await Pet.find({});
+        const allPets= await Pet.find({}).populate('apa');
         res.status(200).json(allPets);   
     } catch (error) {
         res.status(400).json(error)
@@ -38,20 +38,22 @@ const createPet =async (req,res)=>{
         if (!name || !age || !size || !type || !description) {
             res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema.'})
         } else {
-            const newPet=await Pet.create(req.body)
             const {apaId} = req.params
-            if(req.files?.image) {
-                const result = await uploadImage(req.files.image.tempFilePath)
-                newPet.image = result.secure_url
+            const objeto = {...req.body, apa: apaId}
+            const newPet=await Pet.create(objeto)
+        if(req.files?.image) {
+            const result = await uploadImage(req.files.image.tempFilePath)
+            newPet.image = result.secure_url
                 
-                await fs.unlink(req.files.image.tempFilePath);
-            }
-            await newPet.save();
-            await Apa.findByIdAndUpdate(apaId, {$push:{pets: newPet._id}}, {useFindAndModify: false})
-            if (newPet) {
-                res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
+            await fs.unlink(req.files.image.tempFilePath);
+        }
+        await newPet.save();
+        await Apa.findByIdAndUpdate(apaId, {$push:{pets: newPet._id}}, {useFindAndModify: false})
+
+        if (newPet) {
+            res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
             } else {
-                res.status(400).json({error: 'La mascota no ha podido ser dada de alta'})
+            res.status(400).json({error: 'La mascota no ha podido ser dada de alta'})
             }
         }
     } catch (error) {
