@@ -81,18 +81,31 @@ const deleteFavorite = async (req, res) => {
   }
 };
 
+// const getFavorite = async (req, res) => {
+//   try {
+//     const favorites = await Favorites.find({
+//       user: req.params.userId,
+//     }).populate("pet");
+//     if (!favorites || favorites.length === 0) {
+//       return res.status(404).json({ message: "No se encontraron favoritos" });
+//     }
+//     res.status(200).json({ favorites });
+//   } catch (error) {
+//     res.status(500).json({ message: "No se pudo obtener favoritos" });
+//   }
+// };
+
 const getFavorite = async (req, res) => {
   try {
-    const favorites = await Favorites.find({
-      user: req.params.userId,
-    }).populate("pet");
-    if (!favorites || favorites.length === 0) {
-      return res.status(404).json({ message: "No se encontraron favoritos" });
+    const user = await User.findById(req.params.userId).populate('favorites');
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
-    res.status(200).json({ favorites });
+    res.status(200).json({ favorites: user.favorites });
   } catch (error) {
     res.status(500).json({ message: "No se pudo obtener favoritos" });
   }
 };
+
 
 module.exports = { postFavorite, deleteFavorite, getFavorite, sendFavoritesEmail };
