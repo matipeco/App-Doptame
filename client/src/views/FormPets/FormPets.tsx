@@ -9,6 +9,7 @@ import { validation } from "../../validation/validationPets"
 import { useNavigate } from "react-router-dom";
 import { access } from 'fs';
 
+import { saveImages } from '../utils/saveImage';
 // import { useParams } from 'react-router-dom';
 // import { ApaId } from '../../redux/types';
 
@@ -64,11 +65,17 @@ function FormPets() {
     };
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        let auxInput = input; 
+        const urlImage = await saveImages(auxInput.image);
+
+        input.image = urlImage;
+
         if (Object.keys(errorsInput).length === 0) {
             console.log(accessToken)
-            dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
+            dispatch(postPet(apaId, auxInput, accessToken) as unknown as AnyAction);
             alert("Mascota creada")
 
             setInput({
