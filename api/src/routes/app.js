@@ -4,9 +4,11 @@ const app = express();
 const cors = require("cors");
 const mainRouter = require("../routes");
 const createrRole = require("../libs/initialSetup");
+const createAdmins = require("../libs/initialSetupAdmin");
 
 //middlewares
 createrRole();
+createAdmins();
 
 app.use(morgan("dev"));
 app.use(cors());

@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const routerLogin = Router();
 
-const Login = require("../controllers/LoginController");
+const ctrlLogin = require("../controllers/LoginController");
 
-routerLogin.post("/login", Login);
+routerLogin.post("/login", ctrlLogin.Login);
+routerLogin.post("/loginGoogle", ctrlLogin.LoginWithGoogle);
 
 module.exports = routerLogin;
