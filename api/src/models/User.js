@@ -14,7 +14,7 @@ const userSchema = new Schema(
     image: { type: String },
     resetPasswordKey: { type: String },
     resetPasswordExpires: { type: Date },
-    googleId: { type: String },
+    googleId: { type: String, sparse: true, unique: true },
     favorites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {

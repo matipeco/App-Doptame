@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import style from "../LoginGoogle/LoginGoogle.module.css";
 
 function LoginWithGoogle() {
   const navigate = useNavigate();
@@ -47,9 +48,9 @@ function LoginWithGoogle() {
 
   return (
     <div className="center">
-      <h1>Login</h1>
+      <h3 className={style.tituloLoginGoogle}>Continuar como usuario</h3>
 
-      <div className="btn">
+      <div className={style.divButton}>
         <GoogleLogin
           clientId={
             "817874744115-ee1kibhts2530v58ogrb55cn2jl3757c.apps.googleusercontent.com"

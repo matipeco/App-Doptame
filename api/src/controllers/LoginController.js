@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const Apa = require("../models/Apa");
 const { OAuth2Client } = require("google-auth-library");
+const Role = require("../models/Roles");
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const client = new OAuth2Client(CLIENT_ID);
@@ -59,56 +60,49 @@ const Login = async (req, res) => {
 };
 
 const LoginWithGoogle = async (req, res) => {
-  const { tokenId } = req.body;
+  const { tokenId, role } = req.body;
   console.log(tokenId);
+
   try {
     const ticket = await client.verifyIdToken({
       idToken: tokenId,
       audience: CLIENT_ID,
     });
+
     const payload = ticket.getPayload();
     const userId = payload["sub"];
     console.log(userId);
-    const userName = payload["name"]; // Obtener el nombre del usuario de Google
+
+    const userName = payload["name"];
     console.log(userName);
 
-    const userEmail = payload["email"]; // Obtener el correo electrónico del usuario
+    const userEmail = payload["email"];
     console.log(userEmail);
 
     // Buscar en la base de datos si ya existe un usuario con el id de Google
     let userFound = await User.findOne({ email: userEmail });
-
     // Si el usuario no existe, crear un nuevo documento en la colección de usuarios
     if (!userFound) {
       let username;
       if (userName) {
-        username = userName.replace(/\s+/g, ""); // Eliminar espacios del nombre de usuario
-      } else {
-        username = userEmail;
+        username = userName.replace(/\s+/g, "");
       }
 
       // Crear un nuevo documento de usuario
       const newUser = new User({
         username: username,
         email: userEmail,
-
-        googleId: userId, // agregar el ID de Google al documento
+        googleId: userId,
       });
-      if (userId) {
-        newUser.googleId = userId;
-        newUser.role = "user";
+
+      if (role) {
+        const foundRole = await Role.find({ name: { $in: role } }); // de todos los que terngo guardado, se busca el role que me mande el user.
+        newUser.role = foundRole.map((role) => role._id); // mapeo los roles // se guarda
       } else {
-        // Asignar los roles especificados por el usuario si no está registrándose con Google
-        if (role) {
-          const foundRoles = await Role.find({ name: { $in: role } });
-          newUser.role = foundRoles.map((role) => role._id);
-        } else {
-          // Asignar el rol "user" por defecto si no se especificó ningún rol
-          const userRole = await Role.findOne({ name: "user" });
-          newUser.role = [userRole._id];
-        }
+        //si no ingresa role, le mando el que le asigno por default
+        const rol = await Role.findOne({ name: "user" }); // busco el rol asignado
+        newUser.role = [rol._id]; //  le asigno el id del rol .
       }
-      // Guardar el nuevo usuario en la base de datos
       try {
         userFound = await newUser.save();
       } catch (error) {
@@ -119,21 +113,31 @@ const LoginWithGoogle = async (req, res) => {
       }
     }
 
-    // Si el usuario ya existe, actualizar el ID de Google
-    if (userFound.googleId !== userId) {
-      userFound.googleId = userId;
+    // Si el usuario ya existe, actualizar su información
+    // if (userFound) {
+    //   if (userName) {
+    //     userFound.username = userName.replace(/\s+/g, "");
+    //   }
 
-      // Guardar el usuario actualizado en la base de datos
-      try {
-        await userFound.save();
-      } catch (error) {
-        console.error(error);
-        return res
-          .status(500)
-          .json({ message: "Error al actualizar el ID de Google" });
-      }
-    }
-    console.log(userFound);
+    //   if (userEmail) {
+    //     userFound.email = userEmail;
+    //   }
+
+    //   // Actualizar el ID de Google
+    //   if (userFound.googleId !== userId) {
+    //     userFound.googleId = userId;
+    //   }
+
+    //   // Guardar el usuario actualizado en la base de datos
+    //   try {
+    //     await userFound.save();
+    //   } catch (error) {
+    //     console.error(error);
+    //     return res
+    //       .status(500)
+    //       .json({ message: "Error al actualizar la información del usuario" });
+    //   }
+    // }
 
     // Generar un token de autenticación para el usuario
     const token = jwt.sign({ id: userFound._id }, config.SECRET, {
@@ -148,5 +152,4 @@ const LoginWithGoogle = async (req, res) => {
     res.status(500).json({ message: "Error al autenticar con Google" });
   }
 };
-
 module.exports = { Login, LoginWithGoogle };
