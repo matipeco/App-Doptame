@@ -76,7 +76,7 @@ const LoginWithGoogle = async (req, res) => {
     console.log(userEmail);
 
     // Buscar en la base de datos si ya existe un usuario con el id de Google
-    let userFound = await User.findOne({ googleId: userId });
+    let userFound = await User.findOne({ email: userEmail });
 
     // Si el usuario no existe, crear un nuevo documento en la colección de usuarios
     if (!userFound) {
@@ -91,8 +91,7 @@ const LoginWithGoogle = async (req, res) => {
       const newUser = new User({
         username: username,
         email: userEmail,
-        password: await User.encryptPassword(generatePassword()),
-        role: "user",
+
         googleId: userId, // agregar el ID de Google al documento
       });
       if (userId) {
