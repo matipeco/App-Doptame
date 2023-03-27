@@ -5,7 +5,7 @@ import { postPet } from "../../redux/actions/actions";
 import React, { useState, } from "react";
 import { AnyAction } from 'redux';
 import { useDispatch } from 'react-redux';
-
+import { saveImages } from '../utils/saveImage';
 // import { useParams } from 'react-router-dom';
 // import { ApaId } from '../../redux/types';
 
@@ -44,9 +44,25 @@ function FormPets() {
     };
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(postPet(apaId, input) as unknown as AnyAction);
+
+        let auxInput = input; 
+        const urlImage = await saveImages(auxInput.image);
+
+        input.image = urlImage;
+
+        dispatch(postPet(apaId, auxInput) as unknown as AnyAction);
+        setInput({
+        name: "",
+        age: 0,
+        size: "",
+        type: "",
+        image: "",
+        description: "",
+        status: true,
+        adoption: false
+        });
         alert("Mascota creada correctamente")
 
     }

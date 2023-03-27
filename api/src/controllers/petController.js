@@ -2,6 +2,8 @@ const petRouter = require('express').Router();
 const petSchema = require('../models/Pet');
 const Pet= require('../models/Pet');
 const Apa= require('../models/Apa');
+const { uploadImage } = require("../utils/cloudinary")
+const fs = require("fs-extra")
 
 const getAllPets= async (req,res)=>{
     try {
@@ -32,12 +34,19 @@ const createPet =async (req,res)=>{
     
     try {
         
-        const {name,age,size,type,image,description}=req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
-        if (!name || !age || !size || !type || !image || !description) {
+        const { name, age, size, type, image, description }=req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
+        if (!name || !age || !size || !type || !description) {
             res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema.'})
         } else {
             const newPet=await Pet.create(req.body)
             const {apaId} = req.params
+            if(req.files?.image) {
+                const result = await uploadImage(req.files.image.tempFilePath)
+                newPet.image = result.secure_url
+                
+                await fs.unlink(req.files.image.tempFilePath);
+            }
+            await newPet.save();
             await Apa.findByIdAndUpdate(apaId, {$push:{pets: newPet._id}}, {useFindAndModify: false})
             if (newPet) {
                 res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
