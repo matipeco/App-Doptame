@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION } from "./actionsTypes";import { Dispatch } from "react";
+
 
 
 
@@ -178,6 +179,13 @@ export const OrderByAge = (payload: string): filtros => {
 export const FilteredBySize = (payload: string): filtros => {
   return {
     type: FILTER_BY_SIZE,
+    payload: payload
+  }
+}
+
+export const FilterByLocation=(payload: string): filtros =>{
+  return{
+    type: FILTER_BY_LOCATION,
     payload: payload
   }
 }
