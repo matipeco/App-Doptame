@@ -12,11 +12,10 @@ const Footer = () => {
   };
 
   return (
-
-    <footer className={style.container}>
-      <div className={style.arrowContainer} onClick={scrollToTop}>
-        <HiOutlineArrowSmUp className={style.arrowUp} />
-      </div>
+    <footer className={style.containerFooter}>
+      <button className={style.arrowContainer} onClick={scrollToTop}>
+        <HiOutlineArrowSmUp />
+      </button>
 
       <div className={style.iconContainer}>
         <p className={style.iconsP}>React</p>

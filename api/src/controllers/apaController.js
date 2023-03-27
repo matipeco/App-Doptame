@@ -3,15 +3,15 @@ const Apa = require('../models/Apa');
 
 
 // POST| /create - OK
-const createApa = async(name, password, email, cbu_cvu, description, location, url) => {
-    const newApa = await Apa.create({name, password, email, cbu_cvu, description, location, url});
+const createApa = async(name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit) => {
+    const newApa = await Apa.create({name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit});
     return newApa;
 }
 
 
 // PUT| /edit/:id - OK (apretar dos veces Send)
-const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets) => { 
-    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets}); 
+const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit ) => { 
+    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit}); 
     return modifyApa;
 }
 

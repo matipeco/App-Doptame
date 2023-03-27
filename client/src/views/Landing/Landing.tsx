@@ -1,29 +1,24 @@
 import React from 'react';
 import './Landing.css';
-import perrito from '../../assets/perrito.gif';
+//import perrito from '../../assets/perrito.gif';
 import { Link } from 'react-router-dom';
 
 const Landing: React.FC = () => {
   return (
-    <div>
-      <div className="title-container">
-        <h1 className="title">App<img className="img_logo" src="https://i.imgur.com/rNsmaGi.png" alt="" />Doptame</h1>
-      </div>
-      <div className="container">
-        <div className="gifDiv">
-          <img src={perrito} alt="Descripción del GIF" />
+    <>
+      <header className="hero">
+        <div className="textos-hero">
+          <img className="img_logo" src="https://i.imgur.com/rNsmaGi.png" alt="" />
+          <h1>Bienvenido a Appdoptame</h1>
+          {/* <p>Necesitamos de tu ayuda, te invitamos a conocer nuestras historias y a que te informes en como poder ayudarnos. */}
+          <p>  ¡Ayuda a salvar una vida! Considera adoptar a uno de nuestros animales o donar para apoyar nuestro trabajo.
+          </p>
+          <Link to="/login" className="botonLanding">Conocer Más</Link>
         </div>
-        <div className="content-column">
-          <div className="description">
-            <p>Le faltan pelos a tu ropa<br />adoptá una mascota!</p>
-          </div>
-          <div className="button">
+        <div style={{ overflow: "hidden", marginBottom: "150px" }}><svg viewBox="0 0 500 150" preserveAspectRatio="none" style={{ height: "100%", width: "100%" }}><path d="M-7.67,84.15 C279.00,112.69 154.29,51.66 501.35,66.42 L529.57,156.98 L-0.00,149.60 Z" style={{ stroke: "none", fill: "#2FCDCD" }}></path></svg></div>
+      </header>
 
-            <Link to="/home">HOME</Link>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

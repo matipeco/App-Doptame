@@ -1,7 +1,10 @@
 import axios from "axios";
+
+import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA, EDIT_USER } from "./actionsTypes";
-import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, 
+  POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL,
+  FILTER_BY_LOCATION, ADD_FAVORITE, DELETE_FAVORITE, GET_FAVORITE,EDIT_PET, EDIT_APA, EDIT_USER } from "./actionsTypes";import { Dispatch } from "react";
 
 
 
@@ -37,8 +40,24 @@ type dispatchDetailUser = {
   payload: User
 }
 
+interface filtros {
+  type: string;
+  payload: string;
+}
+interface GetFavoriteAction {
+  type: string
+  payload: Pet;
+}
+interface PostFavorite {
+  type: string
+  payload: Pet;
+}
 
 
+interface DeleteFavorite {
+  type: string
+  payload: string
+}
 
 export const getApas = () => {
   return async (dispatch: Dispatch<dispatchGet>) => {
@@ -67,6 +86,7 @@ export const getApaById = (id: string) => {
 
 export const postApa = (payload: Apa) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
+    console.log(payload)
     const createApa = await axios.post<Apa>("http://localhost:3001/apa", payload);
     return dispatch({
       type: POST_APA,
@@ -110,28 +130,34 @@ export const clearDetail = () => {
 };
 
 
-export const postPet = (id: string, payload: Pet) => {
+export const postPet = (id: string, payload: Pet, accessToken: string) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
-    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
+    const config = {
+      headers: {
+        authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
+      }
+    };
+    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload, config);
     return dispatch({
       type: ADD_PET,
       payload: createPet.data
     });
   };
-};
+};;
 
 
 
 
 export const postUser = (payload: User) => {
   return async (dispatch: Dispatch<dispatchUser>) => {
-    const createUser = await axios.post<User>(`http://localhost:3001/users/`, payload);
+    const createUser = await axios.post<User>(`http://localhost:3001/users`, payload);
     return dispatch({
       type: POST_USER,
       payload: createUser.data
     });
   };
 };
+
 
 export const getUsers = () => {
   return async (dispatch: Dispatch<dispatchGet>) => {
@@ -191,3 +217,66 @@ export const putUser = (id: string, payload: User) => {
     });
   };
 };
+
+export const OrderByAge = (payload: string): filtros => {
+  return {
+    type: ORDER_BY_AGE,
+    payload: payload
+  }
+
+}
+
+export const FilteredBySize = (payload: string): filtros => {
+  return {
+    type: FILTER_BY_SIZE,
+    payload: payload
+  }
+}
+
+export const FilterByLocation=(payload: string): filtros =>{
+  return{
+    type: FILTER_BY_LOCATION,
+    payload: payload
+  }
+}
+
+export const postFavorite = (payload: Pet) => {
+  return async (dispatch: Dispatch<PostFavorite>) => {
+    try{
+      const response = await axios.post<Pet>('http://localhost:3001/favorite', payload)
+      dispatch({type: ADD_FAVORITE, 
+        payload: response.data})
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+
+export const deleteFavorite = (id: string) => {
+  return async (dispatch: Dispatch<DeleteFavorite>) => {
+    try{
+      await axios.delete(`http://localhost:3001/favorite/${id}`)
+      dispatch({
+        type: DELETE_FAVORITE,
+        payload: id
+      })
+
+    }catch(e){
+      console.log(e)
+    }
+  }
+  
+}
+
+export const getFavorite = (id: string) => {
+  return async (dispatch: Dispatch<GetFavoriteAction>) => {
+    try{
+      const res = await axios.get<Pet>(`http://localhost:3001/favorite/${id}`);
+      dispatch({ type: GET_FAVORITE, 
+        payload: res.data });
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+

@@ -1,12 +1,16 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, EDIT_PET, EDIT_APA, EDIT_USER } from "../actions/actionsTypes"
 
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, 
+        POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, 
+        FILTER_BY_SIZE, FILTER_BY_LOCATION, ADD_FAVORITE, DELETE_FAVORITE, EDIT_PET, EDIT_APA, EDIT_USER } from "../actions/actionsTypes"
 import { Pet, Apa, User } from "../types"
 
 const emptyDetail = {
   _id: "",
   adoption: false,
   age: 0,
-  apa: "",
+  apa: {
+    location: "",
+  },
   image: "",
   name: "",
   size: "",
@@ -24,6 +28,7 @@ const emptyDetailUser = {
   provincia: "",
   location: "",
   image: "",
+
 }
 
 const emptyDetailApa = {
@@ -47,6 +52,8 @@ export interface StateType {
   allUsers: User[]
   detailUser: User
   detailApa: Apa
+  petsFilter: Pet[]
+  myFavorites: Pet[]
 
 }
 
@@ -58,7 +65,9 @@ const initialState: StateType = {
   allUsers: [],
   detailUser: emptyDetailUser,
   detailApa: emptyDetailApa,
-  detail: emptyDetail
+  detail: emptyDetail,
+  petsFilter:[],
+  myFavorites: []
 }
 
 
@@ -132,7 +141,6 @@ const reducer = (
         ...state,
         detailUser: action.payload
       }
-
       case EDIT_PET:
         return {
           ...state,
@@ -147,13 +155,61 @@ const reducer = (
             return {
               ...state,
             };
-      
+     
     case GET_PETS:
       return {
         ...state,
-        allPets: action.payload
+        allPets: action.payload,
+        petsFilter: action.payload
       }
 
+    case ADD_FAVORITE:
+      return{
+        ...state,
+        myFavorites: [...state.myFavorites, action.payload]
+      }
+
+    case DELETE_FAVORITE:
+      return{
+        ...state,
+        myFavorites: state.myFavorites.filter( pet => pet._id !== action.payload)
+      }
+
+      case ORDER_BY_AGE: 
+      const isAsc = action.payload;
+      const sortByAge = state.petsFilter.sort((a , b) => {
+        const numA = a.age
+        const numB = b.age
+        if(isAsc === 'asc'){
+          return numA > numB ? 1 : numA < numB ? -1 : 0;
+        }else{
+          return numA < numB ? 1 : numA > numB ? -1 : 0;
+        }
+      })
+      
+  
+      return {
+        ...state,
+        allPets: sortByAge,
+      }
+  
+      case FILTER_BY_SIZE:  
+        const createdFiltered = state.petsFilter.filter((el: Pet) => el.size === action.payload)
+        return {
+          ...state,
+          allPets: createdFiltered
+        }
+
+        case FILTER_BY_LOCATION:
+
+        const selectedLocation = action.payload === 'All'
+        ? state.petsFilter
+        : state.petsFilter.filter(el=>el.apa?.location.includes(action.payload))
+        
+        return {
+             ...state,
+             allPets: selectedLocation,
+        };
 
     default:
       return state;
