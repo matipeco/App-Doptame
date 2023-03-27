@@ -1,6 +1,7 @@
+
 import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, 
         POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, 
-        FILTER_BY_SIZE, FILTER_BY_LOCATION, ADD_FAVORITE, DELETE_FAVORITE } from "../actions/actionsTypes"
+        FILTER_BY_SIZE, FILTER_BY_LOCATION, ADD_FAVORITE, DELETE_FAVORITE, EDIT_PET, EDIT_APA, EDIT_USER } from "../actions/actionsTypes"
 import { Pet, Apa, User } from "../types"
 
 const emptyDetail = {
@@ -24,8 +25,10 @@ const emptyDetailUser = {
   username: "",
   last_name: "",
   email: "",
+  provincia: "",
   location: "",
-  image: ""
+  image: "",
+
 }
 
 const emptyDetailApa = {
@@ -51,6 +54,7 @@ export interface StateType {
   detailApa: Apa
   petsFilter: Pet[]
   myFavorites: Pet[]
+
 }
 
 
@@ -137,7 +141,21 @@ const reducer = (
         ...state,
         detailUser: action.payload
       }
+      case EDIT_PET:
+        return {
+          ...state,
+        };
+      
+        case EDIT_APA:
+          return {
+            ...state,
+          };
 
+          case EDIT_USER:
+            return {
+              ...state,
+            };
+     
     case GET_PETS:
       return {
         ...state,

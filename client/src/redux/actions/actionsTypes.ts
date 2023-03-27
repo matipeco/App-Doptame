@@ -15,3 +15,6 @@ export const FILTER_BY_LOCATION = "FILTER_BY_LOCATION"
 export const ADD_FAVORITE = "ADD_FAVORITE"
 export const DELETE_FAVORITE = "DELETE_FAVORITE"
 export const GET_FAVORITE = "GET_FAVORITE"
+export const EDIT_PET = 'EDIT_PET'
+export const EDIT_APA = 'EDIT_APA'
+export const EDIT_USER = 'EDIT_USER'

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 // const crypto = require("crypto");
 
+
 const userSchema = new Schema(
   {
     name: { type: String },
@@ -14,6 +15,7 @@ const userSchema = new Schema(
     image: { type: String },
     resetPasswordKey: { type: String },
     resetPasswordExpires: { type: Date },
+    provincia: { type: String, required: true }
     googleId: { type: String, sparse: true, unique: true },
     favorites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [

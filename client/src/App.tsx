@@ -4,10 +4,14 @@ import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users, ProfileApas } fr
 import { Cards } from './components/Cards/Cards';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
+import FormEditPet from './views/FormEditPet/FormEditPet';
+import FormEditApa from './views/FormEditApa/FormEditApa';
+import FormEditUser from './views/FormEditUser/FormEditUser';
 import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
 import UserPassword from './components/RestorePasswordUser/UserPassword';
 import Fav from './views/Favs/Fav';
+
 
 
 function App() {
@@ -30,6 +34,9 @@ function App() {
           <Route path="/aboutUs" element={<AboutUs />}></Route>
           <Route path="/formApa" element={<FormApa />}></Route>
           <Route path="/formPet" element={<FormPets />}></Route>
+          <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
+          <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
+          <Route path="/formEditUser/:userId" element={<FormEditUser />}></Route>
           <Route path='/pets/:category' element={<Cards />}></Route>
           <Route path='/formUser' element={<FormUser />}></Route>
           <Route path='/usuario/:id' element={<Users />}></Route>

@@ -37,6 +37,7 @@ export interface User {
   password?: string
   email?: string
   location?: string
+  provincia?: string
   image?: string
   pet?: {}
   token?: string
@@ -61,7 +62,6 @@ export interface InputData {
   age?: Number
   size?: string
   type?: string
-
 }
 
 export type errorsInput = {
@@ -82,8 +82,5 @@ export type errorsInput = {
   size?: string
   type?: string
 };
-
-
-
 
 
