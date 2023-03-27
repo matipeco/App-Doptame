@@ -9,14 +9,14 @@ const userSchema = new Schema(
     name: { type: String },
     username: { type: String, required: true, unique: true },
     last_name: { type: String },
-    password: { type: String, required: true },
+    password: { type: String },
     email: { type: String, required: true, unique: true },
     location: { type: String },
     image: { type: String },
     resetPasswordKey: { type: String },
     resetPasswordExpires: { type: Date },
-    provincia: { type: String, required: true },
-    googleId: { type: String },
+    provincia: { type: String, required: true }
+    googleId: { type: String, sparse: true, unique: true },
     favorites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {

@@ -18,6 +18,7 @@ const {
 userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getUserById);
 userRouter.put("/:id", [verifyToken, isUserOrAdmin], putUser);
-userRouter.delete("/:id", [verifyToken, isUserOrAdmin], deleteUser);
+userRouter.delete("/:id", deleteUser);
+// userRouter.delete("/:id", [verifyToken, isUserOrAdmin], deleteUser);
 
 module.exports = userRouter;
