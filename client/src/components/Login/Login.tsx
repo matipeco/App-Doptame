@@ -5,6 +5,8 @@ import { validation } from "../../validation/validation";
 import style from './Login.module.css'
 import { RegistroApaUser } from "../RegistroApaUser/RegistroApaUser";
 import { useNavigate } from "react-router-dom";
+import LogInWithGoogle from "../LoginGoogle/LoginGoogle";
+
 
 
 export const Login = () => {
@@ -27,6 +29,7 @@ export const Login = () => {
             [name]: value,
         });
     };
+
 
     const handleUserTypeChange = (ev: ChangeEvent<HTMLInputElement>): void => {
         const userType = ev.target.value as SignInData["userType"];
@@ -135,7 +138,7 @@ export const Login = () => {
 
                     <div className={style.linea}></div>
 
-                    <button>Continuar con Google</button>
+                    <LogInWithGoogle></LogInWithGoogle>
 
                     <div className={style.linea}></div>
 
