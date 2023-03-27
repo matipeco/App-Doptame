@@ -49,9 +49,7 @@ const signUpApa = async (req, res) => {
   // Guardar usuario en la base de datos
   const savedApa = await newApa.save(); // save nuevo usuario
   console.log(savedApa);
-  const token = jwt.sign({ id: savedApa._id }, config.SECRET, {
-    expiresIn: 86400, //24 hs
-  });
+  const token = jwt.sign({ id: savedApa._id }, config.SECRET);
 
   res.status(201).json({ token });
 };

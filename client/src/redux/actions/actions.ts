@@ -8,6 +8,7 @@ import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL,
 
 
 
+
 type dispatchApa = {
   type: string
   payload: Apa
@@ -127,15 +128,20 @@ export const clearDetail = () => {
 };
 
 
-export const postPet = (id: string, payload: Pet) => {
+export const postPet = (id: string, payload: Pet, accessToken: string) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
-    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
+    const config = {
+      headers: {
+        authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
+      }
+    };
+    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload, config);
     return dispatch({
       type: ADD_PET,
       payload: createPet.data
     });
   };
-};
+};;
 
 
 
@@ -176,16 +182,16 @@ export const getDetailUsers = (id: string) => {
   };
 };
 
-export const OrderByAge=(payload: string): filtros => {
+export const OrderByAge = (payload: string): filtros => {
   return {
     type: ORDER_BY_AGE,
-      payload: payload 
-    }
+    payload: payload
+  }
 
 }
 
-export const FilteredBySize=(payload: string): filtros =>{
-  return{
+export const FilteredBySize = (payload: string): filtros => {
+  return {
     type: FILTER_BY_SIZE,
     payload: payload
   }
