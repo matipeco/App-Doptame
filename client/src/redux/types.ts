@@ -41,6 +41,7 @@ export interface User {
   pet?: {}
   token?: string
   resetPasswordKey?: string
+  googleId?: string
 }
 
 
