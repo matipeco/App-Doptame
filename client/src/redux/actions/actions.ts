@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET } from "./actionsTypes"; import { Dispatch } from "react";
 
 
 
@@ -208,6 +208,17 @@ export const deleteUser = (id: string) => {
 
     return dispatch({
       type: DELETE_USER,
+      payload: data,
+    });
+  };
+};
+
+export const deletePet = (id: string) => {
+  return async (dispatch: Dispatch<dispatchPet>) => {
+    const { data } = await axios.delete(`http://localhost:3001/pets/delete/${id}`);
+
+    return dispatch({
+      type: DELETE_PET,
       payload: data,
     });
   };

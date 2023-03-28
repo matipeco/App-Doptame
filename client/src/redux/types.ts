@@ -9,6 +9,7 @@ export interface Pet {
   status: boolean
   apa?: {
     location: string
+    name: string
   }
   description: string
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AnyAction } from 'redux';
-import { getUsers, getApas, deleteApa, deleteUser } from '../../redux/actions/actions';
+import { getUsers, getPets, getApas, deleteApa, deleteUser, deletePet } from '../../redux/actions/actions';
 import { Reducer } from '../../redux/store/store';
 import { Table } from 'react-bootstrap';
 import style from "../DashboardAdmin/DashboardAdmin.module.css"
@@ -13,32 +13,29 @@ export const DashboardAdmin = () => {
     const dispatch = useDispatch();
     const users = useSelector((state: Reducer) => state.allUsers);
     const apas = useSelector((state: Reducer) => state.allApas);
-
-
-
+    const pets = useSelector((state: Reducer) => state.allPets);
 
     useEffect(() => {
         dispatch(getApas() as any as AnyAction)
         dispatch(getUsers() as any as AnyAction) // Agregar esta línea para volver a cargar la lista de usuarios
+        dispatch(getPets() as any as AnyAction) // Agregar esta línea para volver a cargar la lista de usuarios
     }, [dispatch])
 
-
-
     const handleDeleteUser = async (event: React.MouseEvent<HTMLButtonElement>) => {
-
         const id = event.currentTarget.value;
-
         dispatch(deleteUser(id) as any as AnyAction).then(() => dispatch(getUsers() as any as AnyAction))
-
-
-
     };
-
 
     const handleDeleteApa = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         const id = event.currentTarget.value;
         dispatch(deleteApa(id) as any as AnyAction).then(() => dispatch(getApas() as any as AnyAction))
+    };
+
+    const handleDeletePet = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+        const id = event.currentTarget.value;
+        dispatch(deletePet(id) as any as AnyAction).then(() => dispatch(getPets() as any as AnyAction))
     };
 
     return (
@@ -89,6 +86,33 @@ export const DashboardAdmin = () => {
 
                             <td>
                                 <button onClick={handleDeleteApa} value={apa._id} >Eliminar </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+            <Table className={style.tableUser} striped bordered hover>
+                <caption>Pets</caption>
+                <thead>
+                    <tr>
+                        <th>Nombre Pet</th>
+                        <th>Id</th>
+                        <th>Apa</th>
+                        <th>Status</th>
+
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pets && pets?.map(pet => (
+                        <tr key={pet?._id}>
+                            <td>{pet?.name}</td>
+                            <td>{pet?._id}</td>
+                            <td>{pet?.apa?.name}</td>
+                            <td>{pet?.status}</td>
+
+                            <td>
+                                <button onClick={handleDeletePet} value={pet._id} >Eliminar </button>
                             </td>
                         </tr>
                     ))}

@@ -19,6 +19,6 @@ petRouter.get("/", getAllPets);
 petRouter.get("/:petId", getPetById);
 petRouter.post("/create/:apaId", [verifyToken, isApa], createPet); // Diego: Agregamos params a la ruta para que tenga en cuenta la id de la Apa desde donde se crea la mascota
 petRouter.put("/edit/:petId", [verifyToken, isApa], editPet);
-petRouter.delete("/delete/:petId", [verifyToken, isApaOrAdmin], deletePet);
+petRouter.delete("/delete/:petId", deletePet);
 
 module.exports = petRouter;
