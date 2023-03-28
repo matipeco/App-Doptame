@@ -9,7 +9,7 @@ import FormEditPet from './views/FormEditPet/FormEditPet';
 import FormEditApa from './views/FormEditApa/FormEditApa';
 import { Login } from './components/Login/Login';
 import UserPassword from './components/RestorePasswordUser/UserPassword';
-
+import { DashboardAdmin } from './components/DashboardAdmin/DashboardAdmin';
 
 
 function App() {
@@ -40,6 +40,8 @@ function App() {
           <Route path='/usuario/:id' element={<Users />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/restore-password' element={<UserPassword />}></Route>
+          <Route path='/admin' element={<DashboardAdmin />}></Route>
+
 
 
         </Routes>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, EDIT_PET, EDIT_APA, EDIT_USER } from "./actionsTypes";import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, EDIT_PET, EDIT_APA, EDIT_USER } from "./actionsTypes"; import { Dispatch } from "react";
 
 
 
@@ -145,7 +145,7 @@ export const postUser = (payload: User) => {
 
 export const getUsers = () => {
   return async (dispatch: Dispatch<dispatchGet>) => {
-    const response = await axios.get<Apa[]>("http://localhost:3001/users");
+    const response = await axios.get<User[]>("http://localhost:3001/users");
 
     return dispatch({
       type: GET_USER,
@@ -218,9 +218,33 @@ export const FilteredBySize = (payload: string): filtros => {
   }
 }
 
-export const FilterByLocation=(payload: string): filtros =>{
-  return{
+export const FilterByLocation = (payload: string): filtros => {
+  return {
     type: FILTER_BY_LOCATION,
     payload: payload
   }
 }
+
+
+export const deleteApa = (id: string) => {
+  return async (dispatch: Dispatch<dispatchApa>) => {
+    const { data } = await axios.delete(`http://localhost:3001/apa/${id}`);
+
+    return dispatch({
+      type: DELETE_APA,
+      payload: data,
+    });
+  };
+};
+
+export const deleteUser = (id: string) => {
+  return async (dispatch: Dispatch<dispatchUser>) => {
+    const { data } = await axios.delete(`http://localhost:3001/users/${id}`);
+
+    return dispatch({
+      type: DELETE_USER,
+      payload: data,
+    });
+  };
+};
+
