@@ -125,7 +125,119 @@ function FormUser() {
                 </form>
             </div>
         </div>
-    )
+      </div>
+      <div className="containerForm">
+        <form action="" onSubmit={handleSubmit}>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="name"
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="name">
+              Nombre
+            </label>
+            {touched.name && errorsInput.name && (
+              <p className="error">{errorsInput.name}</p>
+            )}
+          </div>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="last_name"
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="username">
+              Apellido
+            </label>
+            {touched.last_name && errorsInput.last_name && (
+              <p className="error">{errorsInput.last_name}</p>
+            )}
+          </div>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="username"
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="username">
+              Usuario
+            </label>
+            {touched.username && errorsInput.username && (
+              <p className="error">{errorsInput.username}</p>
+            )}
+          </div>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="password"
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="password">
+              Contraseña
+            </label>
+            {touched.password && errorsInput.password && (
+              <p className="error">{errorsInput.password}</p>
+            )}
+          </div>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="email"
+              onBlur={handleBlur}
+            />
+            <label className="label" htmlFor="name">
+              Email
+            </label>
+            {touched.email && errorsInput.email && (
+              <p className="error">{errorsInput.email}</p>
+            )}
+          </div>
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              type="text"
+              className="input"
+              name="location"
+            />
+            <label className="label" htmlFor="name">
+              Localidad
+            </label>
+          </div>
+
+          <div className="containerInputs">
+            <input
+              onChange={handleInputChange}
+              className="fil"
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              required
+            />
+            <label className="tam" htmlFor="image">
+              Imagen
+            </label>
+
+            {/* {errors.name && <p className={s.error}>{errors.name}</p>} */}
+          </div>
+          <button disabled={Object.keys(errorsInput).length !== 0}>
+            Crear
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default FormUser;

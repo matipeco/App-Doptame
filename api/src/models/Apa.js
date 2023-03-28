@@ -8,6 +8,7 @@ const apaSchema = new Schema(
     password: { type: String, required: true },
     username: { type: String },
     email: { type: String, required: true },
+    image: { type: String },
     cbu_cvu: { type: String },
     description: { type: String },
     location: { type: String },

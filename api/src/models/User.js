@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 // const crypto = require("crypto");
 
-
 const userSchema = new Schema(
   {
     name: { type: String },
