@@ -14,14 +14,16 @@ const Login = async (req, res) => {
 
   if (userType === "user") {
     const userFound = await User.findOne({ email }).populate("role");
+
     if (!userFound) {
       return res.status(400).json({ message: "Usuario no encontrado" });
     }
-
+    console.log(password);
     const matchedPassword = await User.comparePassword(
       password,
       userFound.password
     );
+    console.log(userFound.password);
     if (!matchedPassword) {
       return res
         .status(401)

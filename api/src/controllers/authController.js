@@ -202,9 +202,9 @@ const resetPasswordWithEmail = async (req, res) => {
         .json({ message: "Clave de restablecimiento inválida o expirada" });
     }
 
-    // Actualizar la contraseña y eliminar la clave de restablecimiento de contraseña
-
-    user.password = password;
+    // Encriptar la nueva contraseña y guardarla en la base de datos
+    user.password = await User.encryptPassword(password);
+    console.log(user.password);
     user.resetPasswordKey = undefined;
     await user.save();
 
