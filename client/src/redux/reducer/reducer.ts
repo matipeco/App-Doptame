@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA } from "../actions/actionsTypes"
 import { Pet, Apa, User } from "../types"
 
 const emptyDetail = {
@@ -29,15 +29,15 @@ const emptyDetailUser = {
 const emptyDetailApa = {
   _id: "",
   name: "",
-  password:  "",
+  password: "",
   email: "",
-  location:  "",
-  description:  "",
-  cbu_cvu:  "",
-  url:  "",
+  location: "",
+  description: "",
+  cbu_cvu: "",
+  url: "",
   telephone: "",
-  provincia:  "",
-  cuit:  "",
+  provincia: "",
+  cuit: "",
 }
 
 export interface StateType {
@@ -48,6 +48,8 @@ export interface StateType {
   detailUser: User
   detailApa: Apa
   petsFilter: Pet[]
+  userEliminados: User[]
+  todasApas: Apa[]
 
 }
 
@@ -60,7 +62,11 @@ const initialState: StateType = {
   detailUser: emptyDetailUser,
   detailApa: emptyDetailApa,
   detail: emptyDetail,
-  petsFilter:[]
+  petsFilter: [],
+  userEliminados: [],
+  todasApas: []
+
+
 }
 
 
@@ -82,9 +88,10 @@ const reducer = (
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
         ...state,
-        allApas: [...state.allApas, action.payload]
+        allApas: [...state.allApas, action.payload],
+
       };
-      case GET_APA_DETAIL:
+    case GET_APA_DETAIL:
       return {
         ...state,
         detailApa: action.payload
@@ -94,7 +101,8 @@ const reducer = (
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
         ...state,
-        allApas: action.payload
+        allApas: action.payload,
+        todasApas: action.payload
       };
 
     case POST_USER:
@@ -107,7 +115,8 @@ const reducer = (
       // Modifica aquí el estado en función del valor del tipo de acción
       return {
         ...state,
-        allUsers: action.payload
+        allUsers: action.payload,
+        userEliminados: action.payload
       };
 
     case ADD_PET:
@@ -145,41 +154,54 @@ const reducer = (
         petsFilter: action.payload
       }
 
-      case ORDER_BY_AGE: 
+    case ORDER_BY_AGE:
       const isAsc = action.payload;
-      const sortByAge = state.petsFilter.sort((a , b) => {
+      const sortByAge = state.petsFilter.sort((a, b) => {
         const numA = a.age
         const numB = b.age
-        if(isAsc === 'asc'){
+        if (isAsc === 'asc') {
           return numA > numB ? 1 : numA < numB ? -1 : 0;
-        }else{
+        } else {
           return numA < numB ? 1 : numA > numB ? -1 : 0;
         }
       })
-      
-  
+
+
       return {
         ...state,
         allPets: sortByAge,
       }
-  
-      case FILTER_BY_SIZE:  
-        const createdFiltered = state.petsFilter.filter((el: Pet) => el.size === action.payload)
-        return {
-          ...state,
-          allPets: createdFiltered
-        }
 
-        case FILTER_BY_LOCATION:
+    case FILTER_BY_SIZE:
+      const createdFiltered = state.petsFilter.filter((el: Pet) => el.size === action.payload)
+      return {
+        ...state,
+        allPets: createdFiltered
+      }
 
-        const selectedLocation = action.payload === 'All'
+    case FILTER_BY_LOCATION:
+
+      const selectedLocation = action.payload === 'All'
         ? state.petsFilter
-        : state.petsFilter.filter(el=>el.apa?.location.includes(action.payload))
-        
-        return {
-             ...state,
-             allPets: selectedLocation,
-        };
+        : state.petsFilter.filter(el => el.apa?.location.includes(action.payload))
+
+      return {
+        ...state,
+        allPets: selectedLocation,
+      };
+
+    case DELETE_USER:
+      const updatedUsers = state.userEliminados.filter((user) => user._id !== action.payload);
+      return {
+        ...state,
+        allUsers: updatedUsers,
+      };
+    case DELETE_APA:
+      const updatedApas = state.todasApas.filter((apa) => apa._id !== action.payload);
+      return {
+        ...state,
+        allApas: updatedApas,
+      };
 
     default:
       return state;

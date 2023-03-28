@@ -22,6 +22,6 @@ apaRouter.get("/:id", getApaByIdHandler);
 
 apaRouter.get("/", getAllApasHandler); // Diego: Nuevo
 
-apaRouter.delete("/:id", [verifyToken, isApaOrAdmin], deleteApaByIdHandler); // Diego: Nuevo
+apaRouter.delete("/:id", deleteApaByIdHandler); // Diego: Nuevo
 
 module.exports = apaRouter;
