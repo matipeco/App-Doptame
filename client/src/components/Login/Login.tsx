@@ -13,7 +13,7 @@ export const Login = () => {
     type SignInData = {
         email: string;
         password: string;
-        userType: "apa" | "user" | undefined;
+        userType: "apa" | "user" | "admin" | undefined;
     };
     const navigate = useNavigate()
     const [signInData, setSignInData] = useState<SignInData>({
@@ -129,6 +129,16 @@ export const Login = () => {
                                 onChange={handleUserTypeChange}
                             />
                             User
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="userType"
+                                value="admin"
+                                checked={signInData.userType === "admin"}
+                                onChange={handleUserTypeChange}
+                            />
+                            Admin
                         </label>
                     </div>
 

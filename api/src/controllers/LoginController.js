@@ -31,9 +31,7 @@ const Login = async (req, res) => {
         .json({ token: null, message: "contraseña invalida" });
     }
 
-    const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
+    const token = jwt.sign({ id: userFound._id }, config.SECRET);
 
     res.json({ token });
   } else if (userType === "apa") {
@@ -52,9 +50,7 @@ const Login = async (req, res) => {
         .json({ token: null, message: "contraseña invalida" });
     }
 
-    const token = jwt.sign({ id: apaFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
+    const token = jwt.sign({ id: apaFound._id }, config.SECRET);
 
     res.json({ token });
   } else if (userType === "admin") {
@@ -69,9 +65,7 @@ const Login = async (req, res) => {
         .json({ token: null, message: "contraseña invalida" });
     }
 
-    const token = jwt.sign({ id: adminFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
+    const token = jwt.sign({ id: adminFound._id }, config.SECRET);
 
     res.json({ token });
   } else {
@@ -160,9 +154,7 @@ const LoginWithGoogle = async (req, res) => {
     // }
 
     // Generar un token de autenticación para el usuario
-    const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-      expiresIn: 86400, //24 hs
-    });
+    const token = jwt.sign({ id: userFound._id }, config.SECRET);
     console.log(token);
 
     // Devolver el token como respuesta
