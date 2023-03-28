@@ -35,6 +35,18 @@ function LoginWithGoogle() {
     console.log("Something went wrong");
   };
 
+  // const handleSignOut = () => {
+  //   const auth2 = gapi.auth2.getAuthInstance();
+  //   const confirmSignOut = window.confirm(
+  //     "¿Estás seguro de que quieres cerrar sesión?"
+  //   );
+  //   if (confirmSignOut) {
+  //     auth2.signOut().then(function () {
+  //       console.log("User out.");
+  //     });
+  //   }
+  // };
+
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -62,6 +74,10 @@ function LoginWithGoogle() {
           isSecure={true}
         />
       </div>
+
+      {/* <div>
+        <button onClick={handleSignOut}>Cerrar sesión de Google</button>
+      </div> */}
     </div>
   );
 }

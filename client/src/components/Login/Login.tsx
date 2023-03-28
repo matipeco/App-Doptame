@@ -49,7 +49,7 @@ export const Login = () => {
                     password: "",
                     userType: undefined
                 });
-
+                localStorage.setItem("token", response.data.token);
                 navigate("/home")
             })
             .catch((error) => {
