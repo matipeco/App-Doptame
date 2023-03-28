@@ -16,19 +16,30 @@ function NavBar() {
 
   const navigate = useNavigate()
   const handleLogout = async () => {
-    await localStorage.removeItem("token");
+    localStorage.removeItem("token");
+    console.log("Token eliminado: " + localStorage.getItem("token"));
+
     navigate("/")
   };
 
   const handleSignOut = () => {
-    const auth2 = gapi.auth2.getAuthInstance();
     const confirmSignOut = window.confirm(
       "¿Estás seguro de que quieres cerrar sesión?"
     );
     if (confirmSignOut) {
+      // remove the token from localStorage
+      localStorage.removeItem("token");
+      // console.log("Token eliminado: " + localStorage.getItem("token"));
+      // sign out the user from Google authentication
+      const auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        navigate("/")
+        // console.log("Usuario desconectado exitosamente de Google Sign-In");
+        // navigate to the home page
+        navigate("/");
       });
+
+      // navigate to the home page for local authentication
+
     }
   };
   return (
