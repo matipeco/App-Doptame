@@ -3,6 +3,7 @@ const LoginController = require("express").Router();
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const Apa = require("../models/Apa");
+const Admin = require("../models/Admin");
 const { OAuth2Client } = require("google-auth-library");
 const Role = require("../models/Roles");
 
@@ -52,6 +53,23 @@ const Login = async (req, res) => {
     }
 
     const token = jwt.sign({ id: apaFound._id }, config.SECRET, {
+      expiresIn: 86400, //24 hs
+    });
+
+    res.json({ token });
+  } else if (userType === "admin") {
+    const adminFound = await Admin.findOne({ email }).populate("role");
+    if (!adminFound) {
+      return res.status(400).json({ message: "Admin no encontrad0" });
+    }
+
+    if (password !== adminFound.password) {
+      return res
+        .status(401)
+        .json({ token: null, message: "contraseña invalida" });
+    }
+
+    const token = jwt.sign({ id: adminFound._id }, config.SECRET, {
       expiresIn: 86400, //24 hs
     });
 
