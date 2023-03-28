@@ -102,9 +102,6 @@ console.log(petDetails)
     }
 
 
-
-
-
     return (
         <div className="container">
             <div>
