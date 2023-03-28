@@ -11,6 +11,7 @@ import FormEditPet from './views/FormEditPet/FormEditPet';
 import FormEditApa from './views/FormEditApa/FormEditApa';
 import FormEditUser from './views/FormEditUser/FormEditUser';
 import FormUser from './views/FormUser/FormUser';
+import FormAdoption from './views/FormAdoption/FormFormAdoption';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
         <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
         <Route path="/formEditUser/:userId" element={<FormEditUser />}></Route>
+        <Route path="/formAdoption/:petId" element={<FormAdoption />}></Route>
         <Route path='/pets/:category' element={<Cards/>}></Route>
         <Route path='/formUser' element={<FormUser/>}></Route>
 
