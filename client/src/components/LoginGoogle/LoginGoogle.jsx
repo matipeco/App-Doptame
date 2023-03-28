@@ -72,6 +72,7 @@ function LoginWithGoogle() {
           buttonText="Continue with Google"
           cookiePolicy={"single_host_origin"}
           isSecure={true}
+          prompt="select_account"
         />
       </div>
 
