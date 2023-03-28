@@ -10,7 +10,7 @@ import validate from './JSvalidationsFormEditApa';
 import { useParams} from 'react-router-dom';
 
 
-function FormEditApa() { //Podemos hacer q reciba la apaId por props o por params.
+function FormEditApa() { 
 
     const provincias = ["Ciudad Autónoma de Buenos Aires",
     "Catamarca",
@@ -64,24 +64,6 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     url: "",
     // image: "",
 })
-
-// console.log(input)
-
-
-
-    // const [errors, setErrors] = useState({
-    //     name:'Ingrese un Nombre',
-    //     password: 'Ingrese una Contraseña',
-    //     email:'Ingrese un email',
-    //     description: "Ingrese una Descripción",
-    //     provincia: "Seleccione su Provincia",
-    //     location: "Ingrese su Localidad",
-    //     telephone: "Ingrese solo números",
-    //     cuit: "Ingrese su CUIT, sin espacios ni guiones",
-    //     cbu_cvu: "Ingrese su CBU/CVU (22 dígitos)",
-    //     url: "Ingrese su sitio web o red social",
-    //     // image: "Cargue una imagen",
-    // })
 
     const [errors, setErrors] = useState({
         name:'',
@@ -143,9 +125,6 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
     }
 
 
-
-
-
     return (
         <div className="container">
             <div>
@@ -187,7 +166,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
 
 <hr />
             <div className="containerForm">
-                <h1>Los datos de este formulario reemplazarán a los Datos Actuales</h1>
+                <h1>Editar APA: Los datos de este formulario reemplazarán a los Datos Actuales</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
@@ -331,7 +310,7 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                         </div>
                         
                     </div>
-                    {/* NI EN EL TYPE NI EN EL MODEL ESTA LA IMAGEN */}
+                    
                     {/* <div className="row">
                         <div className="containerInputs">
                             <input
@@ -351,16 +330,16 @@ function FormEditApa() { //Podemos hacer q reciba la apaId por props o por param
                             {errors.image && <p className='error'>{errors.image}</p>}
                         </div> */}
 
-                        <button type="submit" disabled={handleDisabledButton()}>Guardar Moficicaciones Hechas</button>
+                        <button type="submit" disabled={handleDisabledButton()}>Guardar</button>
                       
                     {/* </div> */}
                 </form>
             </div>
 
-            <div className="containerTitle">
+            {/* <div className="containerTitle">
                 <h1>Editar APA</h1>
                 <img className="imgPerrito" src={petCat} alt="foto perrito" />
-            </div>
+            </div> */}
 
         </div>
     )

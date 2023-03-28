@@ -19,7 +19,7 @@ function FormEditPet() { //Podemos hacer q reciba la petId por props o por param
 
 //Me aseguro de q los details de la pet y allPets esten cargados en el State Global
     useEffect (()=>{
-        dispatch(getPets() as unknown as AnyAction)
+        // dispatch(getPets() as unknown as AnyAction)
         dispatch(getDetailPets(petId)as unknown as AnyAction)
         //
         // return (): any=> dispatch(clearDetail())
@@ -32,15 +32,9 @@ console.log(petDetails)
 
 //Me traigo todas las pets
     const allPets = useSelector((state: StateType) => state.allPets); 
-    const oldVersionPet= allPets.find(p=>p._id === petId) //  petId HASTA Q LA PODAMOS TRAER POR PARAMS O X PROPS
+    // const oldVersionPet= allPets.find(p=>p._id === petId)
 // console.log(oldVersionPet)
 
-
-//NO ME TRAE INPUT LLENO!!
-    // const [input, setInput] = useState({
-    //     ...petDetails
-    // })
-// console.log(input)
 
 
     const [input, setInput] = useState({
@@ -114,27 +108,27 @@ console.log(petDetails)
     return (
         <div className="container">
             <div>
-            <h2>Datos Actuales</h2>
+            <h1>Datos Actuales de Mascota</h1>
                 <label className='labelCurrentInfo' htmlFor="name">Nombre:</label>
-                <h5>{petDetails.name}</h5>
+                <h3>{petDetails.name}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="age">Edad (años):</label>
-                <h5>{petDetails.age}</h5>
+                <h3>{petDetails.age}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="description">Descripción:</label>
-                <h5>{petDetails.description}</h5>
+                <h3>{petDetails.description}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="size">Tamaño:</label>
-                <h5>{petDetails.size}</h5>
+                <h3>{petDetails.size}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="adoption">Buscando Hogar:</label>
-                <h5>{petDetails.adoption ? 'Sí' : 'No'}</h5>
+                <h3>{petDetails.adoption ? 'Sí' : 'No'}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="status">Publicado:</label>
-                <h5>{petDetails.status ? 'Sí' : 'No'}</h5>
+                <h3>{petDetails.status ? 'Sí' : 'No'}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="type">Tipo de Mascota</label>
-                <h5>{petDetails.type}</h5>
+                <h3>{petDetails.type}</h3>
 
                 <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
                 <img src={petDetails.image} alt="imagen de la mascota" className='imagenCargada' />
@@ -144,7 +138,7 @@ console.log(petDetails)
 
 <hr />
             <div className="containerForm">
-                <h1>Los datos de este formulario reemplazarán a los Datos Actuales</h1>
+                <h1>Editar Mascota: los datos de este formulario reemplazarán a los Datos Actuales</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
@@ -252,15 +246,15 @@ console.log(petDetails)
                             {errors.image && <p className='error'>{errors.image}</p>}
                         </div>
 
-                        <button type="submit" disabled={handleDisabledButton()}>Guardar Moficicaciones Hechas</button>
+                        <button type="submit" disabled={handleDisabledButton()}>Guardar</button>
                         {/* <button type="submit" disabled={handleDisabledButton()} className="btn">Guardar Moficicaciones Hechas</button> */}
                     </div>
                 </form>
             </div>
-            <div className="containerTitle">
+            {/* <div className="containerTitle">
                 <h1>Editar Mascota</h1>
                 <img className="imgPerrito" src={petCat} alt="foto perrito" />
-            </div>
+            </div> */}
 
         </div>
     )

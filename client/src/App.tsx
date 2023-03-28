@@ -5,6 +5,8 @@ import { Cards } from './components/Cards/Cards';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
 import FormUser from './views/FormUser/FormUser';
+import FormEditPet from './views/FormEditPet/FormEditPet';
+import FormEditApa from './views/FormEditApa/FormEditApa';
 import { Login } from './components/Login/Login';
 import UserPassword from './components/RestorePasswordUser/UserPassword';
 
@@ -31,6 +33,8 @@ function App() {
           <Route path="/aboutUs" element={<AboutUs />}></Route>
           <Route path="/formApa" element={<FormApa />}></Route>
           <Route path="/formPet" element={<FormPets />}></Route>
+          <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
+          <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
           <Route path='/pets/:category' element={<Cards />}></Route>
           <Route path='/formUser' element={<FormUser />}></Route>
           <Route path='/usuario/:id' element={<Users />}></Route>
