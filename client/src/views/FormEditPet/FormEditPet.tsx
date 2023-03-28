@@ -77,7 +77,6 @@ console.log(petDetails)
 // console.log(errors)
     };
 
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // const editedPet= {
@@ -100,7 +99,6 @@ console.log(petDetails)
             return false;
         }
     }
-
 
     return (
         <div className="container">
