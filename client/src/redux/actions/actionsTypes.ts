@@ -12,3 +12,6 @@ export const GET_DETAIL_USERS = "GET_DETAIL_USERS"
 export const ORDER_BY_AGE = "ORDER_BY_AGE"
 export const FILTER_BY_SIZE = "FILTER_BY_SIZE"
 export const FILTER_BY_LOCATION = "FILTER_BY_LOCATION"
+export const EDIT_PET = 'EDIT_PET'
+export const EDIT_APA = 'EDIT_APA'
+export const EDIT_USER = 'EDIT_USER'
