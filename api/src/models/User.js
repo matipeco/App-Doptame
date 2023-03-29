@@ -15,6 +15,7 @@ const userSchema = new Schema(
     resetPasswordKey: { type: String },
     resetPasswordExpires: { type: Date },
     googleId: { type: String, sparse: true, unique: true },
+    suspended: { type: Boolean, default: false },
     favorites: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {

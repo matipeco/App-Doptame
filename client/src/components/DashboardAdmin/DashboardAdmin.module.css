@@ -1,9 +1,0 @@
-.tableUser {
-    font-size: 14px;
-    border: 1px solid black; /* Ajusta este valor al tamaño que desees */
-  }
-  
-  .tableUser td, .tableUser th {
-    padding: 0.5rem;
-    border: 1px solid black; /* Ajusta este valor al espacio que desees */
-  }
