@@ -5,6 +5,7 @@ const userRouter = require("./userRouter");
 const favRouter = require("./FavRouter");
 const routerAuth = require("./authRouter");
 const LoginRouter = require("./LoginRouter");
+const suspRouter = require("./suspencionRouter");
 const mainRouter = Router();
 
 mainRouter.use("/apa", apaRouter);
@@ -14,5 +15,6 @@ mainRouter.use("/favorites", favRouter);
 mainRouter.use("/api/auth/users", routerAuth);
 mainRouter.use("/auth/apas", routerAuth);
 mainRouter.use("/auth/apa/user", LoginRouter);
+mainRouter.use("/apa/user", suspRouter);
 
 module.exports = mainRouter;

@@ -15,6 +15,7 @@ const apaSchema = new Schema(
     telephone: { type: Number },
     provincia: { type: String },
     cuit: { type: Number },
+    suspended: { type: Boolean, default: false },
     pets: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {
