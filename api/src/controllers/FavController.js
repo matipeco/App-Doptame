@@ -93,14 +93,20 @@ const deleteFavorite = async (req, res) => {
 
 const getFavorite = async (req, res) => {
   try {
-    const favorites = await Favorites.find({
-      user: req.params.userId,
-    }).populate("pet");
+    const user = await User.findById(req.params.userId).populate("favorites");
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+    const favorites = user.favorites.map((petId) => ({
+      user: user._id,
+      pet: petId,
+    }));
     if (!favorites || favorites.length === 0) {
       return res.status(404).json({ message: "No se encontraron favoritos" });
     }
     res.status(200).json({ favorites });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "No se pudo obtener favoritos" });
   }
 };

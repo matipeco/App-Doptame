@@ -1,4 +1,5 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET } from "../actions/actionsTypes"
+
 import { Pet, Apa, User } from "../types"
 
 const emptyDetail = {
@@ -7,6 +8,7 @@ const emptyDetail = {
   age: 0,
   apa: {
     location: "",
+    name: ""
   },
   image: "",
   name: "",
@@ -40,6 +42,24 @@ const emptyDetailApa = {
   cuit: "",
 }
 
+const user: User = {
+  favorites: [
+    { pet: {
+      _id: "",
+      name: "",
+      age: 0,
+      size: "",
+      type: "",
+      image: "",
+      adoption: false, 
+      status: true,
+      description: "",
+
+      }  }
+  ]
+};
+
+
 export interface StateType {
   allPets: Pet[]
   allApas: Apa[]
@@ -49,7 +69,8 @@ export interface StateType {
   detailApa: Apa
   petsFilter: Pet[]
   userEliminados: User[]
-  todasApas: Apa[]
+  apasEliminadas: Apa[]
+  favoriteUser: User
 
 }
 
@@ -64,11 +85,11 @@ const initialState: StateType = {
   detail: emptyDetail,
   petsFilter: [],
   userEliminados: [],
-  todasApas: []
+  apasEliminadas: [],
+  favoriteUser: user
 
 
 }
-
 
 
 type ActionType = {
@@ -102,7 +123,7 @@ const reducer = (
       return {
         ...state,
         allApas: action.payload,
-        todasApas: action.payload
+        apasEliminadas: action.payload
       };
 
     case POST_USER:
@@ -144,9 +165,6 @@ const reducer = (
         detailUser: action.payload
       }
 
-
-
-
     case GET_PETS:
       return {
         ...state,
@@ -154,18 +172,17 @@ const reducer = (
         petsFilter: action.payload
       }
 
-    case ORDER_BY_AGE:
+      case ORDER_BY_AGE: 
       const isAsc = action.payload;
-      const sortByAge = state.petsFilter.sort((a, b) => {
+      const sortByAge = state.petsFilter.sort((a , b) => {
         const numA = a.age
         const numB = b.age
-        if (isAsc === 'asc') {
+        if(isAsc === 'asc'){
           return numA > numB ? 1 : numA < numB ? -1 : 0;
-        } else {
+        }else{
           return numA < numB ? 1 : numA > numB ? -1 : 0;
         }
       })
-
 
       return {
         ...state,
@@ -197,10 +214,23 @@ const reducer = (
         allUsers: updatedUsers,
       };
     case DELETE_APA:
-      const updatedApas = state.todasApas.filter((apa) => apa._id !== action.payload);
+      const updatedApas = state.apasEliminadas.filter((apa) => apa._id !== action.payload);
       return {
         ...state,
         allApas: updatedApas,
+      };
+    
+      case GET_FAVORITE: 
+      return {
+        ...state,
+        favoriteUser: action.payload
+      }
+
+    case DELETE_PET:
+      const updatedPet = state.petsFilter.filter((pet) => pet._id !== action.payload);
+      return {
+        ...state,
+        allPets: updatedPet,
       };
 
     default:
