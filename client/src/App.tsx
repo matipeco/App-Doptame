@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users } from "../src/views"
+import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users, ProfileApas } from "../src/views"
 import { Cards } from './components/Cards/Cards';
 import FormApa from './views/FormApa/FormApa';
 import FormPets from './views/FormPets/FormPets';
@@ -38,7 +38,9 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/restore-password' element={<UserPassword />}></Route>
           <Route path='/admin' element={<DashboardAdmin />}></Route>
-          <Route path='/favorites/:id' element={<Favs/>}></Route>
+          <Route path='/favorites/:id' element={<Favs />}></Route>
+          <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
+
 
 
         </Routes>
