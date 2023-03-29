@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
 import { Table, Space } from 'antd';
-import { getUsers, getPets, getApas, deleteApa, deleteUser, deletePet } from '../../redux/actions/actions';
+import { getUsers, getPets, getApas, deleteApa, deleteUser, deletePet, suspendUserOrApaAction } from '../../redux/actions/actions';
 import { Reducer } from '../../redux/store/store';
 import style from "../AdminDashboard/AdminDashboard.module.css"
+import { boolean } from 'yargs';
 
-export const DashboardAdmin = () => {
+export const AdminDashboard = () => {
+
+    const [suspended, setSuspended] = useState(false);
 
     const dispatch = useDispatch();
     const users = useSelector((state: Reducer) => state.allUsers);
@@ -22,6 +25,11 @@ export const DashboardAdmin = () => {
     const handleDeleteUser = async (id: string) => {
         await dispatch(deleteUser(id) as any as AnyAction);
         dispatch(getUsers() as any as AnyAction);
+    };
+
+    const handleSuspended = async (id: string, suspended: boolean) => {
+        await dispatch(suspendUserOrApaAction(id, suspended) as any as AnyAction);
+        setSuspended(suspended); // update the state variable
     };
 
     const handleDeleteApa = async (id: string) => {
@@ -68,7 +76,7 @@ export const DashboardAdmin = () => {
             key: 'eliminar',
             render: (text: string, record: any) => (
                 <Space size="middle">
-                    <button onClick={() => handleDeleteUser(record._id)}>Eliminar</button>
+                    <button onClick={() => handleSuspended(record._id, !suspended)}>Suspender</button>
                 </Space>
             ),
         },
@@ -96,7 +104,7 @@ export const DashboardAdmin = () => {
             key: 'eliminar',
             render: (text: string, record: any) => (
                 <Space size="middle">
-                    <button onClick={() => handleDeleteApa(record._id)}>Eliminar</button>
+                    <button onClick={() => handleSuspended(record._id, !suspended)}>Suspender</button>
                 </Space>
             ),
         },
@@ -143,4 +151,4 @@ export const DashboardAdmin = () => {
     );
 };
 
-export default DashboardAdmin;
+export default AdminDashboard;
