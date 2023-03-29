@@ -14,6 +14,9 @@ export const FILTER_BY_SIZE = "FILTER_BY_SIZE"
 export const FILTER_BY_LOCATION = "FILTER_BY_LOCATION"
 export const DELETE_APA = "DELETE_APA"
 export const DELETE_USER = "DELETE_USER"
+export const EDIT_PET = 'EDIT_PET'
+export const EDIT_APA = 'EDIT_APA'
+export const EDIT_USER = 'EDIT_USER'
 export const DELETE_PET = "DELETE_PET"
 export const GET_FAVORITE = "GET_FAVORITE"
 
