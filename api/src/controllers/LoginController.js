@@ -11,66 +11,53 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const client = new OAuth2Client(CLIENT_ID);
 
 const Login = async (req, res) => {
-  const { email, password, userType } = req.body;
+  const { email, password } = req.body;
 
-  if (userType === "user") {
-    const userFound = await User.findOne({ email }).populate("role");
+  const userFound = await User.findOne({ email }).populate("role");
+  const apaFound = await Apa.findOne({ email }).populate("role");
+  const adminFound = await Admin.findOne({ email }).populate("role");
 
-    if (!userFound) {
-      return res.status(400).json({ message: "Usuario no encontrado" });
-    }
-    console.log(password);
-    const matchedPassword = await User.comparePassword(
-      password,
-      userFound.password
-    );
-    console.log(userFound.password);
-    if (!matchedPassword) {
-      return res
-        .status(401)
-        .json({ token: null, message: "contraseña invalida" });
-    }
-
-    const token = jwt.sign({ id: userFound._id }, config.SECRET);
-
-    res.json({ token });
-  } else if (userType === "apa") {
-    const apaFound = await Apa.findOne({ email }).populate("role");
-    if (!apaFound) {
-      return res.status(400).json({ message: "Apa no encontrada" });
-    }
-
-    const matchedPassword = await Apa.comparePasswordApa(
-      password,
-      apaFound.password
-    );
-    if (!matchedPassword) {
-      return res
-        .status(401)
-        .json({ token: null, message: "contraseña invalida" });
-    }
-
-    const token = jwt.sign({ id: apaFound._id }, config.SECRET);
-
-    res.json({ token });
-  } else if (userType === "admin") {
-    const adminFound = await Admin.findOne({ email }).populate("role");
-    if (!adminFound) {
-      return res.status(400).json({ message: "Admin no encontrad0" });
-    }
-
-    if (password !== adminFound.password) {
-      return res
-        .status(401)
-        .json({ token: null, message: "contraseña invalida" });
-    }
-
-    const token = jwt.sign({ id: adminFound._id }, config.SECRET);
-
-    res.json({ token });
-  } else {
-    return res.status(400).json({ message: "Tipo de usuario no válido" });
+  if (!userFound && !apaFound && !adminFound) {
+    return res.status(400).json({ message: "Usuario no encontrado" });
   }
+
+  let matchedPassword;
+  let userId;
+  let userType;
+
+  if (userFound) {
+    matchedPassword = await User.comparePassword(password, userFound.password);
+    if (matchedPassword) {
+      userId = userFound._id;
+      userType = "user";
+    }
+  }
+
+  if (apaFound && !matchedPassword) {
+    matchedPassword = await Apa.comparePasswordApa(password, apaFound.password);
+    if (matchedPassword) {
+      userId = apaFound._id;
+      userType = "apa";
+    }
+  }
+
+  if (adminFound && !matchedPassword) {
+    matchedPassword = password === adminFound.password;
+    if (matchedPassword) {
+      userId = adminFound._id;
+      userType = "admin";
+    }
+  }
+
+  if (!matchedPassword) {
+    return res
+      .status(401)
+      .json({ token: null, message: "contraseña invalida" });
+  }
+
+  const token = jwt.sign({ id: userId }, config.SECRET);
+
+  res.json({ token, userType });
 };
 
 const LoginWithGoogle = async (req, res) => {

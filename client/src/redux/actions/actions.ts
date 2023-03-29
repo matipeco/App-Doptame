@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -27,6 +27,10 @@ type dispatchDetail = {
 type dispatchUser = {
   type: string
   payload: User
+}
+type dispatchSuspended = {
+  type: string
+  payload: User | Apa
 }
 
 type dispatchDetailUser = {
@@ -274,3 +278,27 @@ export const getFavorite = (id: string) => {
   };
 };
 
+export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
+  return async (dispatch: Dispatch<dispatchSuspended>) => {
+    try {
+      let response;
+
+      if (suspended) {
+        // Si está suspendido, quitar la suspensión enviando un PUT con { suspended: false }
+        response = await axios.put<User | Apa>(`http://localhost:3001/apa/user/suspended/${id}`, { suspended: false });
+      } else {
+        // Si no está suspendido, establecer la suspensión enviando un PUT con { suspended: true }
+        response = await axios.put<User | Apa>(`http://localhost:3001/apa/user/suspended/${id}`, { suspended: true });
+      }
+
+      if (response.status === 200) {
+        dispatch({
+          type: SUSPENDED,
+          payload: response.data,
+        });
+      }
+    } catch (error) {
+      alert("ya suspendido")
+    }
+  };
+};

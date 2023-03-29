@@ -13,9 +13,19 @@ const suspendUserOrApa = async (req, res) => {
     return res.status(404).json({ error: "ID no encontrado" });
   }
 
-  // Verificar si el usuario o APA ya están suspendidos
-  if ((user && user.suspended) || (apa && apa.suspended)) {
-    return res.status(400).json({ error: "ya suspendido" });
+  // Si el usuario o APA ya están suspendidos, quitar la suspensión y guardar los cambios
+  if (user && user.suspended) {
+    user.suspended = false;
+    await user.save();
+    return res
+      .status(200)
+      .json({ message: "suspensión eliminada exitosamente" });
+  } else if (apa && apa.suspended) {
+    apa.suspended = false;
+    await apa.save();
+    return res
+      .status(200)
+      .json({ message: "suspensión eliminada exitosamente" });
   }
 
   // Establecer la propiedad "suspended" en true para el usuario o APA que existe
