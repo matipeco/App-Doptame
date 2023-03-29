@@ -8,6 +8,7 @@ import FormUser from './views/FormUser/FormUser';
 import { Login } from './components/Login/Login';
 import UserPassword from './components/RestorePasswordUser/UserPassword';
 import { DashboardAdmin } from './components/DashboardAdmin/DashboardAdmin';
+import Favs from './views/Favs/Favs'
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/restore-password' element={<UserPassword />}></Route>
           <Route path='/admin' element={<DashboardAdmin />}></Route>
-
+          <Route path='/favorites/:id' element={<Favs/>}></Route>
 
 
         </Routes>
