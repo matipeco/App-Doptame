@@ -4,7 +4,7 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box; 
-    /* esto es para que los elementos no salgan de nuestro contenedor */
+    /* esto es para que los elementos no salgan de nuestro contenedor tambien */
 }
 
 nav{

@@ -14,7 +14,7 @@ function NavBar() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false)
 
   useEffect(()=>{
-    //Verifico si hay un token de usuario en localstorage
+    //Verifico si hay un token de usuario en localstorage listo
     const token = localStorage.getItem('token')
     if(token){
       setIsUserLoggedIn(true);
