@@ -124,7 +124,7 @@ export const DashboardAdmin = () => {
             key: 'eliminar',
             render: (text: string, record: any) => (
                 <Space size="middle">
-                    <button onClick={() => handleDeletePet(record._id)}>Eliminar</button>
+                    <button onClick={() => handleDeletePet(record._id)}>{ }</button>
                 </Space>
             ),
         },
