@@ -29,31 +29,22 @@ export interface Apa {
   provincia?: string
   cuit?: string
 }
-
 export interface User {
-  _id?: string
-  name?: string
-  last_name?: string
-  username?: string
-  password?: string
-  email?: string
-  location?: string
-  image?: string
-  pet?: {}
-  favorites?: [{ pet: {
-    _id?: string
-    name: string
-    age: number
-    size: string
-    type: string
-    image: string
-    adoption: boolean
-    status: boolean
-    description: string
-    }  }]
-  token?: string
-  resetPasswordKey?: string
-  googleId?: string
+  _id?: string;
+  name?: string;
+  last_name?: string;
+  username?: string;
+  password?: string;
+  email?: string;
+  location?: string;
+  image?: string;
+  pet?: {};
+  favorites?: {
+    pet: Pet;
+  }[];
+  token?: string;
+  resetPasswordKey?: string;
+  googleId?: string;
 }
 
 

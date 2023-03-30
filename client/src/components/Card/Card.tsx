@@ -3,30 +3,41 @@ import { Pet } from '../../redux/types'
 import style from './Card.module.css'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import {  } from '../../redux/actions/actions'
+import { postFavorite } from '../../redux/actions/actions'
+import { AnyAction } from 'redux';
 
 type Props = {
   pet: Pet
 }
 
 export const Card: FunctionComponent<Props> = ({ pet }) => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const [isFav, setIsFav] = useState(false);
 
-    const handlerIsFav  = async () => {
-      if(isFav){
-        setIsFav(false)
-        if (pet._id) { // comprueba que pet._id no sea undefined antes de llamar a la acción
-          // await dispatch(deleteFavorite(pet._id))
-        }
-      }else{
-        setIsFav(true);
-        if(pet){
-          // await dispatch(postFavorite(pet)); // llamada a addFavorite
-        }
+    const handlerIsFav = async () => {
+      const token = localStorage.getItem("token");
     
+      if (token) {
+        const payload = token.split(".")[1];
+        const decodedPayload = atob(payload);
+        const user = JSON.parse(decodedPayload);
+        console.log(user.id);
+        console.log(pet)
+        try {
+          if (isFav) {
+            // await dispatch(deleteFavorite(pet._id))
+          } else {
+            await dispatch(postFavorite(pet, user.id) as unknown as AnyAction)
+          }
+          setIsFav(!isFav);
+        } catch (error) {
+          console.error(error);
+        }
       }
-    }
+    };
+    
+  
+    
 
     
   return (

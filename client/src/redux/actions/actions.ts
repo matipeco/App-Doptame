@@ -1,7 +1,10 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL,
+  POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, 
+  FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, 
+  GET_FAVORITE, SUSPENDED, ADD_FAVORITE, DELETE_FAVORITE } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -45,6 +48,21 @@ interface filtros {
 type dispatchFav = {
   type: string;
   payload: User;
+}
+
+type PostFavorite = {
+  type: string
+  payload: Pet
+}
+
+interface PostFavoritePayload {
+  userId: string;
+  petId: string;
+}
+
+type DeleteFavorite = {
+  type: string
+  payload: Pet
 }
 
 export const getApas = () => {
@@ -277,6 +295,30 @@ export const getFavorite = (id: string) => {
 
   };
 };
+
+export const postFavorite = (pet: Pet, userId:string) => {
+  return async (dispatch: Dispatch<PostFavorite>) => {
+    try {
+      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {pet, userId});
+      dispatch({
+        type: ADD_FAVORITE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+// export const deleteFavorite = (id: string) => {
+//   return async (dispatch: Dispatch<DeleteFavorite>) => {
+//     await axios.delete(`http://localhost:3001/favorite/${id}`)
+//     dispatch({
+//       type: DELETE_FAVORITE,
+//       payload: 
+//     })
+//   }
+// }
 
 export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
   return async (dispatch: Dispatch<dispatchSuspended>) => {
