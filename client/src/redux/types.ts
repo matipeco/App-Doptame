@@ -28,6 +28,7 @@ export interface Apa {
   telephone?: string
   provincia?: string
   cuit?: string
+  userType?: string
 }
 
 export interface User {
@@ -40,20 +41,23 @@ export interface User {
   location?: string
   image?: string
   pet?: {}
-  favorites?: [{ pet: {
-    _id?: string
-    name: string
-    age: number
-    size: string
-    type: string
-    image: string
-    adoption: boolean
-    status: boolean
-    description: string
-    }  }]
+  favorites?: [{
+    pet: {
+      _id?: string
+      name: string
+      age: number
+      size: string
+      type: string
+      image: string
+      adoption: boolean
+      status: boolean
+      description: string
+    }
+  }]
   token?: string
   resetPasswordKey?: string
   googleId?: string
+  userType?: string
 }
 
 
@@ -74,6 +78,7 @@ export interface InputData {
   age?: Number
   size?: string
   type?: string
+
 
 }
 
@@ -96,7 +101,12 @@ export type errorsInput = {
   type?: string
 };
 
+export interface Admin {
+  password?: string
+  email?: string
+  userType?: string
 
+}
 
 
 
