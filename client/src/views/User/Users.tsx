@@ -5,9 +5,6 @@ import { useParams } from 'react-router-dom'
 import { Reducer } from '../../redux/store/store';
 import './User.css'
 import { AnyAction } from 'redux'
-import UserPerfil from './UserPerfil'
-import { User } from '../../redux/types'
-
 
 function Users() {
   const { id } = useParams();
