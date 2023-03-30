@@ -6,9 +6,10 @@ const Apa = require("../models/Apa");
 const Admin = require("../models/Admin");
 const { OAuth2Client } = require("google-auth-library");
 const Role = require("../models/Roles");
-
+const crypto = require("crypto");
 const CLIENT_ID = process.env.CLIENT_ID;
 const client = new OAuth2Client(CLIENT_ID);
+const nodemailer = require("nodemailer");
 
 const Login = async (req, res) => {
   const { email, password } = req.body;
@@ -114,33 +115,6 @@ const LoginWithGoogle = async (req, res) => {
       }
     }
 
-    // Si el usuario ya existe, actualizar su información
-    // if (userFound) {
-    //   if (userName) {
-    //     userFound.username = userName.replace(/\s+/g, "");
-    //   }
-
-    //   if (userEmail) {
-    //     userFound.email = userEmail;
-    //   }
-
-    //   // Actualizar el ID de Google
-    //   if (userFound.googleId !== userId) {
-    //     userFound.googleId = userId;
-    //   }
-
-    //   // Guardar el usuario actualizado en la base de datos
-    //   try {
-    //     await userFound.save();
-    //   } catch (error) {
-    //     console.error(error);
-    //     return res
-    //       .status(500)
-    //       .json({ message: "Error al actualizar la información del usuario" });
-    //   }
-    // }
-
-    // Generar un token de autenticación para el usuario
     const token = jwt.sign({ id: userFound._id }, config.SECRET);
     console.log(token);
 
@@ -151,4 +125,152 @@ const LoginWithGoogle = async (req, res) => {
     res.status(500).json({ message: "Error al autenticar con Google" });
   }
 };
-module.exports = { Login, LoginWithGoogle };
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  console.log(
+    `Email del usuario que solicitó restablecer contraseña: ${email}`
+  );
+
+  const user = await User.findOne({ email });
+  console.log(`Usuario encontrado: ${user}`);
+  const apa = await Apa.findOne({ email });
+  console.log(`Apa encontrado: ${apa}`);
+  let resetKey = crypto.randomBytes(6).toString("hex");
+  if (!user && !apa) {
+    console.log("no encontrado");
+    return res.status(404).json({ message: "email no encontrado" });
+  }
+  if (user) {
+    resetKey = crypto.randomBytes(6).toString("hex");
+    user.resetPasswordKey = resetKey;
+    user.resetPasswordExpires = Date.now() + 3600000;
+    await user.save(); // La expiración es en 1 hora
+  }
+
+  if (apa) {
+    resetKey = crypto.randomBytes(6).toString("hex");
+    apa.resetPasswordKey = resetKey;
+    apa.resetPasswordExpires = Date.now() + 3600000;
+    await apa.save();
+  }
+
+  // Enviar correo electrónico con las instrucciones para restablecer la contraseña
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_ADMIN,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL_ADMIN,
+    to: email,
+    subject: "Restablecer contraseña",
+    html: `<h1>Restablecer contraseña</h1>
+          <p>Para restablecer su contraseña, use la siguiente clave:</p>
+          <p>${resetKey}</p>`,
+  };
+
+  await transporter.sendMail(mailOptions);
+
+  console.log("Correo electrónico enviado");
+  res.json({
+    message:
+      "Se ha enviado un correo electrónico con una clave de restablecimiento.",
+    resetKey: resetKey,
+  });
+};
+
+const resetPasswordWithEmail = async (req, res) => {
+  const { email, resetPasswordKey, password } = req.body;
+  console.log(
+    `Email del usuario que desea restablecer su contraseña: ${email}`
+  );
+  console.log(
+    `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
+  );
+
+  try {
+    const [user, apa] = await Promise.all([
+      User.findOne({ email }),
+      Apa.findOne({ email }),
+    ]);
+
+    if (!user && !apa) {
+      return res.status(400).json({ message: "Usuario o APA no encontrado" });
+    }
+
+    if (user && user.resetPasswordKey !== resetPasswordKey) {
+      return res
+        .status(400)
+        .json({ message: "Clave de restablecimiento inválida o expirada" });
+    }
+
+    if (apa && apa.resetPasswordKey !== resetPasswordKey) {
+      console.log(apa, apa.resetPasswordKey);
+      return res
+        .status(400)
+        .json({ message: "Clave de restablecimiento inválida o expirada" });
+    }
+
+    if (user) {
+      user.password = await User.encryptPassword(password);
+      user.resetPasswordKey = undefined;
+      await user.save();
+    } else if (apa) {
+      apa.password = await Apa.encryptPasswordApa(password);
+      apa.resetPasswordKey = undefined;
+      await apa.save();
+    }
+
+    res.json({ message: "La contraseña se ha restablecido correctamente." });
+  } catch (err) {
+    console.error(`Error al buscar : ${err}`);
+    return res.status(500).json({ message: "no se encuentra" });
+  }
+};
+module.exports = {
+  Login,
+  LoginWithGoogle,
+  forgotPassword,
+  resetPasswordWithEmail,
+};
+
+// const resetPasswordWithEmail = async (req, res) => {
+//   const { email, resetPasswordKey, password } = req.body;
+//   console.log(
+//     `Email del usuario que desea restablecer su contraseña: ${email}`
+//   );
+//   console.log(
+//     `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
+//   );
+
+//   try {
+//     // Buscar el usuario por el correo electrónico
+//     const user = await User.findOne({ email });
+//     console.log(user);
+//     console.log(`Usuario encontrado: ${user}`);
+
+//     if (!user || user.resetPasswordKey !== resetPasswordKey) {
+//       console.log(user.resetPasswordKey, resetPasswordKey);
+//       return res
+//         .status(400)
+//         .json({ message: "Clave de restablecimiento inválida o expirada" });
+//     }
+
+//     // Encriptar la nueva contraseña y guardarla en la base de datos
+//     user.password = await User.encryptPassword(password);
+//     console.log(user.password);
+//     user.resetPasswordKey = undefined;
+//     await user.save();
+
+//     console.log("Contraseña actualizada");
+
+//     res.json({ message: "La contraseña se ha restablecido correctamente." });
+//   } catch (err) {
+//     console.error(`Error al buscar usuario: ${err}`);
+//     return res.status(500).json({ message: "Error al buscar usuario" });
+//   }
+// };
