@@ -83,12 +83,6 @@ function FormEditApa() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const editedPet= {
-        //     name: input.name? input.name : oldVersionPet.name,
-
-        // }
-        // console.log(apaId)
-        // console.log(input)
         dispatch(putApa(apaId, input) as unknown as AnyAction);
         alert("Datos modificados correctamente")
         window.location.assign('/home');
@@ -107,42 +101,9 @@ function FormEditApa() {
 
     return (
         <div className="container">
-            <div>
-                <h2>Datos Actuales</h2>
-                <label className='labelCurrentInfo' htmlFor="name">Nombre:</label>
-                <h5>{apaDetails.name}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="email">Email:</label>
-                <h5>{apaDetails.email}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="description">Descripción:</label>
-                <h5>{apaDetails.description}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="provincia">Provincia:</label>
-                <h5>{apaDetails.provincia}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="location">Localidad:</label>
-                <h5>{apaDetails.location}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="telephone">Teléfono:</label>
-                <h5>{apaDetails.telephone}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="cuit">CUIT:</label>
-                <h5>{apaDetails.cuit}</h5>
-
-                {/* <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
-                <img src={apaDetails.image} alt="imagen de la mascota" className='imagenCargada' /> */}
-
-                <label className='labelCurrentInfo' htmlFor="cbu_cvu">CBU / CVU:</label>
-                <h5>{apaDetails.cbu_cvu}</h5>
-
-                <label className='labelCurrentInfo' htmlFor="url">Sitio Web / Red Social:</label>
-                <h5>{apaDetails.url}</h5>
-            </div>
-
-            <hr />
+            
             <div className="containerForm">
-                <h1>Editar APA: Los datos de este formulario reemplazarán a los Datos Actuales</h1>
+                <h1>Editar APA:</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
@@ -185,7 +146,7 @@ function FormEditApa() {
                             <select name="provincia"
                                 onChange={handleInputChange}
                             >
-                                <option value="" >Seleccione una Provincia</option>
+                                <option value={input.provincia} >{input.provincia}</option>
                                 {
                                     provincias.map((p, i) => {
                                         return (
@@ -197,23 +158,6 @@ function FormEditApa() {
                             <label className="tam" htmlFor="provincia">Provincia:</label>
                             {errors.provincia && <p className='error'>{errors.provincia}</p>}
                         </div>
-
-
-
-
-
-                        {/* <div className="containerInputs">
-                            <input
-                                onChange={handleInputChange}
-                                type='password'
-                                className="input"
-                                name="password"                         
-                                value={input.password}
-                            />
-                            <label className="label" htmlFor="password">Contraseña:</label>
-                            {errors.password && <p className='errors'>{errors.password}</p>}
-                        </div> */}
-
 
 
                     </div>
@@ -241,7 +185,7 @@ function FormEditApa() {
                                 name="telephone"
                                 value={input.telephone}
                             />
-                            <label className="label" htmlFor="descripcion">Teléfono:</label>
+                            <label className="label" htmlFor="telephone">Teléfono:</label>
                             {errors.telephone && <p className='errors'>{errors.telephone}</p>}
                         </div>
 
@@ -255,7 +199,7 @@ function FormEditApa() {
                                 name="cuit"
                                 value={input.cuit}
                             />
-                            <label className="label" htmlFor="descripcion">CUIT:</label>
+                            <label className="label" htmlFor="cuit">CUIT:</label>
                             {errors.cuit && <p className='errors'>{errors.cuit}</p>}
                         </div>
 
@@ -268,7 +212,7 @@ function FormEditApa() {
                                 name="cbu_cvu"
                                 value={input.cbu_cvu}
                             />
-                            <label className="label" htmlFor="descripcion">CBU / CVU:</label>
+                            <label className="label" htmlFor="cbu_cvu">CBU / CVU:</label>
                             {errors.cbu_cvu && <p className='errors'>{errors.cbu_cvu}</p>}
                         </div>
 
@@ -281,11 +225,12 @@ function FormEditApa() {
                                 name="url"
                                 value={input.url}
                             />
-                            <label className="label" htmlFor="descripcion"> Dirección Web o Red Social:</label>
-                            {/* {errors.url && <p className='errors'>{errors.telephone}</p>} */}
+                            <label className="label" htmlFor="url"> Dirección Web o Red Social:</label>
+                            {/* {errors.url && <p className='errors'>{errors.url}</p>} */}
                         </div>
 
                     </div>
+                    
 
                     {/* <div className="row">
                         <div className="containerInputs">
