@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
 import { Table, Space } from 'antd';
-import { getUsers, getPets, getApas, deleteApa, deleteUser, deletePet, suspendUserOrApaAction } from '../../redux/actions/actions';
+import { getUsers, getPets, getApas, suspendUserOrApaAction } from '../../redux/actions/actions';
 import { Reducer } from '../../redux/store/store';
 import style from "../AdminDashboard/AdminDashboard.module.css"
-import { boolean } from 'yargs';
 
 export const AdminDashboard = () => {
 
-    const [suspended, setSuspended] = useState(false);
 
     const dispatch = useDispatch();
     const users = useSelector((state: Reducer) => state.allUsers);
@@ -22,25 +20,17 @@ export const AdminDashboard = () => {
         dispatch(getPets() as any as AnyAction)
     }, [dispatch])
 
-    const handleDeleteUser = async (id: string) => {
-        await dispatch(deleteUser(id) as any as AnyAction);
-        dispatch(getUsers() as any as AnyAction);
-    };
 
-    const handleSuspended = async (id: string, suspended: boolean) => {
+    const handleSuspended = async (id: string, suspended: boolean, index: number, ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ev.preventDefault();
         await dispatch(suspendUserOrApaAction(id, suspended) as any as AnyAction);
-        setSuspended(suspended); // update the state variable
+        const updatedButtons = [...buttons];
+        updatedButtons[index] = !updatedButtons[index];
+        setButtons(updatedButtons);
+        console.log("Suspended:" + suspended)
     };
 
-    const handleDeleteApa = async (id: string) => {
-        await dispatch(deleteApa(id) as any as AnyAction);
-        dispatch(getApas() as any as AnyAction);
-    };
-
-    const handleDeletePet = async (id: string) => {
-        await dispatch(deletePet(id) as any as AnyAction);
-        dispatch(getPets() as any as AnyAction);
-    };
+    const [buttons, setButtons] = useState<boolean[]>([]);
 
     const columnsUser = [
         {
@@ -72,11 +62,13 @@ export const AdminDashboard = () => {
             key: 'googleId',
         },
         {
-            title: 'Eliminar',
-            key: 'eliminar',
-            render: (text: string, record: any) => (
+            title: 'Suspended',
+            key: 'suspended',
+            render: (text: string, record: any, index: number) => (
                 <Space size="middle">
-                    <button onClick={() => handleSuspended(record._id, !suspended)}>Suspender</button>
+                    <button key={record._id} onClick={(ev) => handleSuspended(record._id, !buttons[index], index, ev)}>
+                        {buttons[index] ? "Activar" : "Suspender"}
+                    </button>
                 </Space>
             ),
         },
@@ -100,11 +92,13 @@ export const AdminDashboard = () => {
             key: 'email',
         },
         {
-            title: 'Eliminar',
-            key: 'eliminar',
-            render: (text: string, record: any) => (
+            title: 'Suspended',
+            key: 'suspended',
+            render: (text: string, record: any, index: number) => (
                 <Space size="middle">
-                    <button onClick={() => handleSuspended(record._id, !suspended)}>Suspender</button>
+                    <button key={record._id} onClick={(ev) => handleSuspended(record._id, !buttons[index], index, ev)}>
+                        {buttons[index] ? "Activar" : "Suspender"}
+                    </button>
                 </Space>
             ),
         },
@@ -123,18 +117,23 @@ export const AdminDashboard = () => {
         },
 
         {
-            title: 'Dueño',
-            dataIndex: 'owner',
-            key: 'owner',
+            title: 'Edad',
+            dataIndex: 'age',
+            key: 'age',
         },
+
         {
-            title: 'Eliminar',
-            key: 'eliminar',
-            render: (text: string, record: any) => (
-                <Space size="middle">
-                    <button onClick={() => handleDeletePet(record._id)}>Eliminar</button>
-                </Space>
-            ),
+            title: 'Estado',
+            dataIndex: 'status',
+            key: 'status',
+            render: (text: boolean, record: any) => text ? <span>Activo</span> : <span>Inactivo</span>,
+        },
+
+        {
+            title: 'En Adopcion',
+            dataIndex: 'adoption',
+            key: 'adoption',
+            render: (text: boolean, record: any) => text ? <span>Si</span> : <span>No</span>,
         },
     ];
 
