@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Apa, Pet, User } from "../types";
+import { Apa, Pet, User, Review } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, CREATE_REVIEW } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -185,7 +185,6 @@ export const putPet = (id: string, payload: Pet) => {
 };
 
 export const putApa = (id: string, payload: Apa) => {
-  console.log(payload)
   return async (dispatch: Dispatch<dispatchApa>) => {
     const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${id}`, payload);
     return dispatch({
@@ -194,6 +193,22 @@ export const putApa = (id: string, payload: Apa) => {
     });
   };
 };
+
+
+export const createReview = (apaId: string, payload: Review) => {
+  console.log(payload)
+  return async (dispatch: Dispatch<dispatchApa>) => {
+    const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${apaId}`, payload);
+    return dispatch({
+      type: CREATE_REVIEW,
+      payload: editApa.data
+    });
+  };
+};
+
+
+
+
 
 export const putUser = (id: string, payload: User) => {
   // console.log(payload)
@@ -251,6 +266,7 @@ export const deleteUser = (id: string) => {
     });
   };
 };
+
 
 
 export const deletePet = (id: string) => {

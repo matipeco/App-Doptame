@@ -10,8 +10,8 @@ const createApa = async(name, password, email, cbu_cvu, description, location, u
 
 
 // PUT| /edit/:id - OK (apretar dos veces Send)
-const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit ) => { 
-    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit}); 
+const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews ) => { 
+    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews}); 
     return modifyApa;
 }
 

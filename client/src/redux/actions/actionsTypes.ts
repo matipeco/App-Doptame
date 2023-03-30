@@ -20,4 +20,4 @@ export const EDIT_USER = 'EDIT_USER'
 export const DELETE_PET = "DELETE_PET"
 export const GET_FAVORITE = "GET_FAVORITE"
 export const SUSPENDED = "SUSPENDED"
-
+export const CREATE_REVIEW ='CREATE_REVIEW'

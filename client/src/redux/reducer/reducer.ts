@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, CREATE_REVIEW } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -40,6 +40,11 @@ const emptyDetailApa = {
   telephone: "",
   provincia: "",
   cuit: "",
+  reviews:[{
+    rating: "",
+    opinion: "",
+    user: ""
+  }]
 }
 
 const user: User = {
