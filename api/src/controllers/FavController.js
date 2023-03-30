@@ -27,8 +27,13 @@ const postFavorite = async (req, res) => {
     }
 
     user.favorites.push(petId);
+
     await user.save();
 
+    // llamada a la función sendFavoritesEmail
+    await sendFavoritesEmail(user);
+
+    // respuesta exitosa
     res.status(201).json({ message: "Mascota agregada a favoritos" });
   } catch (error) {
     console.error(error);
@@ -38,10 +43,8 @@ const postFavorite = async (req, res) => {
   }
 };
 
-// Diego: incluyo handler y controller p/ notificación por email de mascotas favoritas
-const sendFavoritesEmail = async (userId) => {
+const sendFavoritesEmail = async (user) => {
   try {
-    const user = await User.findById(userId).populate("favorites");
     const petIds = user.favorites;
     const pets = await Pet.find({ _id: { $in: petIds } });
 
@@ -57,12 +60,6 @@ const sendFavoritesEmail = async (userId) => {
       auth: {
         user: process.env.EMAIL_ADMIN,
         pass: process.env.EMAIL_PASSWORD,
-        // host: "smtp.gmail.com",
-        // port: 587,
-        // secure: false,
-        // auth: {
-        //   user: process.env.EMAIL_ADMIN,
-        //   pass: process.env.EMAIL_PASSWORD,
       },
     });
 
@@ -76,6 +73,7 @@ const sendFavoritesEmail = async (userId) => {
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error(error);
+    throw new Error("No se pudo enviar el email de mascotas favoritas");
   }
 };
 
