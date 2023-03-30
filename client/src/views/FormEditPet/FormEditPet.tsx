@@ -43,9 +43,6 @@ function FormEditPet() {
         status:'Mascota Publicada: Seleccione una opción',
         age:'Ingrese una número'
     })
-// console.log(input)
-
-
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -191,12 +188,7 @@ function FormEditPet() {
 
                         <label className="label" htmlFor="image">Reemplace la Imagen Actual:</label>
                             {errors.image && <p className='error'>{errors.image}</p>}
-
-
                         </div>
-
-
-                            
 
                     </div>
                     <div className="row">
