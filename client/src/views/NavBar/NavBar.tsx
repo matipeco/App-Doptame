@@ -4,14 +4,16 @@ import imgLogo from '../../assets/logo.png'
 import avatar from '../../assets/avatar.png'
 import { Link } from 'react-router-dom'
 // import { gapi } from "gapi-script";
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
-
 import './NavBar.css'
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const navigate = useNavigate()
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false)
+
+
+
 
   useEffect(() => {
     //Verifico si hay un token de usuario en localstorage listo
@@ -20,6 +22,23 @@ function NavBar() {
       setIsUserLoggedIn(true);
     }
   }, [])
+
+  
+
+  const handleFavoritesClick = () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const payload = token.split(".")[1];
+      const decodedPayload = atob(payload);
+      const user = JSON.parse(decodedPayload);
+      console.log(user.id);
+      navigate(`/favorites/${user.id}`);
+    } else {
+      console.log("Token no encontrado");
+    }
+    
+  };
 
 
   const handleLogout = async () => {
@@ -71,7 +90,7 @@ function NavBar() {
                   <img src={avatar} alt="Avatar" />
                   <div className="dropdown">
                     <div className="dropdown-content">
-                      <button className='dropbtn'><Link to="/favorites">Favoritos</Link></button>
+                      <button className='dropbtn' onClick={handleFavoritesClick}>Favoritos</button>
                       <button className='dropbtn' onClick={handleLogout}>Salir</button>
                     </div>
                   </div>
