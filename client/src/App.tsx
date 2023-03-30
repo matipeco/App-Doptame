@@ -12,13 +12,15 @@ import Favs from './views/Favs/Favs'
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import ForgotPassword from './components/RestorePassword/ForgotPassword';
 
-
 function App() {
   const location = useLocation();
 
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
   const isHomePage = location.pathname === "/login"
+
+
+
 
   return (
 
@@ -44,6 +46,8 @@ function App() {
           <Route path='/favorites/:id' element={<Favs />}></Route>
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
+
+
 
 
 

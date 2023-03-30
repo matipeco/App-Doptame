@@ -6,10 +6,18 @@ import style from './Login.module.css'
 import { RegistroApaUser } from "../RegistroApaUser/RegistroApaUser";
 import { useNavigate } from "react-router-dom";
 import LogInWithGoogle from "../LoginGoogle/LoginGoogle";
-
+import { useDispatch, useSelector } from "react-redux";
+// import { Reducer } from '../../redux/store/store';
+import { updateLogueados } from "../../redux/actions/actions";
 
 
 export const Login = () => {
+
+
+    const dispatch = useDispatch()
+    // const logueados = useSelector((state: Reducer) => state.Loguins);
+
+
     type SignInData = {
         email: string;
         password: string;
@@ -42,11 +50,15 @@ export const Login = () => {
 
                 });
                 localStorage.setItem("token", response.data.token);
+                dispatch(updateLogueados(response.data));
+                // console.log("Logueados updated:", response.data);
                 navigate("/home")
             })
             .catch((error) => {
                 alert(error.response.data.message)
             });
+
+
     };
 
     const [touched, setTouched] = useState({
