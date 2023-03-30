@@ -1,3 +1,10 @@
+.imagenCargada{
+    border-radius: 10px;
+    border: 2px solid #F6BE68;
+    max-height: 300px;
+}
+
+
 .error{
     font-size: medium;
     color: rgb(219, 27, 27);

@@ -11,42 +11,26 @@ import { useParams} from 'react-router-dom';
 import { AnyAaaaRecord } from 'dns';
 
 
-function FormEditPet() { //Podemos hacer q reciba la petId por props o por params.
+function FormEditPet() { 
 
     const dispatch = useDispatch()
     const { petId } = useParams<{ petId: any }>();
 
-
-//Me aseguro de q los details de la pet y allPets esten cargados en el State Global
-    useEffect (()=>{
-        // dispatch(getPets() as unknown as AnyAction)
-        dispatch(getDetailPets(petId)as unknown as AnyAction)
-        //
-        // return (): any=> dispatch(clearDetail())
-    },[dispatch])
-
     //Me guardo los details para meterselos al estado local "input"
     let petDetails: Pet= useSelector((state: StateType) => state.detail); 
-console.log(petDetails)
+
+    const [input, setInput] = useState(petDetails)
 
 
-//Me traigo todas las pets
-    const allPets = useSelector((state: StateType) => state.allPets); 
-    // const oldVersionPet= allPets.find(p=>p._id === petId)
-// console.log(oldVersionPet)
+//Me aseguro de q los details de la pet esten cargados en el State Global
+    useEffect (()=>{
+        dispatch(getDetailPets(petId)as unknown as AnyAction)
+    },[dispatch])
 
+    useEffect(() => {
+        setInput(petDetails)
+    }, [petDetails])
 
-
-    const [input, setInput] = useState({
-        name: "",
-        age: 0,
-        size: "",
-        type: "",
-        image: "",
-        description: "",
-        status: true,
-        adoption: false
-    })
 
 
     const [errors, setErrors] = useState({
@@ -73,19 +57,11 @@ console.log(petDetails)
             ...input,
             [e.target.name]: e.target.value
         }));
-// console.log(input)
-// console.log(errors)
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // const editedPet= {
-        //     name: input.name? input.name : oldVersionPet.name,
-
-        // }
-// console.log(petId)
-// console.log(input)
-        dispatch(putPet(petId, input) as unknown as AnyAction); //Action creada en el reducer.
+        dispatch(putPet(petId, input) as unknown as AnyAction);
         alert("Mascota editada correctamente")
         window.location.assign('/home');
     }
@@ -102,38 +78,9 @@ console.log(petDetails)
 
     return (
         <div className="container">
-            <div>
-            <h1>Datos Actuales de Mascota</h1>
-                <label className='labelCurrentInfo' htmlFor="name">Nombre:</label>
-                <h3>{petDetails.name}</h3>
 
-                <label className='labelCurrentInfo' htmlFor="age">Edad (años):</label>
-                <h3>{petDetails.age}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="description">Descripción:</label>
-                <h3>{petDetails.description}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="size">Tamaño:</label>
-                <h3>{petDetails.size}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="adoption">Buscando Hogar:</label>
-                <h3>{petDetails.adoption ? 'Sí' : 'No'}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="status">Publicado:</label>
-                <h3>{petDetails.status ? 'Sí' : 'No'}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="type">Tipo de Mascota</label>
-                <h3>{petDetails.type}</h3>
-
-                <label className='labelCurrentInfo' htmlFor="image">Imagen</label>
-                <img src={petDetails.image} alt="imagen de la mascota" className='imagenCargada' />
-                
-
-            </div>
-
-<hr />
             <div className="containerForm">
-                <h1>Editar Mascota: los datos de este formulario reemplazarán a los Datos Actuales</h1>
+                <h1>Editar Mascota:</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
@@ -143,7 +90,6 @@ console.log(petDetails)
                                 type='text'
                                 name="name"
                                 value={input.name}
-                                // value= {name}
                             />
                             <label className= "label" htmlFor="name">Nombre</label>
                             {errors.name && <p>{errors.name}</p>}
@@ -176,7 +122,7 @@ console.log(petDetails)
                             <select name="size"
                                 onChange={handleInputChange}
                                 >
-                                <option value="" >Seleccione un tamaño</option>
+                                <option value={input.size} >{input.size}</option>
                                 <option value="chico">Pequeño</option>
                                 <option value="mediano">Mediano</option>
                                 <option value="grande">Grande</option>
@@ -189,7 +135,7 @@ console.log(petDetails)
                             <select name="adoption"
                                 onChange={handleInputChange}
                                 >
-                                <option value="" >Seleccione una opción</option>
+                                <option value={input.adoption? 'Sí' : 'No'} >{input.adoption? 'Sí' : 'No'} </option>
                                 <option value="true">Sí</option>
                                 <option value="false">No</option>
                             </select>
@@ -201,7 +147,7 @@ console.log(petDetails)
                             <select name="status"
                                 onChange={handleInputChange}
                                 >
-                                <option value="">Seleccione una opicón</option>
+                                <option value={input.status? 'Sí' : 'No'}>{input.status? 'Sí' : 'No'}</option>
                                 <option value="true">Sí</option>
                                 <option value="false">No</option>
                             </select>
@@ -213,7 +159,7 @@ console.log(petDetails)
                             <select name="type"
                                 onChange={handleInputChange}
                                 >
-                                <option value="">Seleccione Tipo</option>
+                                <option value={input.type}>{input.type}</option>
                                 <option value="perro">Perro</option>
                                 <option value="gato">Gato</option>
                                 <option value="otros">Otro</option>
@@ -224,7 +170,12 @@ console.log(petDetails)
                     </div>
                     <div className="row">
                         <div className="containerInputs">
-                            <input
+                        <img src={petDetails.image} alt="imagen de la mascota" className="imagenCargada" />
+                            <label className= "label" htmlFor="img actual">Imagen Actual</label>
+                        </div>
+
+                        <div className="containerInputs">
+                        <input
                                 onChange={handleInputChange}
                                 // className="fil"
                                 // type='file'
@@ -236,14 +187,23 @@ console.log(petDetails)
                                 // accept="image/*"
                                 
                             />
-                            <label className="tam" htmlFor="image">Imagen</label>
+                            {/* <label className="tam" htmlFor="image">Imagen</label> */}
 
+                        <label className="label" htmlFor="image">Reemplace la Imagen Actual:</label>
                             {errors.image && <p className='error'>{errors.image}</p>}
+
+
                         </div>
 
+
+                            
+
+                    </div>
+                    <div className="row">
+                        
+                    </div>
                         <button type="submit" disabled={handleDisabledButton()}>Guardar</button>
                         {/* <button type="submit" disabled={handleDisabledButton()} className="btn">Guardar Moficicaciones Hechas</button> */}
-                    </div>
                 </form>
             </div>
             {/* <div className="containerTitle">
