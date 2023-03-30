@@ -16,6 +16,8 @@ const apaSchema = new Schema(
     provincia: { type: String },
     cuit: { type: Number },
     suspended: { type: Boolean, default: false },
+    resetPasswordKey: { type: String },
+    resetPasswordExpires: { type: Date },
     pets: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {

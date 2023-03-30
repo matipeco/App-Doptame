@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FormEvent } from "react";
-const UserPassword = () => {
+const ForgotPassword = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -17,7 +17,7 @@ const UserPassword = () => {
     const handleForgotSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         axios
-            .post("http://localhost:3001/api/auth/users/forgotPassword", { email })
+            .post("http://localhost:3001/auth/apa/user/forgotPassword", { email })
             .then((response) => {
                 alert("Se ha enviado un correo electrónico con una clave de restablecimiento.");
                 setForgotPassword(true);
@@ -63,4 +63,4 @@ const UserPassword = () => {
     );
 };
 
-export default UserPassword;
+export default ForgotPassword;

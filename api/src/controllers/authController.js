@@ -81,7 +81,7 @@ const sendVerificationEmail = async (email, name) => {
 
   await transporter.sendMail(mailOptions);
 };
-
+//COMENTADAS POR QUE SE ESTAN USANDO EN EL ROUTER LOGIN
 // const signIn = async (req, res) => {
 //   const { email, password, userType } = req.body;
 
@@ -132,101 +132,91 @@ const sendVerificationEmail = async (email, name) => {
 //   }
 // };
 
-const forgotPassword = async (req, res) => {
-  const { email } = req.body;
-  console.log(
-    `Email del usuario que solicitó restablecer contraseña: ${email}`
-  );
+// const forgotPassword = async (req, res) => {
+//   const { email } = req.body;
+//   console.log(
+//     `Email del usuario que solicitó restablecer contraseña: ${email}`
+//   );
 
-  const user = await User.findOne({ email });
-  console.log(`Usuario encontrado: ${user}`);
+//   const user = await User.findOne({ email });
+//   console.log(`Usuario encontrado: ${user}`);
 
-  if (!user) {
-    console.log("Usuario no encontrado");
-    return res.status(404).json({ message: "Usuario no encontrado" });
-  }
+//   if (!user) {
+//     console.log("Usuario no encontrado");
+//     return res.status(404).json({ message: "Usuario no encontrado" });
+//   }
 
-  // Generar una clave aleatoria para restablecer la contraseña y guardarla en la base de datos
-  const resetKey = crypto.randomBytes(6).toString("hex");
-  user.resetPasswordKey = resetKey;
-  user.resetPasswordExpires = Date.now() + 3600000; // La expiración es en 1 hora
-  await user.save();
+//   // Generar una clave aleatoria para restablecer la contraseña y guardarla en la base de datos
+//   const resetKey = crypto.randomBytes(6).toString("hex");
+//   user.resetPasswordKey = resetKey;
+//   user.resetPasswordExpires = Date.now() + 3600000; // La expiración es en 1 hora
+//   await user.save();
 
-  // Enviar correo electrónico con las instrucciones para restablecer la contraseña
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_ADMIN,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
+//   // Enviar correo electrónico con las instrucciones para restablecer la contraseña
+//   const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//       user: process.env.EMAIL_ADMIN,
+//       pass: process.env.EMAIL_PASSWORD,
+//     },
+//   });
 
-  const mailOptions = {
-    from: process.env.EMAIL_ADMIN,
-    to: email,
-    subject: "Restablecer contraseña",
-    html: `<h1>Restablecer contraseña</h1>
-          <p>Para restablecer su contraseña, use la siguiente clave:</p>
-          <p>${resetKey}</p>`,
-  };
+//   const mailOptions = {
+//     from: process.env.EMAIL_ADMIN,
+//     to: email,
+//     subject: "Restablecer contraseña",
+//     html: `<h1>Restablecer contraseña</h1>
+//           <p>Para restablecer su contraseña, use la siguiente clave:</p>
+//           <p>${resetKey}</p>`,
+//   };
 
-  await transporter.sendMail(mailOptions);
+//   await transporter.sendMail(mailOptions);
 
-  console.log("Correo electrónico enviado");
-  res.json({
-    message:
-      "Se ha enviado un correo electrónico con una clave de restablecimiento.",
-    resetKey: resetKey,
-  });
-};
+//   console.log("Correo electrónico enviado");
+//   res.json({
+//     message:
+//       "Se ha enviado un correo electrónico con una clave de restablecimiento.",
+//     resetKey: resetKey,
+//   });
+// };
 
-const resetPasswordWithEmail = async (req, res) => {
-  const { email, resetPasswordKey, password } = req.body;
-  console.log(
-    `Email del usuario que desea restablecer su contraseña: ${email}`
-  );
-  console.log(
-    `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
-  );
+// const resetPasswordWithEmail = async (req, res) => {
+//   const { email, resetPasswordKey, password } = req.body;
+//   console.log(
+//     `Email del usuario que desea restablecer su contraseña: ${email}`
+//   );
+//   console.log(
+//     `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
+//   );
 
-  try {
-    // Buscar el usuario por el correo electrónico
-    const user = await User.findOne({ email });
-    console.log(user);
-    console.log(`Usuario encontrado: ${user}`);
+//   try {
+//     // Buscar el usuario por el correo electrónico
+//     const user = await User.findOne({ email });
+//     console.log(user);
+//     console.log(`Usuario encontrado: ${user}`);
 
-    if (!user || user.resetPasswordKey !== resetPasswordKey) {
-      console.log(user.resetPasswordKey, resetPasswordKey);
-      return res
-        .status(400)
-        .json({ message: "Clave de restablecimiento inválida o expirada" });
-    }
+//     if (!user || user.resetPasswordKey !== resetPasswordKey) {
+//       console.log(user.resetPasswordKey, resetPasswordKey);
+//       return res
+//         .status(400)
+//         .json({ message: "Clave de restablecimiento inválida o expirada" });
+//     }
 
-    // Encriptar la nueva contraseña y guardarla en la base de datos
-    user.password = await User.encryptPassword(password);
-    console.log(user.password);
-    user.resetPasswordKey = undefined;
-    await user.save();
+//     // Encriptar la nueva contraseña y guardarla en la base de datos
+//     user.password = await User.encryptPassword(password);
+//     console.log(user.password);
+//     user.resetPasswordKey = undefined;
+//     await user.save();
 
-    console.log("Contraseña actualizada");
+//     console.log("Contraseña actualizada");
 
-    res.json({ message: "La contraseña se ha restablecido correctamente." });
-  } catch (err) {
-    console.error(`Error al buscar usuario: ${err}`);
-    return res.status(500).json({ message: "Error al buscar usuario" });
-  }
-};
-// // const googleInHandler = async (req, res) => {
-// //   //obtener el cosido de qs
-// //   const code = req.query.code;
-
-//   // obtener id y token con el cosigo
-//   //obtener user con tokens
-//   //upsert user
+//     res.json({ message: "La contraseña se ha restablecido correctamente." });
+//   } catch (err) {
+//     console.error(`Error al buscar usuario: ${err}`);
+//     return res.status(500).json({ message: "Error al buscar usuario" });
+//   }
 // };
 
 module.exports = {
   signUp,
-  forgotPassword,
-  resetPasswordWithEmail,
 };
