@@ -108,18 +108,26 @@ export const AdminDashboard = () => {
             title: 'Nombre Mascota',
             dataIndex: 'name',
             key: 'name',
+            sorter: (a: any, b: any) => a.name.localeCompare(b.name),
             render: (text: string, record: any) => <span className={style.columnsName}>{text}</span>,
         },
         {
             title: 'Tipo de Animal',
             dataIndex: 'type',
             key: 'type',
+            filters: [
+                { text: 'perro', value: 'perro' },
+                { text: 'gato', value: 'gato' },
+                { text: 'otros', value: 'otros' },
+            ],
+            onFilter: (value: any, record: any) => record.type === value,
         },
 
         {
             title: 'Edad',
             dataIndex: 'age',
             key: 'age',
+            sorter: (a: any, b: any) => a.age.localeCompare(b.age),
         },
 
         {
