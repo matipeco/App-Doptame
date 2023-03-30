@@ -33,7 +33,7 @@ function App() {
 
 
       <main className='main'>
-        <Routes>
+        {/* <Routes>
 
           <Route path="/" element={<Landing />}></Route>
           <Route path='/login' element={<Login />}></Route>
@@ -52,7 +52,30 @@ function App() {
           <Route path='/restore-password' element={<ForgotPassword />}></Route>
           <Route path='/dashboardAdmin' element={logueados && logueados.userType === 'admin' ? <AdminDashboard /> : <Navigate to="/" />}></Route>
 
+        </Routes> */}
+
+        <Routes>
+
+          <Route path="/" element={<Landing />}></Route>
+          <Route path="/home" element={<Home />}></Route>
+          <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/aboutUs" element={<AboutUs />}></Route>
+          <Route path="/formApa" element={<FormApa />}></Route>
+          <Route path="/formPet" element={<FormPets />}></Route>
+          <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
+          <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
+          <Route path='/pets/:category' element={<Cards />}></Route>
+          <Route path='/formUser' element={<FormUser />}></Route>
+          <Route path='/usuario/:id' element={<Users />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/restore-password' element={<ForgotPassword />}></Route>
+          <Route path='/favorites/:id' element={<Favs />}></Route>
+          <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
+          <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
         </Routes>
+
+
+
 
       </main>
 
