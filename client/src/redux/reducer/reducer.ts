@@ -248,7 +248,7 @@ const reducer = (
         ...state,
         allPets: updatedPet,
       };
-
+//proximamente
     default:
       return state;
   }
