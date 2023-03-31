@@ -31,6 +31,17 @@ export interface Admin {
 
 }
 
+export interface Admin {
+  _id: string
+  password?: string
+  email?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
+}
+
 export interface Apa {
   _id?: string
   name?: string
@@ -82,6 +93,7 @@ export interface User {
   adminFound?: Admin | Apa | User
   userFound?: Admin | Apa | User
   apaFound?: Admin | Apa | User
+
 }
 
 
@@ -123,3 +135,14 @@ export type errorsInput = {
   size?: string
   type?: string
 };
+
+
+
+export interface Admin {
+  password?: string
+  email?: string
+  userType?: string
+
+}
+
+
