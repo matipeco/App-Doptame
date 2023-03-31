@@ -1,17 +1,34 @@
 export interface Pet {
   _id?: string
-  name: string
-  age: number
-  size: string
-  type: string
-  image: string
-  adoption: boolean
-  status: boolean
+  name?: string
+  age?: number
+  size?: string
+  type?: string
+  image?: string
+  adoption?: boolean
+  status?: boolean
   apa?: {
-    location: string
-    name: string
+    _id?: string
+    location?: string
+    name?: string
   }
-  description: string
+  description?: string
+  usuario?: UserType
+}
+export type UserType = {
+  apaId: string | undefined
+  userId: string | undefined
+  petId: string | undefined
+}
+export interface Admin {
+  _id: string
+  password?: string
+  email?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
 }
 
 export interface Admin {
@@ -43,6 +60,7 @@ export interface Apa {
   adminFound?: Admin | Apa | User
   userFound?: Admin | Apa | User
   apaFound?: Admin | Apa | User
+
 }
 
 export interface User {
@@ -97,7 +115,6 @@ export interface InputData {
   size?: string
   type?: string
 
-
 }
 
 export type errorsInput = {
@@ -118,6 +135,7 @@ export type errorsInput = {
   size?: string
   type?: string
 };
+
 
 
 export interface Admin {

@@ -22,5 +22,4 @@ export const GET_FAVORITE = "GET_FAVORITE"
 export const SUSPENDED = "SUSPENDED"
 export const LOGUEADOS = "LOGUEADOS"
 export const CLEAN_LOGUEADOS = "CLEAN_LOGUEADOS"
-
-
+export const ADOPT_PET = "ADOPT_PET"
