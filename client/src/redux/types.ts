@@ -43,7 +43,6 @@ export interface Apa {
   adminFound?: Admin | Apa | User
   userFound?: Admin | Apa | User
   apaFound?: Admin | Apa | User
-
 }
 
 export interface User {
@@ -76,6 +75,7 @@ export interface User {
   adminFound?: Admin | Apa | User
   userFound?: Admin | Apa | User
   apaFound?: Admin | Apa | User
+
 }
 
 
@@ -97,6 +97,7 @@ export interface InputData {
   size?: string
   type?: string
 
+
 }
 
 export type errorsInput = {
@@ -117,3 +118,13 @@ export type errorsInput = {
   size?: string
   type?: string
 };
+
+
+export interface Admin {
+  password?: string
+  email?: string
+  userType?: string
+
+}
+
+
