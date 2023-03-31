@@ -1,6 +1,6 @@
 import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, 
   POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, 
-  FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, ADD_FAVORITE } from "../actions/actionsTypes"
+  FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, ADD_FAVORITE, DELETE_FAVORITE } from "../actions/actionsTypes"
 
 import { Pet, Apa, User } from "../types"
 
@@ -229,15 +229,14 @@ const reducer = (
         favoriteUser: action.payload
       }
       case ADD_FAVORITE:
-      const newFavorite = action.payload.pet;
-      const updatedUserFavorites = state.favoriteUser.favorites
-        ? [...state.favoriteUser.favorites, { pet: newFavorite }]
-        : [{ pet: newFavorite }];
-
-      const updatedFavoriteUser = { ...state.favoriteUser, favorites: updatedUserFavorites };
-
-      return { ...state, favoriteUser: updatedFavoriteUser };
-
+        const newFavorite = action.payload.pet;
+        const updatedUserFavorites = state.favoriteUser.favorites
+          ? [...state.favoriteUser.favorites, { pet: newFavorite }]
+          : [{ pet: newFavorite }];
+      
+        const updatedFavoriteUser = { ...state.favoriteUser, favorites: updatedUserFavorites };
+      
+        return { ...state, favoriteUser: updatedFavoriteUser };
 
     case DELETE_PET:
       const updatedPet = state.petsFilter.filter((pet) => pet._id !== action.payload);

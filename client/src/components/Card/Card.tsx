@@ -3,7 +3,7 @@ import { Pet } from '../../redux/types'
 import style from './Card.module.css'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { postFavorite } from '../../redux/actions/actions'
+import { postFavorite, deleteFavorite } from '../../redux/actions/actions'
 import { AnyAction } from 'redux';
 
 type Props = {
@@ -25,9 +25,9 @@ export const Card: FunctionComponent<Props> = ({ pet }) => {
         console.log(pet)
         try {
           if (isFav) {
-            // await dispatch(deleteFavorite(pet._id))
+            await dispatch(deleteFavorite(pet._id ?? '') as unknown as AnyAction)
           } else {
-            await dispatch(postFavorite(pet, user.id) as unknown as AnyAction)
+            dispatch(postFavorite(pet._id ?? '', user.id) as unknown as AnyAction)
           }
           setIsFav(!isFav);
         } catch (error) {

@@ -62,7 +62,7 @@ interface PostFavoritePayload {
 
 type DeleteFavorite = {
   type: string
-  payload: Pet
+  payload: string
 }
 
 export const getApas = () => {
@@ -296,10 +296,10 @@ export const getFavorite = (id: string) => {
   };
 };
 
-export const postFavorite = (pet: Pet, userId:string) => {
+export const postFavorite = (petId: string, userId:string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
-      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {pet, userId});
+      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
       dispatch({
         type: ADD_FAVORITE,
         payload: response.data,
@@ -310,15 +310,15 @@ export const postFavorite = (pet: Pet, userId:string) => {
   };
 };
 
-// export const deleteFavorite = (id: string) => {
-//   return async (dispatch: Dispatch<DeleteFavorite>) => {
-//     await axios.delete(`http://localhost:3001/favorite/${id}`)
-//     dispatch({
-//       type: DELETE_FAVORITE,
-//       payload: 
-//     })
-//   }
-// }
+export const deleteFavorite = (id: string) => {
+  return async (dispatch: Dispatch<DeleteFavorite>) => {
+    await axios.delete(`http://localhost:3001/favorite/${id}`)
+    dispatch({
+      type: DELETE_FAVORITE,
+      payload: id
+    })
+  }
+}
 
 export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
   return async (dispatch: Dispatch<dispatchSuspended>) => {
