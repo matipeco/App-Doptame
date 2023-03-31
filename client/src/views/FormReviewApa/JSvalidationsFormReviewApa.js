@@ -11,6 +11,9 @@ const validate = (input)=>{
     if(!input.opinion ||opinionRegex.test(input.opinion)===false){
         errors.opinion='Describa su experiencia con la APA'
     }
+    if(!input.user){
+        errors.user='Ingrese userId'
+    }
     return errors;
 }
 

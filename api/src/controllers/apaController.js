@@ -9,11 +9,36 @@ const createApa = async(name, password, email, cbu_cvu, description, location, u
 }
 
 
-// PUT| /edit/:id - OK (apretar dos veces Send)
-const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews ) => { 
-    const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews}); 
+// // PUT: Agregado que pushee en array de Reviews
+const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, newReview ) => { 
+    const modifyApa = await Apa.findByIdAndUpdate(id, {
+        name, 
+        password, 
+        email, 
+        cbu_cvu, 
+        description, 
+        location, 
+        url, 
+        pets, 
+        telephone, 
+        provincia, 
+        cuit, 
+        reviews: {$concatArrays: [ "$reviews", [newReview] ]}
+    }); 
     return modifyApa;
 }
+
+
+
+
+//  // ORIGINAL
+//  // PUT| /edit/:id - OK (apretar dos veces Send)
+// const putApa = async(id, name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews ) => { 
+//     const modifyApa = await Apa.findByIdAndUpdate(id, {name, password, email, cbu_cvu, description, location, url, pets, telephone, provincia, cuit, reviews}); 
+//     return modifyApa;
+// }
+
+
 
 
 // GET BY ID| /:id - OK

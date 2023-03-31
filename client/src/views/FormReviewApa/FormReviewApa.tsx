@@ -37,12 +37,14 @@ function FormReviewApa() {
 
     const [input, setInput] = useState({
     opinion: "",
-    rating: "5",  
+    rating: "5",
+    user: ""
 })
 
     const [errors, setErrors] = useState({
         opinion: "",
-        rating: "",  
+        rating: "",
+        user: "" 
     })
 
 
@@ -122,6 +124,20 @@ const review = {
                             />
                             <label className="label" htmlFor="opinion">Sus comentarios:</label>
                             {errors.opinion && <p className='errors'>{errors.opinion}</p>}
+                        </div>
+
+
+
+                        <div className="containerInputs">
+                            <input
+                                onChange={handleInputChange}
+                                type='text'
+                                className="input"
+                                name="user"
+                                value={input.user}
+                            />
+                            <label className="label" htmlFor="user">User:</label>
+                            {errors.user && <p className='errors'>{errors.user}</p>}
                         </div>
 
 
