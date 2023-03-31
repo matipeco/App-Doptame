@@ -21,7 +21,7 @@ function FormReviewApa() {
     // 641f4b3f840d62f0e19b722a
 
     //userId hardcodeadeo hasa que podamos traerlo de autenticación de usuario
-    const userId: string= '641a281b656802d8aa7a9eed'
+    // const userId: string= '641a281b656802d8aa7a9eed'
     
 
 
@@ -65,17 +65,22 @@ function FormReviewApa() {
     };
 
 
-const review = {
+const newReview = {
     ...input,
-    user: userId
+    // user: userId
 }
 
+const allReviews = [...(apaDetails?.reviews ?? []), newReview].map(review => ({
+    rating: review?.rating,
+    opinion: review?.opinion,
+    user: review?.user
+  }));
 
-
+//Me traigo 1ero todas las reviews, le agrero a newReview, y mando todo eso a la ruta editApa, indicando q todo eso va en la propiedad review
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    console.log(review)
-        dispatch(createReview(apaId, review) as unknown as AnyAction);
+    console.log(newReview)
+        dispatch(createReview(apaId, allReviews) as unknown as AnyAction);
         alert("Muchas gracias por su feedback!")
         // window.location.assign('/home');
     }

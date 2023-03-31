@@ -14,11 +14,11 @@ export interface Pet {
   description: string
 }
 
-export interface Review {
-  rating: string
-  opinion: string
-  user: string
-}
+// export interface Review {
+//   rating: string
+//   opinion: string
+//   user: string
+// }[]
 
 export interface Apa {
   _id?: string
@@ -34,14 +34,18 @@ export interface Apa {
   telephone?: string
   provincia?: string
   cuit?: string
-  // reviews?:[
+  // reviews?:
   //   {
   //   rating: string
   //   opinion: string
   //   user: string
-  //   }
-  // ]
-  reviews: Review[]
+  //   }[]
+  
+  reviews?: {
+    rating: string
+    opinion: string
+    user: string
+  }[];
 }
 
 export interface User {

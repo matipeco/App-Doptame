@@ -16,11 +16,6 @@ const apaSchema = new Schema(
     provincia: { type: String },
     cuit: { type: Number },
     suspended: { type: Boolean, default: false },
-    reviews: [{
-      opinion: String,
-      rating: String,
-      user: String
-    }],
     // reviews: {type: Array, "default": []},
     pets: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
@@ -29,6 +24,11 @@ const apaSchema = new Schema(
         type: Schema.Types.ObjectId,
       },
     ],
+    reviews: [{
+      opinion: String,
+      rating: String,
+      user: String
+    }],
   },
   {
     timestamps: true,

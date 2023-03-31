@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Apa, Pet, User, Review } from "../types";
+import { Apa, Pet, User} from "../types";
 
 import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, CREATE_REVIEW } from "./actionsTypes"; import { Dispatch } from "react";
 
@@ -195,8 +195,8 @@ export const putApa = (id: string, payload: Apa) => {
 };
 
 
-export const createReview = (apaId: string, payload: Review) => {
-  console.log(payload)
+export const createReview = (apaId: string, payload: any) => {
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchApa>) => {
     const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${apaId}`, payload);
     return dispatch({

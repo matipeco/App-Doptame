@@ -45,7 +45,7 @@ const createApaHandler = async (req, res) => {
 const putApaHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, password, email, cbu_cvu, description, location, url } =
+    const { name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit, pets, reviews } =
       req.body;
     const modApa = await putApa(
       id,
@@ -55,13 +55,21 @@ const putApaHandler = async (req, res) => {
       cbu_cvu,
       description,
       location,
-      url
+      url,
+      telephone,
+      provincia,
+      cuit,
+      pets,
+      reviews
     );
     res.status(200).json(modApa);
   } catch (error) {
     res.status(404).send(error.message);
-  }
+  }
 };
+
+
+
 
 // GET BY ID| /:id
 const getApaByIdHandler = async (req, res) => {
