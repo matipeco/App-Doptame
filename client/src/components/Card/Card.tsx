@@ -25,16 +25,17 @@ export const Card: FunctionComponent<Props> = ({ pet }) => {
         console.log(pet)
         try {
           if (isFav) {
-            await dispatch(deleteFavorite(pet._id ?? '') as unknown as AnyAction)
+            dispatch(deleteFavorite(pet._id ?? '', user.id) as unknown as AnyAction)
           } else {
             dispatch(postFavorite(pet._id ?? '', user.id) as unknown as AnyAction)
           }
-          setIsFav(!isFav);
+          setIsFav(!isFav); // actualizar el estado después de que la acción se complete
         } catch (error) {
           console.error(error);
         }
       }
     };
+
     
   
     

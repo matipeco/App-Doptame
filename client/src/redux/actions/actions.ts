@@ -67,7 +67,7 @@ interface PostFavoritePayload {
 
 type DeleteFavorite = {
   type: string
-  payload: string
+  payload: Pet
 }
 
 export const getApas = () => {
@@ -319,13 +319,19 @@ export const postFavorite = (petId: string, userId:string) => {
 export type FavoriteAction = UpdateFavoritesAction;
 
 
-export const deleteFavorite = (id: string) => {
-  return async (dispatch: Dispatch<DeleteFavorite>) => {
-    await axios.delete(`http://localhost:3001/favorite/${id}`)
-    dispatch({
-      type: DELETE_FAVORITE,
-      payload: id
-    })
+export const deleteFavorite = (petId: string, userId: string) => {
+  return async (dispatch: Dispatch<DeleteFavorite>)=>{
+    try{
+      const response = await axios.delete<Pet>(`http://localhost:3001/favorites`, {
+        data: { petId, userId } // aquí se envían los datos en el cuerpo de la solicitud
+      });
+      dispatch({
+        type: DELETE_FAVORITE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
 

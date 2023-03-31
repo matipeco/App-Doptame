@@ -239,9 +239,20 @@ const reducer = (
         return { ...state, favoriteUser: updatedFavoriteUser };
 
       case UPDATE_FAVORITES: 
-      
-      return { ...state, favoriteUser: { favorites: action.payload } };
+      return { 
+        ...state, 
+        favoriteUser: { favorites: action.payload } };
 
+      case DELETE_FAVORITE:
+      const petId = action.payload.id;
+      const filterDelete = state.favoriteUser.favorites?.filter((el) => el.pet._id !== petId)
+      return {
+        ...state,
+        favoriteUser: {
+          ...state.favoriteUser,
+          favorites: filterDelete
+        }
+      }
     case DELETE_PET:
       const updatedPet = state.petsFilter.filter((pet) => pet._id !== action.payload);
       return {
