@@ -68,6 +68,11 @@ export interface InputData {
 
 }
 
+export interface Favs {
+  user?: {}
+  pet?: {}
+}
+
 export type errorsInput = {
   name?: string;
   username?: string;

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { Apa, Pet, User } from "../types";
+import { Apa, Pet, User, Favs } from "../types";
 
 import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL,
   POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, 
   FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, 
-  GET_FAVORITE, SUSPENDED, ADD_FAVORITE, DELETE_FAVORITE } from "./actionsTypes"; import { Dispatch } from "react";
+  GET_FAVORITE, SUSPENDED, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -53,6 +53,11 @@ type dispatchFav = {
 type PostFavorite = {
   type: string
   payload: Pet
+}
+
+interface UpdateFavoritesAction {
+  type: typeof UPDATE_FAVORITES;
+  payload: Favs[];
 }
 
 interface PostFavoritePayload {
@@ -299,6 +304,7 @@ export const getFavorite = (id: string) => {
 export const postFavorite = (petId: string, userId:string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
+      await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
       const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
       dispatch({
         type: ADD_FAVORITE,
@@ -309,6 +315,9 @@ export const postFavorite = (petId: string, userId:string) => {
     }
   };
 };
+
+export type FavoriteAction = UpdateFavoritesAction;
+
 
 export const deleteFavorite = (id: string) => {
   return async (dispatch: Dispatch<DeleteFavorite>) => {
