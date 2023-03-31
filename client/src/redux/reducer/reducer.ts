@@ -1,6 +1,6 @@
 import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS } from "../actions/actionsTypes"
 
-import { Pet, Apa, User } from "../types"
+import { Pet, Apa, User, Admin } from "../types"
 
 const emptyDetail = {
   _id: "",
@@ -73,7 +73,7 @@ export interface StateType {
   userEliminados: User[]
   apasEliminadas: Apa[]
   favoriteUser: User
-  Loguins: User | Apa
+  Loguins: User | Apa | Admin
 
 }
 

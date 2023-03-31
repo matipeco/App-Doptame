@@ -14,6 +14,17 @@ export interface Pet {
   description: string
 }
 
+export interface Admin {
+  _id: string
+  password?: string
+  email?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
+}
+
 export interface Apa {
   _id?: string
   name?: string
@@ -28,6 +39,11 @@ export interface Apa {
   telephone?: string
   provincia?: string
   cuit?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
 }
 
 export interface User {
@@ -40,20 +56,26 @@ export interface User {
   location?: string
   image?: string
   pet?: {}
-  favorites?: [{ pet: {
-    _id?: string
-    name: string
-    age: number
-    size: string
-    type: string
-    image: string
-    adoption: boolean
-    status: boolean
-    description: string
-    }  }]
+  favorites?: [{
+    pet: {
+      _id?: string
+      name: string
+      age: number
+      size: string
+      type: string
+      image: string
+      adoption: boolean
+      status: boolean
+      description: string
+    }
+  }]
   token?: string
   resetPasswordKey?: string
   googleId?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
 }
 
 
@@ -95,9 +117,3 @@ export type errorsInput = {
   size?: string
   type?: string
 };
-
-
-
-
-
-
