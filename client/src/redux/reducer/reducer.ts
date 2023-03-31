@@ -203,7 +203,7 @@ const reducer = (
 
       const selectedLocation = action.payload === 'All'
         ? state.petsFilter
-        : state.petsFilter.filter(el => el.apa?.location.includes(action.payload))
+        : state.petsFilter.filter(el => el.apa?.location?.includes(action.payload))
 
       return {
         ...state,
