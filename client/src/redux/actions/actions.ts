@@ -125,12 +125,7 @@ export const clearDetail = () => {
 
 export const postPet = (id: string, payload: Pet, accessToken: string) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
-    const config = {
-      headers: {
-        authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
-      }
-    };
-    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload, config);
+    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
     return dispatch({
       type: ADD_PET,
       payload: createPet.data
