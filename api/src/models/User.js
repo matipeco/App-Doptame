@@ -10,6 +10,7 @@ const userSchema = new Schema(
     last_name: { type: String },
     password: { type: String },
     email: { type: String, required: true, unique: true },
+    phone: { type: String, required: true},
     location: { type: String },
     image: { type: String },
     resetPasswordKey: { type: String },
