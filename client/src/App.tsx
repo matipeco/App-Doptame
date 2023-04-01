@@ -12,6 +12,12 @@ import { Login } from './components/Login/Login';
 import UserPassword from './components/RestorePasswordUser/UserPassword';
 import Favs from './views/Favs/Favs'
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import CheckoutForm from './views/CheckoutForm/CheckoutForm';
+// import {loadStripe} from "@stripe/stripe-js"
+// import {Elements} from '@stripe/react-stripe-js' //Engloba a otros componentes para qlos componentes q contenga, tengan acceso a la conexion a Stripe
+// import
+
+// const stripePromise= loadStripe('pk_test_51Ms5HqGfi9BkoSkaXzqiNGFgbvsyKUutx80wQBkbtCrLlCkNPzfebOL0qPq2EEplchjDpbhtRatHMGGXBluYkmjQ00oXOEErJv')
 
 
 
@@ -47,6 +53,7 @@ function App() {
           <Route path='/favorites/:id' element={<Favs />}></Route>
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
+          <Route path='/CheckoutForm' element={<CheckoutForm />}></Route>
 
 
 

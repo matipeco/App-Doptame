@@ -16,5 +16,9 @@ mainRouter.use("/api/auth/users", routerAuth);
 mainRouter.use("/auth/apas", routerAuth);
 mainRouter.use("/auth/apa/user", LoginRouter);
 mainRouter.use("/apa/user", suspRouter);
+mainRouter.use("/api/checkout", (req, res)=>{
+    console.log(req.body)
+
+});
 
 module.exports = mainRouter;
