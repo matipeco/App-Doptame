@@ -1,7 +1,7 @@
 import style from './Detail.module.css';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 // import { StateType } from '../../redux/reducer/reducer';
 import { getDetailPets, clearDetail, botonAdopt } from '../../redux/actions/actions';
 import { AnyAction } from 'redux';
@@ -49,7 +49,8 @@ export const Detail = () => {
         <p>{pet?.description}</p>
         <div>
           <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
-        </div>
+          <Link to={`/paymentsDonate/:petId`}><button>Ayudame</button></Link>
+        </div> 
       </article>
     </div>
   );

@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {loadStripe, Stripe} from '@stripe/stripe-js'
 import {CardElement, Elements, useStripe, useElements} from '@stripe/react-stripe-js'
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { Reducer } from '../../redux/store/store';
+import { getDetailPets } from '../../redux/actions/actions';
+import { AnyAction } from 'redux';
 
 const stripePromise: Promise<Stripe | null> = loadStripe("pk_test_51Ms60fDepZWv3l5INkzkVIdajrEumIaxlTdMp7tlnRl5qawy33qKVjYyH90HwrFBxj5ew4tUXYxVPGatdhpD4Wib00MRtIg4p8");
 
@@ -11,8 +16,7 @@ const CheckoutForm = () => {
     const [paymentError, setPaymentError] = useState<string | null>(null);
     const [loading, setLoading] =useState(false)
     const cardElement = elements ? elements.getElement(CardElement) : null;
-    
-
+  const [input, setInput] = useState(0)
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
     
@@ -39,7 +43,7 @@ const CheckoutForm = () => {
             try {
                 const {data} = await axios.post('http://localhost:3001/api/checkout', {
                 id,
-                amount: 1000 //Va en centavos!
+                amount: input*100 //Va en centavos!
              })
                 console.log(data)
                 cardElement.clear()
@@ -59,7 +63,9 @@ const CheckoutForm = () => {
           <CardElement id="card-element" className="form-control"/>
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary" disabled={!stripe} > {loading ? 'Cargando...' : 'Donar' } </button>
+        <input type="number" value={input} onChange={(e) => setInput(parseInt(e.target.value))} placeholder="Ingrese el monto a donar"/>          
+        <button type="submit" className="btn btn-primary" disabled={!stripe || input <= 0}> {loading ? 'Cargando...' : 'Donar' } </button>
+
         </div>
         {paymentError && (
           <div className="alert alert-danger" role="alert">
@@ -73,7 +79,21 @@ const CheckoutForm = () => {
 
 
 export const PaymentGateway = () => {
+
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const pet = useSelector((state:Reducer)=> state.detail)
+  useEffect(() => {
+
+    dispatch(getDetailPets(id!) as unknown as AnyAction);
+  }, [id, dispatch]);
+
   return (
+
+    <div>
+    <h1>Donacion</h1>
+    <p>Estas por donar a {pet.apa?.name} que cuidan a {pet.name} </p>  
+    
     <Elements stripe={stripePromise}>
       <div className='containerPay p-4'>
         <div className='rowp'>
@@ -83,5 +103,6 @@ export const PaymentGateway = () => {
         </div>
       </div>
     </Elements>
+    </div>
   );
 };
