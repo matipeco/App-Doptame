@@ -62,7 +62,6 @@ export interface Apa {
   apaFound?: Admin | Apa | User
 
 }
-
 export interface User {
   _id?: string
   name?: string
@@ -73,19 +72,9 @@ export interface User {
   location?: string
   image?: string
   pet?: {}
-  favorites?: [{
-    pet: {
-      _id?: string
-      name: string
-      age: number
-      size: string
-      type: string
-      image: string
-      adoption: boolean
-      status: boolean
-      description: string
-    }
-  }]
+  favorites?: {
+    pet: Pet;
+  }[];
   token?: string
   resetPasswordKey?: string
   googleId?: string
@@ -115,6 +104,11 @@ export interface InputData {
   size?: string
   type?: string
 
+}
+
+export interface Favs {
+  user?: {}
+  pet?: {}
 }
 
 export type errorsInput = {

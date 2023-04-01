@@ -11,10 +11,12 @@ import './NavBar.css'
 import { useNavigate } from "react-router-dom";
 import { Reducer } from '../../redux/store/store';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import { resetLogueados } from '../../redux/actions/actions';
+import { AnyAction } from 'redux';
 
 function NavBar() {
-
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false)
 
@@ -47,7 +49,7 @@ function NavBar() {
   const handleLogout = async () => {
     localStorage.removeItem("token");
     console.log("Token eliminado: " + localStorage.getItem("token"));
-
+    dispatch(resetLogueados() as any as AnyAction)
     navigate("/")
   };
 

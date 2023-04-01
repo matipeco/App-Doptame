@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Apa, Pet, User } from "../types";
+import { Apa, Pet, User, Favs } from "../types";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION } from "./actionsTypes"; import { Dispatch } from "react";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, SET_ADOPTION } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -50,6 +50,31 @@ interface filtros {
 type dispatchFav = {
   type: string;
   payload: User;
+}
+type dispatchBotonAdop = {
+  type: string;
+  payload: Pet[]
+
+}
+
+type PostFavorite = {
+  type: string
+  payload: Pet
+}
+
+interface UpdateFavoritesAction {
+  type: typeof UPDATE_FAVORITES;
+  payload: Favs[];
+}
+
+interface PostFavoritePayload {
+  userId: string;
+  petId: string;
+}
+
+type DeleteFavorite = {
+  type: string
+  payload: Pet
 }
 
 export const getApas = () => {
@@ -278,6 +303,40 @@ export const getFavorite = (id: string) => {
   };
 };
 
+export const postFavorite = (petId: string, userId:string) => {
+  return async (dispatch: Dispatch<PostFavorite>) => {
+    try {
+      await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
+      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
+      dispatch({
+        type: ADD_FAVORITE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export type FavoriteAction = UpdateFavoritesAction;
+
+
+export const deleteFavorite = (petId: string, userId: string) => {
+  return async (dispatch: Dispatch<DeleteFavorite>)=>{
+    try{
+      const response = await axios.delete<Pet>(`http://localhost:3001/favorites`, {
+        data: { petId, userId } // aquí se envían los datos en el cuerpo de la solicitud
+      });
+      dispatch({
+        type: DELETE_FAVORITE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
 export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
   return async (dispatch: Dispatch<dispatchSuspended>) => {
     try {
@@ -333,13 +392,34 @@ export const updateLogueados = (data: any) => ({
   payload: data,
 });
 
-export const adoptPet = (payload: Pet, id: string) => {
-  return async (dispatch: Dispatch<dispatchPet>) => {
-    console.log(payload)
-    const adoptPet = await axios.post<Pet>(`http://localhost:3001/detail/${id}`, payload);
-    return dispatch({
-      type: ADOPT_PET,
-      payload: adoptPet.data
-    });
-  };
+export const resetLogueados = () => ({
+  type: CLEAN_LOGUEADOS,
+
+});
+
+
+
+
+export const botonAdopt = (petId: any, userId: string) => {
+  return async (dispatch: Dispatch<dispatchBotonAdop>) => {
+    try {
+      const response = await axios.post<Pet[]>("http://localhost:3001/adopt/pet", { petId, userId });
+      if (response.status === 200) {
+        alert("Solicitud de adopción enviada correctamente");
+      }
+      return dispatch({
+        type: BOTON_ADOPT,
+        payload: response.data
+      });
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        alert("Mascota ya adoptada");
+      } else if (error.response && error.response.status === 400) {
+        alert("Ya solicitaste la adopción de esta mascota")
+
+      } else {
+        alert("Error al tratar de adoptar la mascota");
+      }
+    }
+  }
 };

@@ -8,6 +8,6 @@ const {
 } = require("../controllers/FavController");
 favRouter.post("/", postFavorite);
 favRouter.get("/:userId", getFavorite);
-favRouter.delete("/:favoriteId", deleteFavorite);
+favRouter.delete("/", deleteFavorite);
 
 module.exports = favRouter;
