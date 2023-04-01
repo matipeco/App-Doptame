@@ -62,10 +62,11 @@ const Login = async (req, res) => {
       .json({ token: null, message: "contraseña invalida" });
   }
 };
-
 const LoginWithGoogle = async (req, res) => {
   const { tokenId, role } = req.body;
   console.log(tokenId);
+
+  let userType = "user"; // Asignar "user" como valor por defecto
 
   try {
     const ticket = await client.verifyIdToken({
@@ -75,21 +76,25 @@ const LoginWithGoogle = async (req, res) => {
 
     const payload = ticket.getPayload();
     const userId = payload["sub"];
-    console.log(userId);
+    // console.log(userId);
 
     const userName = payload["name"];
-    console.log(userName);
+    // console.log(userName);
 
     const userEmail = payload["email"];
-    console.log(userEmail);
+    // console.log(userEmail);
 
     // Buscar en la base de datos si ya existe un usuario con el id de Google
-    let userFound = await User.findOne({ email: userEmail });
+    let userFound = await User.findOne({ email: userEmail }).populate("role");
     // Si el usuario no existe, crear un nuevo documento en la colección de usuarios
     if (!userFound) {
       let username;
       if (userName) {
-        username = userName.replace(/\s+/g, "");
+        const randomString = Math.random().toString(36).substring(2, 8);
+        username = userName.replace(/\s+/g, "") + randomString;
+      } else {
+        const randomString = Math.random().toString(36).substring(2, 8);
+        username = "user" + randomString;
       }
 
       // Crear un nuevo documento de usuario
@@ -100,7 +105,7 @@ const LoginWithGoogle = async (req, res) => {
       });
 
       if (role) {
-        const foundRole = await Role.find({ name: { $in: role } }); // de todos los que terngo guardado, se busca el role que me mande el user.
+        const foundRole = await Role.find({ name: { $in: role } }); // de todos los que tengo guardado, se busca el role que me mande el usuario.
         newUser.role = foundRole.map((role) => role._id); // mapeo los roles // se guarda
       } else {
         //si no ingresa role, le mando el que le asigno por default
@@ -118,16 +123,14 @@ const LoginWithGoogle = async (req, res) => {
     }
 
     const token = jwt.sign({ id: userFound._id }, config.SECRET);
-    console.log(token);
-
-    // Devolver el token como respuesta
-    res.status(200).json({ token });
+    // console.log(userFound, "type" + userType);
+    // Devolver el token como respuesta, junto con userFound y userType
+    res.status(200).json({ token, userFound, userType });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error al autenticar con Google" });
   }
 };
-
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   console.log(

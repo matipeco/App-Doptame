@@ -4,13 +4,15 @@ import GoogleLogin from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import style from "../LoginGoogle/LoginGoogle.module.css";
+import { useDispatch } from "react-redux";
+import { updateLogueados } from "../../redux/actions/actions";
 
 function LoginWithGoogle() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSuccess = async (response) => {
-    console.log(response.accessToken);
-    console.log(response.profileObj);
+    // console.log(response.accessToken);
 
     try {
       // Envía el token al servidor mediante una solicitud HTTP POST
@@ -23,6 +25,8 @@ function LoginWithGoogle() {
 
       // Guarda el token de autenticación recibido del servidor en el almacenamiento local
       localStorage.setItem("token", res.data.token);
+      // console.log(res.data.userFound, "type" + res.data.userType);
+      dispatch(updateLogueados(res.data));
 
       // Navega a la página de inicio
       navigate("/home");
@@ -34,18 +38,6 @@ function LoginWithGoogle() {
   const onFailure = (response) => {
     console.log("Something went wrong");
   };
-
-  // const handleSignOut = () => {
-  //   const auth2 = gapi.auth2.getAuthInstance();
-  //   const confirmSignOut = window.confirm(
-  //     "¿Estás seguro de que quieres cerrar sesión?"
-  //   );
-  //   if (confirmSignOut) {
-  //     auth2.signOut().then(function () {
-  //       console.log("User out.");
-  //     });
-  //   }
-  // };
 
   useEffect(() => {
     function start() {

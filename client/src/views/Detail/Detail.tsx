@@ -7,31 +7,24 @@ import { getDetailPets, clearDetail, botonAdopt } from '../../redux/actions/acti
 import { AnyAction } from 'redux';
 import { Reducer } from '../../redux/store/store';
 import { User } from "../../redux/types";
-import { Navigate } from 'react-router-dom';
-
-
-
-
 export interface StateType {
   currentUser: User;
   allUsers: User[];
 }
 
-
-
 export const Detail = () => {
   const logueados = useSelector((state: Reducer) => state.Loguins);
+
+  // console.log(logueados.userFound)
   const navigate = useNavigate()
   const user_id: any = logueados?.userFound?._id
   console.log(user_id)
   const dispatch = useDispatch();
   const { id } = useParams();
   const pet = useSelector((state: Reducer) => state.detail);
-  // const allUsers = useSelector((state: Reducer) => state.allUsers);
-
-
 
   useEffect(() => {
+
     dispatch(getDetailPets(id!) as unknown as AnyAction);
     dispatch(clearDetail());
   }, [id, dispatch]);
@@ -47,25 +40,6 @@ export const Detail = () => {
     }
   };
 
-
-
-  /* const handleAdoptButtonClick = (user: User) => {
-    const confirmed = window.confirm(
-      "¿Estás seguro de que deseas adoptar a esta mascota?"
-    );
-    if (confirmed) {
-      // Llamada a la acción adoptPet con los datos necesarios
-      dispatch(adoptPet({
-        name: pet?.name,
-        size: pet?.size,
-        description: pet?.description,
-        apa: pet?.apa,
-        image: pet?.image,
-        adopter: user._id,
-      }, id) as unknown as AnyAction);
-    }
-  }; */
-
   return (
     <div className={style.container}>
       <article className={style.card}>
@@ -74,11 +48,8 @@ export const Detail = () => {
         <p>{pet?.size}</p>
         <p>{pet?.description}</p>
         <div>
-
-          <button onClick={() => handleAdoptButtonClick(user_id)}>Adoptar</button>
+          <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
         </div>
-
-
       </article>
     </div>
   );
