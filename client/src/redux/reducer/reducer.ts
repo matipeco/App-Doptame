@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "../actions/actionsTypes"
 
 import { Pet, Apa, User, Admin } from "../types"
 
@@ -61,6 +61,7 @@ const user: User = {
     }
   ]
 };
+
 
 
 export interface StateType {
@@ -229,7 +230,31 @@ const reducer = (
         ...state,
         favoriteUser: action.payload
       }
+      case ADD_FAVORITE:
+        const newFavorite = action.payload.pet;
+        const updatedUserFavorites = state.favoriteUser.favorites
+          ? [...state.favoriteUser.favorites, { pet: newFavorite }]
+          : [{ pet: newFavorite }];
+      
+        const updatedFavoriteUser = { ...state.favoriteUser, favorites: updatedUserFavorites };
+      
+        return { ...state, favoriteUser: updatedFavoriteUser };
 
+      case UPDATE_FAVORITES: 
+      return { 
+        ...state, 
+        favoriteUser: { favorites: action.payload } };
+
+      case DELETE_FAVORITE:
+      const petId = action.payload.id;
+      const filterDelete = state.favoriteUser.favorites?.filter((el) => el.pet._id !== petId)
+      return {
+        ...state,
+        favoriteUser: {
+          ...state.favoriteUser,
+          favorites: filterDelete
+        }
+      }
     case DELETE_PET:
       const updatedPet = state.petsFilter.filter((pet) => pet._id !== action.payload);
       return {

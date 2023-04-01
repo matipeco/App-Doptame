@@ -79,13 +79,27 @@ const sendFavoritesEmail = async (user) => {
 
 const deleteFavorite = async (req, res) => {
   try {
-    const favorite = await Favorites.findByIdAndDelete(req.params.favoriteId);
-    if (!favorite) {
-      return res.status(404).json({ message: "Favorito no encontrado" });
+    const { userId, petId } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
-    res.status(200).json({ message: "Eliminado de favoritos" });
+    if (!user.favorites.includes(petId)) {
+      return res
+        .status(400)
+        .json({ message: "La mascota no se encuentra en favoritos" });
+    }
+
+    user.favorites.pull(petId); // Eliminar petId del arreglo favorites de User
+    await user.save();
+
+    res.status(200).json({ message: "Mascota eliminada de favoritos" });
   } catch (error) {
-    res.status(500).json({ message: "No se pudo eliminar de favoritos" });
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "No se puede eliminar la mascota de favoritos" });
   }
 };
 
