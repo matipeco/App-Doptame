@@ -21,17 +21,20 @@ export interface StateType {
 
 export const Detail = () => {
   const logueados = useSelector((state: Reducer) => state.Loguins);
+
+  // console.log(logueados.userFound)
   const navigate = useNavigate()
   const user_id: any = logueados?.userFound?._id
   console.log(user_id)
   const dispatch = useDispatch();
   const { id } = useParams();
   const pet = useSelector((state: Reducer) => state.detail);
-  // const allUsers = useSelector((state: Reducer) => state.allUsers);
+
 
 
 
   useEffect(() => {
+
     dispatch(getDetailPets(id!) as unknown as AnyAction);
     dispatch(clearDetail());
   }, [id, dispatch]);
@@ -48,23 +51,6 @@ export const Detail = () => {
   };
 
 
-
-  /* const handleAdoptButtonClick = (user: User) => {
-    const confirmed = window.confirm(
-      "¿Estás seguro de que deseas adoptar a esta mascota?"
-    );
-    if (confirmed) {
-      // Llamada a la acción adoptPet con los datos necesarios
-      dispatch(adoptPet({
-        name: pet?.name,
-        size: pet?.size,
-        description: pet?.description,
-        apa: pet?.apa,
-        image: pet?.image,
-        adopter: user._id,
-      }, id) as unknown as AnyAction);
-    }
-  }; */
 
   return (
     <div className={style.container}>
