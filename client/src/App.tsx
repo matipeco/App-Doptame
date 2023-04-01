@@ -10,7 +10,9 @@ import FormEditApa from './views/FormEditApa/FormEditApa';
 import { Login } from './components/Login/Login';
 import Favs from './views/Favs/Favs'
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
+import { ApaDashboard } from './components/ApaDashboard/ApaDashboard';
 import ForgotPassword from './components/RestorePassword/ForgotPassword';
+
 // import { useSelector } from 'react-redux';
 // import { Reducer } from "./redux/store/store"
 // import { Navigate } from 'react-router-dom';
@@ -51,6 +53,7 @@ function App() {
           <Route path='/pets/:category' element={<Cards />}></Route>
           <Route path='/restore-password' element={<ForgotPassword />}></Route>
           <Route path='/dashboardAdmin' element={logueados && logueados.userType === 'admin' ? <AdminDashboard /> : <Navigate to="/" />}></Route>
+          <Route path='/dashboardApa' element={logueados && logueados.userType === 'apa' ? <ApaDashboard /> : <Navigate to="/" />}></Route>
 
         </Routes> */}
 
@@ -72,6 +75,8 @@ function App() {
           <Route path='/favorites/:id' element={<Favs />}></Route>
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
+          <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
+
         </Routes>
 
 

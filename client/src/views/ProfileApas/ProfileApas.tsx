@@ -52,8 +52,7 @@ export default function ProfileApas() {
                     <>
                         <Link to={`/formEditApa/${logueados.apaFound?._id}`}><button>Editar Datos</button></Link>
                         <Link to={`/formPet`}><button>Agregar Mascota</button></Link>
-                        {  /* TABLA CON LAS MASCOTAS PARA EDITAR
-                        <Link to={}><button>Editar Mascotas</button></Link> */}
+                        <Link to={'/dashboardApa'}><button>Editar Mascotas</button></Link>
                     </>}
             </div>
 

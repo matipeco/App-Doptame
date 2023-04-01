@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, SET_ADOPTION } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -33,9 +33,9 @@ type dispatchSuspended = {
   type: string
   payload: User | Apa
 }
-type dispatchGetApaUserAdmin = {
+type dispatchChangeAdoption = {
   type: string
-  payload: User | Apa
+  payload: Pet
 }
 
 type dispatchDetailUser = {
@@ -299,6 +299,31 @@ export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
       }
     } catch (error) {
       alert("ya suspendido")
+    }
+  };
+};
+
+export const setAdoption = (id: string, adoption: boolean) => {
+  return async (dispatch: Dispatch<dispatchChangeAdoption>) => {
+    try {
+      let response;
+
+      if (adoption) {
+        // Si esta disponible, etablecer en false enviando un PUT con { adoption: false }
+        response = await axios.put<Pet>(`http://localhost:3001/pets/adoption/${id}`, { adoption: false });
+      } else {
+        // Si la mascota no esta disponible para adoptar, enviar true { adoption: true }
+        response = await axios.put<Pet>(`http://localhost:3001/pets/adoption/${id}`, { adoption: true });
+      }
+
+      if (response.status === 200) {
+        dispatch({
+          type: SET_ADOPTION,
+          payload: response.data,
+        });
+      }
+    } catch (error: any) {
+      alert(error.data.message)
     }
   };
 };

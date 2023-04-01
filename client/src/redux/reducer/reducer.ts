@@ -178,8 +178,8 @@ const reducer = (
     case ORDER_BY_AGE:
       const isAsc = action.payload;
       const sortByAge = state.petsFilter.sort((a, b) => {
-        const numA = a.age
-        const numB = b.age
+        const numA = a.age ?? 0;
+        const numB = b.age ?? 0;
         if (isAsc === 'asc') {
           return numA > numB ? 1 : numA < numB ? -1 : 0;
         } else {
@@ -203,7 +203,7 @@ const reducer = (
 
       const selectedLocation = action.payload === 'All'
         ? state.petsFilter
-        : state.petsFilter.filter(el => el.apa?.location.includes(action.payload))
+        : state.petsFilter.filter(el => el.apa?.location?.includes(action.payload))
 
       return {
         ...state,
@@ -241,15 +241,6 @@ const reducer = (
         Loguins: action.payload,
 
       }
-
-
-    // case CLEAN_LOGUEADOS:
-    //   return {
-    //     ...state,
-    //     Loguins: {},
-    //   }
-
-
     default:
       return state;
   }
