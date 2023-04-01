@@ -47,13 +47,17 @@ export default function ProfileApas() {
         <div className='containerApaProfile'>
             <div className="containerTitleApa">
                 <h1 >{apa.name}</h1>
-                <img src={avatarApa} alt='avatar apa' />
-                {logueados.userType === "apa" &&
+                <img className='imgApaProfile' src={avatarApa} alt='avatar apa' />
+               
+            </div>
+            <div className="botonesProfile">
+            {logueados.userType === "apa" &&
                     <>
-                        <Link to={`/formEditApa/${logueados.apaFound?._id}`}><button>Editar Datos</button></Link>
-                        <Link to={`/formPet`}><button>Agregar Mascota</button></Link>
-                        <Link to={'/dashboardApa'}><button>Editar Mascotas</button></Link>
-                    </>}
+                        <button className='botonesApaProfile' ><Link className='letras' to={`/formEditApa/${logueados.apaFound?._id}`}>Editar Datos</Link></button>
+                        <button className='botonesApaProfile' ><Link className='letras' to={`/formPet`}>Agregar Mascota</Link></button>
+                        <button className='botonesApaProfile'><Link className='letras' to={'/dashboardApa'}>Editar Mascotas</Link></button>
+                    </>
+            }
             </div>
 
             <div className='containerDescription'>

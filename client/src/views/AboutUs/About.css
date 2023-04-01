@@ -1,3 +1,6 @@
+.aboutUs{
+  margin: 30px 50px;
+}
 
 .h1 {
   color: #f6be68;
@@ -22,14 +25,16 @@
 }
 
 .card {
-  
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 240px;
   height: 250px;
-  padding: 1rem;
   background-color: #f5f5f5;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  text-align: justify,
 }
 
 .card:hover {
@@ -90,10 +95,7 @@
   height: 20px;
 }
 
-.aboutUs{
-  margin-top: 25px; 
 
-}
 
 
 

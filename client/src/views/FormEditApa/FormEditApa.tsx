@@ -101,11 +101,11 @@ function FormEditApa() {
 
     return (
         <div className="container">
-            
-            <div className="containerForm">
                 <h1>Editar APA:</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="row">
+
+            <div className="containerForma">
+                <form className='forma' onSubmit={handleSubmit}>
+                    <div className="column3">
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
@@ -141,7 +141,9 @@ function FormEditApa() {
                             <label className="label" htmlFor="descripcion">Descripción:</label>
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
-
+                    </div>
+                        
+                    <div className="column3">
                         <div className="containerInputs">
                             <select name="provincia"
                                 onChange={handleInputChange}
@@ -160,8 +162,6 @@ function FormEditApa() {
                         </div>
 
 
-                    </div>
-                    <div className="row">
 
                         <div className="containerInputs">
                             <input
@@ -188,9 +188,9 @@ function FormEditApa() {
                             <label className="label" htmlFor="telephone">Teléfono:</label>
                             {errors.telephone && <p className='errors'>{errors.telephone}</p>}
                         </div>
+                    </div>
 
-
-
+                    <div className="column3">
                         <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
@@ -228,9 +228,9 @@ function FormEditApa() {
                             <label className="label" htmlFor="url"> Dirección Web o Red Social:</label>
                             {/* {errors.url && <p className='errors'>{errors.url}</p>} */}
                         </div>
-
+                    <button className='btnFormEdit' type="submit" disabled={handleDisabledButton()}>Guardar</button>
+                                
                     </div>
-                    
 
                     {/* <div className="row">
                         <div className="containerInputs">
@@ -251,7 +251,6 @@ function FormEditApa() {
                             {errors.image && <p className='error'>{errors.image}</p>}
                         </div> */}
 
-                    <button type="submit" disabled={handleDisabledButton()}>Guardar</button>
 
                     {/* </div> */}
                 </form>
