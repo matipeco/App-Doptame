@@ -7,17 +7,10 @@ import { getDetailPets, clearDetail, botonAdopt } from '../../redux/actions/acti
 import { AnyAction } from 'redux';
 import { Reducer } from '../../redux/store/store';
 import { User } from "../../redux/types";
-import { Navigate } from 'react-router-dom';
-
-
-
-
 export interface StateType {
   currentUser: User;
   allUsers: User[];
 }
-
-
 
 export const Detail = () => {
   const logueados = useSelector((state: Reducer) => state.Loguins);
@@ -29,9 +22,6 @@ export const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const pet = useSelector((state: Reducer) => state.detail);
-
-
-
 
   useEffect(() => {
 
@@ -50,8 +40,6 @@ export const Detail = () => {
     }
   };
 
-
-
   return (
     <div className={style.container}>
       <article className={style.card}>
@@ -60,11 +48,8 @@ export const Detail = () => {
         <p>{pet?.size}</p>
         <p>{pet?.description}</p>
         <div>
-
-          <button onClick={() => handleAdoptButtonClick(user_id)}>Adoptar</button>
+          <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
         </div>
-
-
       </article>
     </div>
   );
