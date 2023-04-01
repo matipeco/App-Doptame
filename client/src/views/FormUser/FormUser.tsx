@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './FormUser.css';
-import img from '../../assets/completo.png'
+import img from '../../assets/descarga.jpg'
 // import { useDispatch } from "react-redux";
 // import { postUser } from "../../redux/actions/actions";
 // import { AnyAction } from "redux";
@@ -121,7 +121,7 @@ function FormUser() {
                         {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
                     </div>
 
-                    <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
+                    <button disabled={Object.keys(errorsInput).length !== 0} className="botoncitoCrear">Crear</button>
                 </form>
             </div>
         </div>

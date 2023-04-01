@@ -16,6 +16,7 @@ type Props = {
 export const Card: FunctionComponent<Props> = ({ pet }) => {
   const location = useLocation();
   const dispatch = useDispatch()
+  
   const [isFav, setIsFav] = useState(() => {
       const storedValue = localStorage.getItem(`fav-${pet._id}`)
       return storedValue ? JSON.parse(storedValue) : false
