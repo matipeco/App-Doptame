@@ -25,5 +25,7 @@ export const SUSPENDED = "SUSPENDED"
 export const LOGUEADOS = "LOGUEADOS"
 export const CLEAN_LOGUEADOS = "CLEAN_LOGUEADOS"
 export const ADOPT_PET = "ADOPT_PET"
+export const SET_ADOPTION = "SET_ADOPTION"
 export const BOTON_ADOPT = "BOTON_ADOPT"
 export const UPDATE_FAVORITES = "UPDATE_FAVORITES"
+

@@ -1,55 +1,55 @@
 const petRouter = require('express').Router();
 const petSchema = require('../models/Pet');
-const Pet= require('../models/Pet');
-const Apa= require('../models/Apa');
+const Pet = require('../models/Pet');
+const Apa = require('../models/Apa');
 
-const getAllPets= async (req,res)=>{
+const getAllPets = async (req, res) => {
     try {
-        const allPets= await Pet.find({}).populate('apa');
-        res.status(200).json(allPets);   
+        const allPets = await Pet.find({}).populate('apa');
+        res.status(200).json(allPets);
     } catch (error) {
         res.status(400).json(error)
     }
 }
 
-const getPetById= async (req,res)=>{
+const getPetById = async (req, res) => {
     try {
-        const petWithApa=await Pet.findById(req.params.petId).populate('apa');
-//Si encontró la Pet
+        const petWithApa = await Pet.findById(req.params.petId).populate('apa');
+        //Si encontró la Pet
         if (petWithApa) {
             res.status(200).json(petWithApa);
-        //Si no encontró la Pet
-        } 
-        else{
-            res.status(404).json({error: 'Mascota no encontrada'});
+            //Si no encontró la Pet
+        }
+        else {
+            res.status(404).json({ error: 'Mascota no encontrada' });
         }
     } catch (error) {
         res.status(404).json(error)
     }
 }
 
-const createPet =async (req,res)=>{
-    
+const createPet = async (req, res) => {
+
     try {
-        
-        const {name,age,size,type,image,description}=req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
+
+        const { name, age, size, type, image, description } = req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
         if (!name || !age || !size || !type || !image || !description) {
-            res.status(400).json({error:'Falta información. La mascota no puede ser dada de alta en el sistema.'})
+            res.status(400).json({ error: 'Falta información. La mascota no puede ser dada de alta en el sistema.' })
         } else {
-            const {apaId} = req.params
-            const objeto = {...req.body, apa: apaId}
-            const newPet=await Pet.create(objeto)
-            await Apa.findByIdAndUpdate(apaId, {$push:{pets: newPet._id}}, {useFindAndModify: false})
+            const { apaId } = req.params
+            const objeto = { ...req.body, apa: apaId }
+            const newPet = await Pet.create(objeto)
+            await Apa.findByIdAndUpdate(apaId, { $push: { pets: newPet._id } }, { useFindAndModify: false })
 
             if (newPet) {
-                res.status(200).json({message:'La mascosta ha sido dada de alta con éxito'})
+                res.status(200).json({ message: 'La mascosta ha sido dada de alta con éxito' })
             } else {
-                res.status(400).json({error: 'La mascota no ha podido ser dada de alta'})
+                res.status(400).json({ error: 'La mascota no ha podido ser dada de alta' })
             }
         }
     } catch (error) {
         console.log(error.message);
-        res.status(400).json(error) 
+        res.status(400).json(error)
     }
 }
 
@@ -68,7 +68,29 @@ const editPet = async (req, res) => {
     }
 }
 
-const deletePet =async (req, res) => {
+const setAdoption = async (req, res) => {
+    const { petId } = req.params;
+
+    const pet = await Pet.findById(petId);
+
+    if (!pet) {
+        return res.status(404).json({ error: "PetID no encontrado" });
+    }
+
+    // Si la mascota esta disponible, marcarla como no disponible y guardar los cambios
+    if (pet.adoption) {
+        pet.adoption = false;
+        await pet.save();
+        return res.status(200).json({ message: "Mascota no disponible para adoptar" });
+    } else { // Si la mascota no está disponible, marcarla como disponible y guardar los cambios
+        pet.adoption = true;
+        await pet.save();
+        return res.status(200).json({ message: "Mascota disponible para adoptar" });
+    }
+
+}
+
+const deletePet = async (req, res) => {
     try {
         const pet = await Pet.findByIdAndDelete(req.params.petId);
         res.status(200).json('La mascosta fue eliminada definitivamente de la base de datos');
@@ -78,11 +100,12 @@ const deletePet =async (req, res) => {
 }
 
 
-module.exports={
+module.exports = {
     getAllPets,
     getPetById,
     createPet,
     editPet,
+    setAdoption,
     deletePet
 }
 

@@ -181,7 +181,9 @@ const reducer = (
       const isAsc = action.payload;
       const sortByAge = state.petsFilter.sort((a, b) => {
         const numA = a.age ?? 0;
-        const numB = b.age ?? 0
+
+        const numB = b.age ?? 0;
+
         if (isAsc === 'asc') {
           return numA > numB ? 1 : numA < numB ? -1 : 0;
         } else {
@@ -274,7 +276,6 @@ const reducer = (
         ...state,
         Loguins: {},
       }
-
 
     default:
       return state;
