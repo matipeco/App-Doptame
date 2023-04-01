@@ -7,6 +7,7 @@ const routerAuth = require("./authRouter");
 const LoginRouter = require("./LoginRouter");
 const suspRouter = require("./suspencionRouter");
 const adoptProgressRouter = require("./adoptionRouter");
+const paymentRouter = require("./paymentRouter")
 const mainRouter = Router();
 
 mainRouter.use("/apa", apaRouter);
@@ -18,5 +19,6 @@ mainRouter.use("/auth/apas", routerAuth);
 mainRouter.use("/auth/apa/user", LoginRouter);
 mainRouter.use("/apa/user", suspRouter);
 mainRouter.use("/adopt", adoptProgressRouter);
+mainRouter.use("/api/checkout", paymentRouter)
 
 module.exports = mainRouter;
