@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {loadStripe, Stripe} from '@stripe/stripe-js'
 import {CardElement, Elements, useStripe, useElements} from '@stripe/react-stripe-js'
-import "bootswatch/dist/lux/bootstrap.min.css"
 import axios from 'axios';
 
 const stripePromise: Promise<Stripe | null> = loadStripe("pk_test_51Ms60fDepZWv3l5INkzkVIdajrEumIaxlTdMp7tlnRl5qawy33qKVjYyH90HwrFBxj5ew4tUXYxVPGatdhpD4Wib00MRtIg4p8");
@@ -38,7 +37,7 @@ const CheckoutForm = () => {
       const {id} =paymentMethod;
 
             try {
-                const {data} = await axios.post('http://localhost/3001/api/checkout', {
+                const {data} = await axios.post('http://localhost:3001/api/checkout', {
                 id,
                 amount: 1000 //Va en centavos!
              })
