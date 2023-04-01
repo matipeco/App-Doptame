@@ -12,6 +12,7 @@ import Favs from './views/Favs/Favs'
 import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import { ApaDashboard } from './components/ApaDashboard/ApaDashboard';
 import ForgotPassword from './components/RestorePassword/ForgotPassword';
+import { PaymentGateway } from './components/PaymentGateway/PaymentGateway';
 
 // import { useSelector } from 'react-redux';
 // import { Reducer } from "./redux/store/store"
@@ -76,7 +77,7 @@ function App() {
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
-
+          <Route path='/paymentsDonate/:petId' element ={<PaymentGateway/>} ></Route>
         </Routes>
 
 
