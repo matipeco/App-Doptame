@@ -303,11 +303,11 @@ export const getFavorite = (id: string) => {
   };
 };
 
-export const postFavorite = (petId: string, userId:string) => {
+export const postFavorite = (petId: string, userId: string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
-      await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
-      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, {petId, userId});
+      await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
+      const response = await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
       dispatch({
         type: ADD_FAVORITE,
         payload: response.data,
@@ -322,8 +322,8 @@ export type FavoriteAction = UpdateFavoritesAction;
 
 
 export const deleteFavorite = (petId: string, userId: string) => {
-  return async (dispatch: Dispatch<DeleteFavorite>)=>{
-    try{
+  return async (dispatch: Dispatch<DeleteFavorite>) => {
+    try {
       const response = await axios.delete<Pet>(`http://localhost:3001/favorites`, {
         data: { petId, userId } // aquí se envían los datos en el cuerpo de la solicitud
       });
@@ -367,7 +367,7 @@ export const setAdoption = (id: string, adoption: boolean) => {
     try {
       let response;
 
-      if (adoption) {
+      if (!adoption) {
         // Si esta disponible, etablecer en false enviando un PUT con { adoption: false }
         response = await axios.put<Pet>(`http://localhost:3001/pets/adoption/${id}`, { adoption: false });
       } else {
