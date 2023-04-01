@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Apa, Pet, User } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -50,6 +50,11 @@ interface filtros {
 type dispatchFav = {
   type: string;
   payload: User;
+}
+type dispatchBotonAdop = {
+  type: string;
+  payload: Pet[]
+
 }
 
 export const getApas = () => {
@@ -316,13 +321,26 @@ export const resetLogueados = () => ({
 
 
 
-export const adoptPet = (payload: Pet, id: string) => {
-  return async (dispatch: Dispatch<dispatchPet>) => {
-    console.log(payload)
-    const adoptPet = await axios.post<Pet>(`http://localhost:3001/detail/${id}`, payload);
-    return dispatch({
-      type: ADOPT_PET,
-      payload: adoptPet.data
-    });
-  };
+export const botonAdopt = (petId: any, userId: string) => {
+  return async (dispatch: Dispatch<dispatchBotonAdop>) => {
+    try {
+      const response = await axios.post<Pet[]>("http://localhost:3001/adopt/pet", { petId, userId });
+      if (response.status === 200) {
+        alert("Solicitud de adopción enviada correctamente");
+      }
+      return dispatch({
+        type: BOTON_ADOPT,
+        payload: response.data
+      });
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        alert("Mascota ya adoptada");
+      } else if (error.response && error.response.status === 400) {
+        alert("Ya solicitaste la adopción de esta mascota")
+
+      } else {
+        alert("Error al tratar de adoptar la mascota");
+      }
+    }
+  }
 };
