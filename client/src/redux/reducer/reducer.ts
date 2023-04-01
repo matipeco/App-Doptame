@@ -1,8 +1,6 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, 
-  POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, 
-  FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "../actions/actionsTypes"
 
-import { Pet, Apa, User } from "../types"
+import { Pet, Apa, User, Admin } from "../types"
 
 const emptyDetail = {
   _id: "",
@@ -44,20 +42,23 @@ const emptyDetailApa = {
   cuit: "",
 }
 
+
 const user: User = {
   favorites: [
-    { pet: {
-      _id: "",
-      name: "",
-      age: 0,
-      size: "",
-      type: "",
-      image: "",
-      adoption: false, 
-      status: true,
-      description: "",
+    {
+      pet: {
+        _id: "",
+        name: "",
+        age: 0,
+        size: "",
+        type: "",
+        image: "",
+        adoption: false,
+        status: true,
+        description: "",
 
-      }  }
+      }
+    }
   ]
 };
 
@@ -74,6 +75,7 @@ export interface StateType {
   userEliminados: User[]
   apasEliminadas: Apa[]
   favoriteUser: User
+  Loguins: User | Apa | Admin
 
 }
 
@@ -89,8 +91,8 @@ const initialState: StateType = {
   petsFilter: [],
   userEliminados: [],
   apasEliminadas: [],
-  favoriteUser: user
-  
+  favoriteUser: user,
+  Loguins: {}
 
 }
 
@@ -175,14 +177,14 @@ const reducer = (
         petsFilter: action.payload
       }
 
-      case ORDER_BY_AGE: 
+    case ORDER_BY_AGE:
       const isAsc = action.payload;
-      const sortByAge = state.petsFilter.sort((a , b) => {
-        const numA = a.age
-        const numB = b.age
-        if(isAsc === 'asc'){
+      const sortByAge = state.petsFilter.sort((a, b) => {
+        const numA = a.age ?? 0;
+        const numB = b.age ?? 0
+        if (isAsc === 'asc') {
           return numA > numB ? 1 : numA < numB ? -1 : 0;
-        }else{
+        } else {
           return numA < numB ? 1 : numA > numB ? -1 : 0;
         }
       })
@@ -222,8 +224,8 @@ const reducer = (
         ...state,
         allApas: updatedApas,
       };
-    
-      case GET_FAVORITE: 
+
+    case GET_FAVORITE:
       return {
         ...state,
         favoriteUser: action.payload
@@ -259,7 +261,21 @@ const reducer = (
         ...state,
         allPets: updatedPet,
       };
-//proximamente
+    case LOGUEADOS:
+      return {
+        ...state,
+        Loguins: action.payload,
+
+      }
+
+
+    case CLEAN_LOGUEADOS:
+      return {
+        ...state,
+        Loguins: {},
+      }
+
+
     default:
       return state;
   }

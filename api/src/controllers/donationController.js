@@ -52,7 +52,7 @@ const postDonation = async (req, res) => {
     try {
       const { apaId, userId, amount } = req.body;
   
-      const apa = await APA.findById(apaId);
+      const apa = await Apa.findById(apaId);
       if (!apa) {
         return res.status(404).json({ message: "APA not found" });
       }
@@ -66,7 +66,7 @@ const postDonation = async (req, res) => {
       // ...
   
       // Enviar la notificación por correo electrónico
-      await sendDonationNotification(apaId, userId);
+      await sendDonationNotification(apaId, userId, amount);
   
       res.status(201).json({ message: "Donation saved" });
     } catch (error) {

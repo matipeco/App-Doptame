@@ -1,10 +1,7 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
 
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL,
-  POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, 
-  FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, 
-  GET_FAVORITE, SUSPENDED, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES } from "./actionsTypes"; import { Dispatch } from "react";
 
 type dispatchApa = {
   type: string
@@ -22,6 +19,7 @@ type dispatchGet = {
   payload: object[]
 }
 
+
 type dispatchDetail = {
   type: string
   payload: Pet
@@ -32,6 +30,10 @@ type dispatchUser = {
   payload: User
 }
 type dispatchSuspended = {
+  type: string
+  payload: User | Apa
+}
+type dispatchGetApaUserAdmin = {
   type: string
   payload: User | Apa
 }
@@ -48,6 +50,11 @@ interface filtros {
 type dispatchFav = {
   type: string;
   payload: User;
+}
+type dispatchBotonAdop = {
+  type: string;
+  payload: Pet[]
+
 }
 
 type PostFavorite = {
@@ -143,12 +150,7 @@ export const clearDetail = () => {
 
 export const postPet = (id: string, payload: Pet, accessToken: string) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
-    const config = {
-      headers: {
-        authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
-      }
-    };
-    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload, config);
+    const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
     return dispatch({
       type: ADD_PET,
       payload: createPet.data
@@ -358,4 +360,41 @@ export const suspendUserOrApaAction = (id: string, suspended: boolean) => {
       alert("ya suspendido")
     }
   };
+};
+
+export const updateLogueados = (data: any) => ({
+  type: LOGUEADOS,
+  payload: data,
+});
+
+export const resetLogueados = () => ({
+  type: CLEAN_LOGUEADOS,
+
+});
+
+
+
+
+export const botonAdopt = (petId: any, userId: string) => {
+  return async (dispatch: Dispatch<dispatchBotonAdop>) => {
+    try {
+      const response = await axios.post<Pet[]>("http://localhost:3001/adopt/pet", { petId, userId });
+      if (response.status === 200) {
+        alert("Solicitud de adopción enviada correctamente");
+      }
+      return dispatch({
+        type: BOTON_ADOPT,
+        payload: response.data
+      });
+    } catch (error: any) {
+      if (error.response && error.response.status === 404) {
+        alert("Mascota ya adoptada");
+      } else if (error.response && error.response.status === 400) {
+        alert("Ya solicitaste la adopción de esta mascota")
+
+      } else {
+        alert("Error al tratar de adoptar la mascota");
+      }
+    }
+  }
 };

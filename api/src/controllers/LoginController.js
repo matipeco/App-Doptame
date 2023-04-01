@@ -31,6 +31,8 @@ const Login = async (req, res) => {
     if (matchedPassword) {
       userId = userFound._id;
       userType = "user";
+      const token = jwt.sign({ id: userId }, config.SECRET);
+      res.json({ token, userType, userFound });
     }
   }
 
@@ -39,6 +41,8 @@ const Login = async (req, res) => {
     if (matchedPassword) {
       userId = apaFound._id;
       userType = "apa";
+      const token = jwt.sign({ id: userId }, config.SECRET);
+      res.json({ token, userType, apaFound });
     }
   }
 
@@ -47,6 +51,8 @@ const Login = async (req, res) => {
     if (matchedPassword) {
       userId = adminFound._id;
       userType = "admin";
+      const token = jwt.sign({ id: userId }, config.SECRET);
+      res.json({ token, userType, adminFound });
     }
   }
 
@@ -55,10 +61,6 @@ const Login = async (req, res) => {
       .status(401)
       .json({ token: null, message: "contraseña invalida" });
   }
-
-  const token = jwt.sign({ id: userId }, config.SECRET);
-
-  res.json({ token, userType });
 };
 
 const LoginWithGoogle = async (req, res) => {
@@ -237,40 +239,3 @@ module.exports = {
   forgotPassword,
   resetPasswordWithEmail,
 };
-
-// const resetPasswordWithEmail = async (req, res) => {
-//   const { email, resetPasswordKey, password } = req.body;
-//   console.log(
-//     `Email del usuario que desea restablecer su contraseña: ${email}`
-//   );
-//   console.log(
-//     `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
-//   );
-
-//   try {
-//     // Buscar el usuario por el correo electrónico
-//     const user = await User.findOne({ email });
-//     console.log(user);
-//     console.log(`Usuario encontrado: ${user}`);
-
-//     if (!user || user.resetPasswordKey !== resetPasswordKey) {
-//       console.log(user.resetPasswordKey, resetPasswordKey);
-//       return res
-//         .status(400)
-//         .json({ message: "Clave de restablecimiento inválida o expirada" });
-//     }
-
-//     // Encriptar la nueva contraseña y guardarla en la base de datos
-//     user.password = await User.encryptPassword(password);
-//     console.log(user.password);
-//     user.resetPasswordKey = undefined;
-//     await user.save();
-
-//     console.log("Contraseña actualizada");
-
-//     res.json({ message: "La contraseña se ha restablecido correctamente." });
-//   } catch (err) {
-//     console.error(`Error al buscar usuario: ${err}`);
-//     return res.status(500).json({ message: "Error al buscar usuario" });
-//   }
-// };

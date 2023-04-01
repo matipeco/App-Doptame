@@ -1,17 +1,45 @@
 export interface Pet {
   _id?: string
-  name: string
-  age: number
-  size: string
-  type: string
-  image: string
-  adoption: boolean
-  status: boolean
+  name?: string
+  age?: number
+  size?: string
+  type?: string
+  image?: string
+  adoption?: boolean
+  status?: boolean
   apa?: {
-    location: string
-    name: string
+    _id?: string
+    location?: string
+    name?: string
   }
-  description: string
+  description?: string
+  usuario?: UserType
+}
+export type UserType = {
+  apaId: string | undefined
+  userId: string | undefined
+  petId: string | undefined
+}
+export interface Admin {
+  _id: string
+  password?: string
+  email?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
+}
+
+export interface Admin {
+  _id: string
+  password?: string
+  email?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
 }
 
 export interface Apa {
@@ -28,23 +56,33 @@ export interface Apa {
   telephone?: string
   provincia?: string
   cuit?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
 }
 export interface User {
-  _id?: string;
-  name?: string;
-  last_name?: string;
-  username?: string;
-  password?: string;
-  email?: string;
-  location?: string;
-  image?: string;
-  pet?: {};
+  _id?: string
+  name?: string
+  last_name?: string
+  username?: string
+  password?: string
+  email?: string
+  location?: string
+  image?: string
+  pet?: {}
   favorites?: {
     pet: Pet;
   }[];
-  token?: string;
-  resetPasswordKey?: string;
-  googleId?: string;
+  token?: string
+  resetPasswordKey?: string
+  googleId?: string
+  userType?: string
+  adminFound?: Admin | Apa | User
+  userFound?: Admin | Apa | User
+  apaFound?: Admin | Apa | User
+
 }
 
 
@@ -94,6 +132,11 @@ export type errorsInput = {
 
 
 
+export interface Admin {
+  password?: string
+  email?: string
+  userType?: string
 
+}
 
 
