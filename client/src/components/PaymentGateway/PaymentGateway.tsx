@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { Reducer } from '../../redux/store/store';
 import { getDetailPets } from '../../redux/actions/actions';
 import { AnyAction } from 'redux';
+import './PaymentGateway.css'
 
 const stripePromise: Promise<Stripe | null> = loadStripe("pk_test_51Ms60fDepZWv3l5INkzkVIdajrEumIaxlTdMp7tlnRl5qawy33qKVjYyH90HwrFBxj5ew4tUXYxVPGatdhpD4Wib00MRtIg4p8");
 
@@ -57,22 +58,23 @@ const CheckoutForm = () => {
     }
 
     return (
-      <form onSubmit={handleSubmit}>
+      <div>
+      <form onSubmit={handleSubmit} >
         <div className="form-group">
-          <label htmlFor="card-element">Tarjeta de crédito</label>
-          <CardElement id="card-element" className="form-control"/>
-        </div>
-        <div className="form-group">
-        <input type="number" value={input} onChange={(e) => setInput(parseInt(e.target.value))} placeholder="Ingrese el monto a donar"/>          
-        <button type="submit" className="btn btn-primary" disabled={!stripe || input <= 0}> {loading ? 'Cargando...' : 'Donar' } </button>
-
+          <CardElement className="form-control"/>
+        <div >
+          <label id='labelPay'>Ingrese monto a donar en dólares($)</label>
+        <input min={0} className="input" type="number" value={input} onChange={(e) => setInput(parseInt(e.target.value))} onFocus={(e) => e.target.value === '0' && (e.target.value = '')}/>          
+        <button type="submit" className="btnPay" disabled={!stripe || input <= 0}> {loading ? 'Cargando...' : 'Donar' } </button>
         </div>
         {paymentError && (
           <div className="alert alert-danger" role="alert">
             {paymentError}
           </div>
         )}
+        </div>
       </form>
+        </div>
     );
   };
 
@@ -84,23 +86,17 @@ export const PaymentGateway = () => {
   const {id} = useParams();
   const pet = useSelector((state:Reducer)=> state.detail)
   useEffect(() => {
-
     dispatch(getDetailPets(id!) as unknown as AnyAction);
   }, [id, dispatch]);
 
   return (
 
-    <div>
-    <h1>Donacion</h1>
-    <p>Estas por donar a {pet.apa?.name} que cuidan a {pet.name} </p>  
-    
+    <div className='containerPrincipal'>
+    <p id='textPay'>Estas por donar a {pet.apa?.name} que cuidan a {pet.name} </p>  
     <Elements stripe={stripePromise}>
-      <div className='containerPay p-4'>
-        <div className='rowp'>
-            <div className='col-md-4 offset-md-4'>
-            <CheckoutForm  /> 
-            </div>
-        </div>
+      <div className='cardPay'>
+      <img id='imgPay' src={pet.image}/>
+          <CheckoutForm  /> 
       </div>
     </Elements>
     </div>

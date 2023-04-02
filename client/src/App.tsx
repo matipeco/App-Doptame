@@ -77,7 +77,7 @@ function App() {
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
-          <Route path='/paymentsDonate/:petId' element ={<PaymentGateway/>} ></Route>
+          <Route path='/paymentsDonate' element ={<PaymentGateway/>} ></Route>
         </Routes>
 
 

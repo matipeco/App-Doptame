@@ -49,7 +49,7 @@ export const Detail = () => {
         <p>{pet?.description}</p>
         <div>
           <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
-          <Link to={`/paymentsDonate/:petId`}><button>Ayudame</button></Link>
+          <Link to={`/paymentsDonate`}><button>Ayudame</button></Link>
         </div> 
       </article>
     </div>
