@@ -16,7 +16,6 @@ const apaSchema = new Schema(
     provincia: { type: String },
     cuit: { type: Number },
     suspended: { type: Boolean, default: false },
-    // reviews: {type: Array, "default": []},
     pets: [{ type: Schema.Types.ObjectId, ref: "Pet" }],
     role: [
       {

@@ -174,7 +174,7 @@ export const getDetailUsers = (id: string) => {
 
 
 export const putPet = (id: string, payload: Pet) => {
-  console.log(payload)
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchPet>) => {
     const editPet = await axios.put<Pet>(`http://localhost:3001/pets/edit/${id}`, payload);
     return dispatch({
@@ -195,7 +195,7 @@ export const putApa = (id: string, payload: Apa) => {
 };
 
 
-export const createReview = (apaId: string, payload: any) => {
+export const createReview = (apaId: string, payload: Apa) => {
   // console.log(payload)
   return async (dispatch: Dispatch<dispatchApa>) => {
     const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${apaId}`, payload);

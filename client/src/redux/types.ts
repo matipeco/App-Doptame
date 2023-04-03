@@ -34,14 +34,7 @@ export interface Apa {
   telephone?: string
   provincia?: string
   cuit?: string
-  // reviews?:
-  //   {
-  //   rating: string
-  //   opinion: string
-  //   user: string
-  //   }[]
-  
-  reviews?: {
+   reviews?: {
     rating: string
     opinion: string
     user: string

@@ -6,13 +6,12 @@ import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Apa} from "../../redux/types"
+// import { Reducer} from "../../redux/types"
 import validate from './JSvalidationsFormReviewApa';
 import { useParams} from 'react-router-dom';
 
 
 function FormReviewApa() { 
-
-   
 
     const dispatch = useDispatch()
     const { apaId } = useParams<{ apaId: any }>()
@@ -23,6 +22,7 @@ function FormReviewApa() {
     //userId hardcodeadeo hasa que podamos traerlo de autenticación de usuario
     // const userId: string= '641a281b656802d8aa7a9eed'
     
+    // const logueados = useSelector((state: Reducer) => state.Loguins);
 
 
 //Me aseguro de q los details de la APA esten cargados en el State Global
@@ -70,16 +70,18 @@ const newReview = {
     // user: userId
 }
 
-const allReviews = [...(apaDetails?.reviews ?? []), newReview].map(review => ({
+const allReviews = {
+    reviews: [...(apaDetails?.reviews ?? []), newReview].map(review => ({
     rating: review?.rating,
     opinion: review?.opinion,
     user: review?.user
-  }));
+  }))};
 
 //Me traigo 1ero todas las reviews, le agrero a newReview, y mando todo eso a la ruta editApa, indicando q todo eso va en la propiedad review
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    console.log(newReview)
+    console.log(newReview, 'Lo de arriba es newReview')
+    // console.log(allReviews, 'Lo de arriba allReviews')
         dispatch(createReview(apaId, allReviews) as unknown as AnyAction);
         alert("Muchas gracias por su feedback!")
         // window.location.assign('/home');
