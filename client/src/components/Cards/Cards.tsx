@@ -68,7 +68,7 @@ export const Cards = () => {
       return pet.type === category;
     }
   });
-  const itemsPerPage = 8;
+  const itemsPerPage = 6;
   const totalItems = filteredPets.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;

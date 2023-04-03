@@ -20,14 +20,25 @@ function Users() {
 
 
   return (
-    <div >
-      <article >
+    <div className='ContenedorUser'>
+      <article className='CartaUsuario'>
 
-        <img src={user?.image} alt={user?.name} />
-        <h2>Usuario {user?.name} {user.last_name}</h2>
-        <p>{user?.email}</p>
-        <p>{user?.location}</p>
-        <button>Mis Favoritos</button>
+        <div className="imgUser">
+          <img src={user?.image} alt={user?.name} />
+        </div>
+
+        <div className="infoUser">
+          <h2>Usuario:{user?.name} {user.last_name}</h2>
+          <p>Email:{user?.email}</p>
+          <p>Ubicacion: {user?.location}</p>
+        </div>
+
+        <div className="contenedorBtn">
+          <button>
+            Mis Favoritos
+          </button>
+        </div>
+
       </article>
     </div>
   );
