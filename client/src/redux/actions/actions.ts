@@ -67,10 +67,7 @@ interface UpdateFavoritesAction {
   payload: Favs[];
 }
 
-interface PostFavoritePayload {
-  userId: string;
-  petId: string;
-}
+
 
 type DeleteFavorite = {
   type: string
@@ -330,6 +327,12 @@ export const postFavorite = (petId: string, userId: string) => {
     }
   };
 };
+export const updateFavorites = (favorites: any) => {
+  return {
+    type: 'UPDATE_FAVORITES',
+    payload: favorites
+  }
+}
 
 export type FavoriteAction = UpdateFavoritesAction;
 
