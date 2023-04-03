@@ -45,7 +45,6 @@ const emptyDetailApa = {
     opinion: "",
     user: ""
   }]
-  // reviews:[{}]
 }
 
 const user: User = {

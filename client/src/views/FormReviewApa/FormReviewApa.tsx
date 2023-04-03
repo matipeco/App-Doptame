@@ -20,7 +20,7 @@ function FormReviewApa() {
     // 641f4b3f840d62f0e19b722a
 
     //userId hardcodeadeo hasa que podamos traerlo de autenticación de usuario
-    // const userId: string= '641a281b656802d8aa7a9eed'
+    const userId: string= '641a281b656802d8aa7a9eed'
     
     // const logueados = useSelector((state: Reducer) => state.Loguins);
 
@@ -67,7 +67,7 @@ function FormReviewApa() {
 
 const newReview = {
     ...input,
-    // user: userId
+    user: userId
 }
 
 const allReviews = {
@@ -77,20 +77,18 @@ const allReviews = {
     user: review?.user
   }))};
 
-//Me traigo 1ero todas las reviews, le agrero a newReview, y mando todo eso a la ruta editApa, indicando q todo eso va en la propiedad review
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    console.log(newReview, 'Lo de arriba es newReview')
-    // console.log(allReviews, 'Lo de arriba allReviews')
         dispatch(createReview(apaId, allReviews) as unknown as AnyAction);
         alert("Muchas gracias por su feedback!")
-        // window.location.assign('/home');
+        window.location.assign('/home');
     }
 
     const handleDisabledButton = ()=>{
         if(Object.values(input)[0]==="") {
             return true;
-        }else if (Object.keys(errors).length>0) {
+        }else if (Object.keys(errors).length>1) {
             return true
         } else{
             return false;
@@ -101,7 +99,7 @@ const allReviews = {
     return (
    <div>
             <div className="containerForm">
-                <h1>Su experiencia con {apaDetails.name}</h1>
+                <h1>Su experiencia con {apaDetails.name}:</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
 
@@ -135,7 +133,7 @@ const allReviews = {
 
 
 
-                        <div className="containerInputs">
+                        {/* <div className="containerInputs">
                             <input
                                 onChange={handleInputChange}
                                 type='text'
@@ -145,7 +143,7 @@ const allReviews = {
                             />
                             <label className="label" htmlFor="user">User:</label>
                             {errors.user && <p className='errors'>{errors.user}</p>}
-                        </div>
+                        </div> */}
 
 
                     
