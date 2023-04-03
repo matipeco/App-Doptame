@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Home, NavBar, Landing, Detail, Footer, AboutUs, Users, ProfileApas } from "../src/views"
 import { Cards } from './components/Cards/Cards';
@@ -13,20 +13,34 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import { ApaDashboard } from './components/ApaDashboard/ApaDashboard';
 import ForgotPassword from './components/RestorePassword/ForgotPassword';
 import { PaymentGateway } from './components/PaymentGateway/PaymentGateway';
-
-// import { useSelector } from 'react-redux';
-// import { Reducer } from "./redux/store/store"
+import { useDispatch, useSelector } from 'react-redux';
+import { Reducer } from "./redux/store/store"
+import { updateLogueados } from './redux/actions/actions';
 // import { Navigate } from 'react-router-dom';
 
 
 function App() {
   const location = useLocation();
-  // const logueados = useSelector((state: Reducer) => state.Loguins);
-
+  const logueados = useSelector((state: Reducer) => state.Loguins);
+  const dispatch = useDispatch()
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
   const isHomePage = location.pathname === "/login"
 
+
+  console.log(logueados)
+  useEffect(() => {
+    const storedLogueados = localStorage.getItem('logueados') || '{}';
+    dispatch(updateLogueados(JSON.parse(storedLogueados)));
+    console.log(storedLogueados)
+  }, []);
+
+  useEffect(() => {
+    // usa una variable local para actualizar el estado de "logueados" 
+    const logueadosJSON = JSON.stringify(logueados);
+    localStorage.setItem('logueados', logueadosJSON); // Convierte el objeto a una cadena JSON
+  }, [logueados]);
+  // Agrega logueados como dependencia
 
 
   return (
@@ -77,7 +91,7 @@ function App() {
           <Route path='/myProfileApa/:id' element={<ProfileApas />}></Route>
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
-          <Route path='/paymentsDonate' element ={<PaymentGateway/>} ></Route>
+          <Route path='/paymentsDonate' element={<PaymentGateway />} ></Route>
         </Routes>
 
 
