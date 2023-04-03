@@ -13,6 +13,7 @@ import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import { ApaDashboard } from './components/ApaDashboard/ApaDashboard';
 import ForgotPassword from './components/RestorePassword/ForgotPassword';
 import { PaymentGateway } from './components/PaymentGateway/PaymentGateway';
+import FormReviewApa from './views/FormReviewApa/FormReviewApa';
 
 // import { useSelector } from 'react-redux';
 // import { Reducer } from "./redux/store/store"
@@ -68,6 +69,7 @@ function App() {
           <Route path="/formPet" element={<FormPets />}></Route>
           <Route path="/formEditPet/:petId" element={<FormEditPet />}></Route>
           <Route path="/formEditApa/:apaId" element={<FormEditApa />}></Route>
+          <Route path="/formReviewApa/:apaId" element={<FormReviewApa />}></Route>
           <Route path='/pets/:category' element={<Cards />}></Route>
           <Route path='/formUser' element={<FormUser />}></Route>
           <Route path='/usuario/:id' element={<Users />}></Route>
