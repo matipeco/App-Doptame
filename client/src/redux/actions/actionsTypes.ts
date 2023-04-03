@@ -28,4 +28,5 @@ export const ADOPT_PET = "ADOPT_PET"
 export const SET_ADOPTION = "SET_ADOPTION"
 export const BOTON_ADOPT = "BOTON_ADOPT"
 export const UPDATE_FAVORITES = "UPDATE_FAVORITES"
+export const CREATE_REVIEW ='CREATE_REVIEW'
 
