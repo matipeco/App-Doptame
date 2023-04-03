@@ -71,7 +71,7 @@ function FormPets() {
         let auxInput = input; 
         const urlImage = await saveImages(auxInput.image);
 
-        input.image = urlImage;
+        auxInput.image = urlImage;
 
         if (Object.keys(errorsInput).length === 0) {
             console.log(accessToken)
