@@ -8,6 +8,7 @@ import { Reducer } from '../../redux/store/store';
 import { getDetailPets } from '../../redux/actions/actions';
 import { AnyAction } from 'redux';
 import './PaymentGateway.css'
+import { ApaDashboard } from '../ApaDashboard/ApaDashboard';
 
 const stripePromise: Promise<Stripe | null> = loadStripe("pk_test_51Ms60fDepZWv3l5INkzkVIdajrEumIaxlTdMp7tlnRl5qawy33qKVjYyH90HwrFBxj5ew4tUXYxVPGatdhpD4Wib00MRtIg4p8");
 
@@ -18,6 +19,7 @@ const CheckoutForm = () => {
     const [loading, setLoading] =useState(false)
     const cardElement = elements ? elements.getElement(CardElement) : null;
   const [input, setInput] = useState(0)
+  const pet = useSelector((state:Reducer)=> state.detail)
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
     
@@ -44,7 +46,8 @@ const CheckoutForm = () => {
             try {
                 const {data} = await axios.post('http://localhost:3001/api/checkout', {
                 id,
-                amount: input*100 //Va en centavos!
+                amount: input*100, //Va en centavos!
+                description: pet.apa?.name
              })
                 console.log(data)
                 cardElement.clear()
