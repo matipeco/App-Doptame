@@ -27,13 +27,14 @@ function Home() {
     autoplaySpeed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true
+    arrows: false
   }
+  
 
 
   return (
     <>
-      <div className='containerCarruselpets'>
+       <div className='containerCarruselpets'>
         <Slider {...settings}>
           {images.map((image, index) => (
             <div key={index}>
@@ -52,13 +53,11 @@ function Home() {
               )}
               {index === 2 && (
                 <Link className='linkk' to="/pets/otros">
-                  <button className='buttonPets'>Otros</button>
+                  <button className='buttonPets' >Otros</button>
                 </Link>
 
               )}
             </div>
-
-
           ))}
         </Slider>
       </div>

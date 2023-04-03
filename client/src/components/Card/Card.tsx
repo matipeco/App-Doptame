@@ -8,7 +8,7 @@ import { AnyAction } from 'redux';
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { Reducer } from "../../redux/store/store"
-
+import {AiOutlineDelete} from 'react-icons/ai'
 
 type Props = {
     pet?: Pet
@@ -56,14 +56,15 @@ export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
             <img src={pet?.image} alt={pet?.name} className={style.img} />
             <h3>{pet?.age} Años</h3>
             <h3>{pet?.size}</h3>
-            <h3>{user_id}</h3>
-            <div>
+            <div className={style.btns}>
+                <button className={style.conoceme}>
                 <Link className={style.link} to={`/detail/${pet?._id}`}>
                     Conoceme...
                 </Link>
+                </button>
                 {showXButton ? (
                     <button onClick={() => handlerDeleteFavorite(pet?._id)} className={style.botonFav}>
-                        X
+                        <AiOutlineDelete/>
                     </button>
                 ) : (
                     logueados.userFound ? (

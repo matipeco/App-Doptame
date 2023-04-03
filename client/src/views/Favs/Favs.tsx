@@ -4,7 +4,7 @@ import { AnyAction } from 'redux';
 import { getFavorite, } from '../../redux/actions/actions';
 import { Reducer } from '../../redux/store/store';
 import { Card } from '../../components/Card/Card'
-
+import './Favs.css'
 
 export const Favs = () => {
     const dispatch = useDispatch();
@@ -20,14 +20,15 @@ export const Favs = () => {
 
 
     return (
+        <div className='asd'>
         <div className='container-favs'>
             {favorites?.map((favorite) => (
                 <Card
                     key={favorite.pet?._id}
                     pet={favorite.pet}
-
                 />
             ))}
+        </div>
         </div>
     );
 };
