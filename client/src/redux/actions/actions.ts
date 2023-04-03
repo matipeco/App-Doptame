@@ -303,14 +303,17 @@ export const getFavorite = (id: string) => {
 export const postFavorite = (petId: string, userId: string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
-
       const response = await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
       dispatch({
         type: ADD_FAVORITE,
         payload: response.data,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+
+
+      }
     }
   };
 };
