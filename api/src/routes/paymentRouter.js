@@ -10,15 +10,16 @@ paymentRouter.post('/', async (req, res)=>{
     try {
         // console.log(req.body)
         // res.status(200).json('Datos de Pago Recibidos por el Back')
-        const {id, amount} = req.body
+        const {id, amount, description} = req.body
+        console.log(req.body, "este es el req.body")
         const payment = await stripe.paymentIntents.create({
             amount: amount,
             currency: 'USD',
-            description: 'Donacion de 10 USD',
+            description: `Donacion a ${description}`,
             payment_method: id,
             confirm: trusted
         })
-        console.log(payment)
+        //console.log(payment)
         res.status(200).json('Pago registrado!')
         
     } catch (error) {
