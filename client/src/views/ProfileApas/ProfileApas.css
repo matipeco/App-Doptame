@@ -22,6 +22,32 @@
   margin-top: 0;
 }
 
+.imgApaProfile{
+  width: 60px;
+  height: 60px;
+
+}
+
+.botonesProfile{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.botonesApaProfile{
+  border: none;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 10px 5px;
+  background-color: rgb(66, 75, 251);
+}
+
+.letras{
+  color: white;
+}
+
 
 .containerBtnDonate {
     display: flex;

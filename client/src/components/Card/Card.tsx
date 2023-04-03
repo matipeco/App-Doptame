@@ -16,7 +16,6 @@ type Props = {
 
 
 }
-
 export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
     const logueados = useSelector((state: Reducer) => state.Loguins);
     const user_id: any = logueados.userFound?._id;
@@ -48,7 +47,6 @@ export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
         }
         console.log(petId, user_id)
     };
-
 
 
     const showXButton = location.pathname.startsWith("/favorites");
