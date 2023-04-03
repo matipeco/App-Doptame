@@ -6,11 +6,9 @@ import React, { useState, } from "react";
 import { AnyAction } from 'redux';
 import { useDispatch } from 'react-redux';
 import { validation } from "../../validation/validationPets"
-import { useNavigate } from "react-router-dom";
-import { access } from 'fs';
-
-// import { useParams } from 'react-router-dom';
-// import { ApaId } from '../../redux/types';
+import { useNavigate } from "react-router-dom"; import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Reducer } from "../../redux/store/store"
 
 
 
@@ -18,12 +16,13 @@ import { access } from 'fs';
 
 
 function FormPets() {
+    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const apaId: any = logueados.apaFound?._id
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    console.log("apaId" + apaId)
 
-    // const { apaId } = useParams<{ apaId: string }>();
-    const apaId = "6420f5f5ccaf96439e983957"
-    const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
+
 
 
     const [input, setInput] = useState({
@@ -67,8 +66,8 @@ function FormPets() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (Object.keys(errorsInput).length === 0) {
-            console.log(accessToken)
-            dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
+
+            dispatch(postPet(apaId, input) as unknown as AnyAction);
             alert("Mascota creada")
 
             setInput({
