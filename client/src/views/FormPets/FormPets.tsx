@@ -1,4 +1,3 @@
-
 import './FormPets.css';
 import petCat from '../../assets/perritoFormPet.png'
 import { postPet } from "../../redux/actions/actions";
@@ -7,15 +6,10 @@ import { AnyAction } from 'redux';
 import { useDispatch } from 'react-redux';
 import { validation } from "../../validation/validationPets"
 import { useNavigate } from "react-router-dom";
-import { access } from 'fs';
+
 
 // import { useParams } from 'react-router-dom';
 // import { ApaId } from '../../redux/types';
-
-
-
-
-
 
 function FormPets() {
     const dispatch = useDispatch()
@@ -61,34 +55,57 @@ function FormPets() {
             ...prevInput,
             [name]: value
         }));
+        console.log(input + "  este es el input")
     };
 
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (Object.keys(errorsInput).length === 0) {
-            console.log(accessToken)
-            dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
-            alert("Mascota creada")
-
-            setInput({
-                name: "",
-                age: 0,
-                size: "",
-                type: "",
-                image: "",
-                description: "",
-                status: true,
-                adoption: false
-            });
-            navigate('/home')
-
-        }
-        alert("Mascota creada correctamente")
-
+    
+    
+    
+    if (Object.keys(errorsInput).length === 0) {
+      console.log(accessToken);
+      dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
+      alert("Mascota creada");
+  
+      setInput({
+        name: "",
+        age: 0,
+        size: "",
+        type: "",
+        image: "",
+        description: "",
+        status: true,
+        adoption: false,
+      });
+      navigate("/home");
     }
+    alert('Mascota creada correctamente')
+  };
+  
+  let cloudinary_url: string | undefined; 
 
+    const saveImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const files = e.target.files;
+        if(files){
 
+            const data = new FormData();
+            data.append("file", files[0]);
+            data.append("upload_preset", "presetImage")
+            const res = await fetch(
+                "https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+                    method: "POST",
+                    body: data,
+                }
+                )
+                const file = await res.json();
+                //setInput(input)
+                // console.log(file.secure_url);
+            }
+        }
+
+console.log("este es ", cloudinary_url)
 
     return (
         <div className="container">
@@ -169,12 +186,13 @@ function FormPets() {
                     <div className="row">
                         <div className="containerInputs">
                             <input
-                                onChange={handleInputChange}
+                                onChange={saveImages}
                                 className="fil"
                                 type='file'
                                 id='image'
                                 name="image"
                                 accept="image/*"
+                                value={cloudinary_url}
                                 required
                             />
                             <label className="tam" htmlFor="image">Imagen</label>
