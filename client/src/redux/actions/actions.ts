@@ -49,7 +49,7 @@ interface filtros {
 
 type dispatchFav = {
   type: string;
-  payload: User;
+  payload: Pet;
 }
 type dispatchBotonAdop = {
   type: string;
@@ -74,7 +74,7 @@ interface PostFavoritePayload {
 
 type DeleteFavorite = {
   type: string
-  payload: Pet
+  payload: string
 }
 
 export const getApas = () => {
@@ -293,7 +293,7 @@ export const deletePet = (id: string) => {
 export const getFavorite = (id: string) => {
   return async (dispatch: Dispatch<dispatchFav>) => {
 
-    const res = await axios.get<User>(`http://localhost:3001/favorites/${id}`);
+    const res = await axios.get<Pet>(`http://localhost:3001/favorites/${id}`);
     return dispatch({
       //despacho la action
       type: GET_FAVORITE,
@@ -306,7 +306,7 @@ export const getFavorite = (id: string) => {
 export const postFavorite = (petId: string, userId: string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
-      await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
+
       const response = await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
       dispatch({
         type: ADD_FAVORITE,
@@ -324,12 +324,12 @@ export type FavoriteAction = UpdateFavoritesAction;
 export const deleteFavorite = (petId: string, userId: string) => {
   return async (dispatch: Dispatch<DeleteFavorite>) => {
     try {
-      const response = await axios.delete<Pet>(`http://localhost:3001/favorites`, {
+      axios.delete<Pet>(`http://localhost:3001/favorites`, {
         data: { petId, userId } // aquí se envían los datos en el cuerpo de la solicitud
       });
       dispatch({
         type: DELETE_FAVORITE,
-        payload: response.data,
+        payload: petId
       });
     } catch (error) {
       console.error(error);

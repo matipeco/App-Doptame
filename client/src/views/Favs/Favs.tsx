@@ -1,31 +1,35 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { AnyAction } from 'redux';
-import { getFavorite } from '../../redux/actions/actions';
+import { getFavorite, } from '../../redux/actions/actions';
 import { Reducer } from '../../redux/store/store';
-import {Card} from '../../components/Card/Card'
-import { Pet } from '../../redux/types';
+import { Card } from '../../components/Card/Card'
 
 
-const Favs = () =>{
-    const {id} = useParams();
-    const myFavorite = useSelector((state: Reducer) => state.favoriteUser)
+export const Favs = () => {
     const dispatch = useDispatch();
-
+    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const user_id: any = logueados.userFound?._id;
+    const { favorites } = useSelector((state: Reducer) => state.favoriteUser);
+    console.log(favorites)
     useEffect(() => {
-        dispatch(getFavorite(id!) as unknown as AnyAction); // Cargar los favoritos del usuario al montar el componente
-    }, [id, dispatch]);
-    console.log(myFavorite.favorites);
-    
-    return(
-        <div className='container-favs'>
-           { myFavorite.favorites?.map((el)=> (
-            <Card key={el.pet._id} pet={el.pet}  />
-           ) ) }
-           
-        </div>
-  );
-    }
 
-export default Favs; 
+        dispatch(getFavorite(user_id) as unknown as AnyAction);
+    }, []);
+
+
+
+    return (
+        <div className='container-favs'>
+            {favorites?.map((favorite) => (
+                <Card
+                    key={favorite.pet?._id}
+                    pet={favorite.pet}
+
+                />
+            ))}
+        </div>
+    );
+};
+
+export default Favs;

@@ -232,24 +232,25 @@ const reducer = (
         ...state,
         favoriteUser: action.payload
       }
-      case ADD_FAVORITE:
-        const newFavorite = action.payload.pet;
-        const updatedUserFavorites = state.favoriteUser.favorites
-          ? [...state.favoriteUser.favorites, { pet: newFavorite }]
-          : [{ pet: newFavorite }];
-      
-        const updatedFavoriteUser = { ...state.favoriteUser, favorites: updatedUserFavorites };
-      
-        return { ...state, favoriteUser: updatedFavoriteUser };
+    case ADD_FAVORITE:
+      const newFavorite = action.payload.pet;
+      const updatedUserFavorites = state.favoriteUser.favorites
+        ? [...state.favoriteUser.favorites, { pet: newFavorite }]
+        : [{ pet: newFavorite }];
 
-      case UPDATE_FAVORITES: 
-      return { 
-        ...state, 
-        favoriteUser: { favorites: action.payload } };
+      const updatedFavoriteUser = { ...state.favoriteUser, favorites: updatedUserFavorites };
 
-      case DELETE_FAVORITE:
-      const petId = action.payload.id;
-      const filterDelete = state.favoriteUser.favorites?.filter((el) => el.pet._id !== petId)
+      return { ...state, favoriteUser: updatedFavoriteUser };
+
+    case UPDATE_FAVORITES:
+      return {
+        ...state,
+        favoriteUser: { favorites: action.payload }
+      };
+
+    case DELETE_FAVORITE:
+
+      const filterDelete = state.favoriteUser.favorites?.filter((el) => el.pet._id !== action.payload)
       return {
         ...state,
         favoriteUser: {
