@@ -154,6 +154,7 @@ nav ul ul .liOp:hover {
     border: none;
     cursor: pointer;
     padding: 0;
+    margin: 0;
 }
 
 .dropdown-content {

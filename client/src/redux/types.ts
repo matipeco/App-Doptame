@@ -52,10 +52,15 @@ export interface Apa {
   description?: string
   cbu_cvu?: string
   url?: string
-  pets?: []
+  pets?: Pet[]
   telephone?: string
   provincia?: string
   cuit?: string
+  reviews?: {
+    rating: string
+    opinion: string
+    user: string
+  }[];
   userType?: string
   adminFound?: Admin | Apa | User
   userFound?: Admin | Apa | User

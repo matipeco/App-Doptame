@@ -56,6 +56,7 @@ export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
     return (
         <article className={style.card}>
             <img src={pet?.image} alt={pet?.name} className={style.img} />
+            <h3>{pet?.name}</h3>
             <h3>{pet?.age} Años</h3>
             <h3>{pet?.size}</h3>
             <div className={style.btns}>

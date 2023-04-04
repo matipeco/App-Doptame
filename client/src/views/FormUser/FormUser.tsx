@@ -74,7 +74,7 @@ function FormUser() {
     }
 
     return (
-        <div className="container">
+        <div className="containerUser">
             <div className="containerTitle">
                 <h1>Nuevo Usuario</h1>
                 {/* <div className="containerImg">

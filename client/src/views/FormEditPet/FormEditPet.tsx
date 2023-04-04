@@ -7,13 +7,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet } from "../../redux/types"
 import validate from './JSvalidationsFormEditPet';
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
+import { AnyAaaaRecord } from 'dns';
+import { Reducer } from '../../redux/store/store';
+
 
 
 function FormEditPet() {
 
     const dispatch = useDispatch()
     const { petId } = useParams<{ petId: any }>();
+    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const apaId = logueados.apaFound?._id
+
 
     //Me guardo los details para meterselos al estado local "input"
     let petDetails: Pet = useSelector((state: StateType) => state.detail);
@@ -41,12 +47,51 @@ function FormEditPet() {
         age: 'Ingrese una número'
     })
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setInput({
-            ...input,
-            [name]: value
-        })
+        const files = (e.target as HTMLInputElement).files;
+
+        if(files){
+        const data = new FormData();
+          data.append("file", files[0]);
+          data.append("upload_preset", "presetImage");
+
+          try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+              method: "POST",
+              body: data
+            });
+      
+            const file = await res.json();
+            setInput(prevInput => ({
+              ...prevInput,
+              [name]: value,
+              image: file.secure_url
+            }));
+            console.log(file.secure_url);
+            if(petId){
+                const petIdEncoded = encodeURIComponent(petId);
+                const url = `/pets/edit/${petIdEncoded}`;
+                const formData = new FormData();
+                formData.append("image", files[0]);
+                await fetch(url, {
+                  method: "PUT",
+                  body: formData
+                });
+            }
+      
+          } catch (err) {
+            console.log(err);
+          } 
+
+        } else {
+            setInput(prevInput => ({
+              ...prevInput,
+              [name]: value
+            }));
+          }
+
+
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
@@ -149,7 +194,7 @@ function FormEditPet() {
                                 onChange={handleInputChange}
                                 // className="fil"
                                 // type='file'
-                                type='text'
+                                type='file'
                                 className="input"
                                 id='image'
                                 name="image"

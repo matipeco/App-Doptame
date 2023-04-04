@@ -9,9 +9,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0 0;
   height: 100vh;
 }
+
+
 
 .imgCarruselpets {
   width: 800px;
