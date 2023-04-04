@@ -21,6 +21,6 @@ mainRouter.use("/auth/apa/user", LoginRouter);
 mainRouter.use("/apa/user", suspRouter);
 mainRouter.use("/adopt", adoptProgressRouter);
 mainRouter.use("/api/checkout", paymentRouter);
-mainRouter.use("donate/pet", donationRouter);
+mainRouter.use("/donate/pet", donationRouter);
 
 module.exports = mainRouter;
