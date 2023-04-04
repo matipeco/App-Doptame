@@ -5,6 +5,11 @@ import { Link, useParams } from 'react-router-dom'
 import { Reducer } from '../../redux/store/store';
 import './User.css'
 import { AnyAction } from 'redux'
+import Avatar from "../../assets/avatarUser.png"
+
+
+
+
 
 // import { useState } from 'react';
 
@@ -23,16 +28,16 @@ function Users() {
   }, [id, dispatch])
 
 
-
   return (
     <div className='ContenedorUser'>
       <article className='CartaUsuario'>
         <div className="imgUser">
-          <img src={user?.image} alt={user?.name} />
+          <img src={Avatar} alt={user?.name} />
         </div>
 
+
         <div className="infoUser">
-          <h2>Usuario:{user?.name} {user.last_name}</h2>
+          <h2>{user?.username} {user.last_name}</h2>
           <p>Email:{user?.email}</p>
           {user?.location ? (<p>Ubicacion: {user?.location}</p>) : (
             <p></p>
@@ -53,5 +58,4 @@ function Users() {
     </div>
   );
 }
-
 export default Users
