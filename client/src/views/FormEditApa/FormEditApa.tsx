@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Apa } from "../../redux/types"
 import validate from './JSvalidationsFormEditApa';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function FormEditApa() {
 
@@ -38,7 +38,7 @@ function FormEditApa() {
 
     const dispatch = useDispatch()
     const { apaId } = useParams<{ apaId: any }>()
-
+    const navigate = useNavigate();
     //Me guardo los details para meterselos al estado local "input"
     let apaDetails: Apa = useSelector((state: StateType) => state.detailApa);
 
@@ -85,7 +85,7 @@ function FormEditApa() {
         e.preventDefault();
         dispatch(putApa(apaId, input) as unknown as AnyAction);
         alert("Datos modificados correctamente")
-        window.location.assign('/home');
+        navigate(-1)
     }
 
     const handleDisabledButton = () => {
@@ -101,7 +101,7 @@ function FormEditApa() {
 
     return (
         <div className="container">
-                <h1>Editar APA:</h1>
+            <h1>Editar APA:</h1>
 
             <div className="containerForma">
                 <form className='forma' onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ function FormEditApa() {
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
                     </div>
-                        
+
                     <div className="column3">
                         <div className="containerInputs">
                             <select name="provincia"
@@ -228,8 +228,8 @@ function FormEditApa() {
                             <label className="label" htmlFor="url"> Dirección Web o Red Social:</label>
                             {/* {errors.url && <p className='errors'>{errors.url}</p>} */}
                         </div>
-                    <button className='btnFormEdit' type="submit" disabled={handleDisabledButton()}>Guardar</button>
-                                
+                        <button className='btnFormEdit' type="submit" disabled={handleDisabledButton()}>Guardar</button>
+
                     </div>
 
                     {/* <div className="row">

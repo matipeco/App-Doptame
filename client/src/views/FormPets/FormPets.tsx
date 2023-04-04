@@ -101,7 +101,6 @@ function FormPets() {
       if(apaId){
           dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
       }
-      alert("Mascota creada");
   
       setInput({
         name: "",

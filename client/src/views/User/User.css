@@ -11,8 +11,6 @@
   margin: 50px;
   display: flex;
   flex-direction: column;
- 
-
   width: 600px;
   height: 650px;
   padding: 20px;
@@ -22,7 +20,7 @@
 }
 
 .imgUser {
- 
+
   display: flex;
   align-items: center;
   justify-content: center;

@@ -89,6 +89,9 @@ export interface User {
   apaFound?: Admin | Apa | User
 
 }
+export interface Pet {
+  favorites?: User[];
+}
 
 
 export interface InputData {

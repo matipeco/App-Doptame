@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './FormUser.css';
-import img from '../../assets/descarga.jpg'
+// import img from '../../assets/descarga.jpg'
 // import { useDispatch } from "react-redux";
 // import { postUser } from "../../redux/actions/actions";
 // import { AnyAction } from "redux";
@@ -77,9 +77,9 @@ function FormUser() {
         <div className="containerUser">
             <div className="containerTitle">
                 <h1>Nuevo Usuario</h1>
-                <div className="containerImg">
+                {/* <div className="containerImg">
                     <img className="img" src={img} alt="thor" />
-                </div>
+                </div> */}
             </div>
             <div className="containerForm">
                 <form onSubmit={handleSubmit}>

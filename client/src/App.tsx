@@ -17,6 +17,7 @@ import FormReviewApa from './views/FormReviewApa/FormReviewApa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Reducer } from "./redux/store/store"
 import { updateLogueados } from './redux/actions/actions';
+import SeeApas from './components/SeeApas/SeeApas';
 
 // import { Navigate } from 'react-router-dom';
 
@@ -27,7 +28,7 @@ function App() {
   const dispatch = useDispatch()
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
-  const isHomePage = location.pathname === "/login"
+  const isLoginPage = location.pathname === "/login";
 
 
   console.log(logueados)
@@ -48,7 +49,7 @@ function App() {
   return (
 
     <div className='app'>
-      {!isLandingPage && !isHomePage && <NavBar />}
+      {!isLandingPage && !isLoginPage && <NavBar />}
 
 
       <main className='main'>
@@ -76,6 +77,7 @@ function App() {
 
         <Routes>
 
+
           <Route path="/" element={<Landing />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
@@ -95,6 +97,7 @@ function App() {
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
           <Route path='/paymentsDonate' element={<PaymentGateway />} ></Route>
+          <Route path="/seeApas" element={<SeeApas />}></Route>
         </Routes>
 
 
@@ -103,7 +106,7 @@ function App() {
       </main>
 
 
-      {!isLandingPage && <Footer />}
+      {!isLandingPage && !isLoginPage && <Footer />}
     </div>
 
 

@@ -9,19 +9,17 @@ export const validationApa = (input: InputData) => {
 
     if (!input.name) {
         errors.name = "Nombre requerido";
-    } else if (!regexName.test(input.name)) {
-        errors.name = "El nombre debe contener solo letras";
-    } else if (input.name.length > 15) {
-        errors.name = "El nombre no puede superar los 15 caracteres";
+    } else if (!/^[a-zA-Z][a-zA-Z0-9\s]{0,29}$/.test(input.name)) {
+        errors.name = "El nombre debe comenzar con una letra y puede contener letras, números y espacios (opcional), con un límite máximo de 30 caracteres";
     }
 
-    if (!input.name) {
-        errors.name = "Nombre requerido";
-    } else if (!regexName.test(input.name)) {
-        errors.name = "El nombre de debe contener solo letras";
-    } else if (input.name.length > 20) {
-        errors.name = "El nombre no puede superar los 20 caracteres";
-    }
+    // if (!input.name) {
+    //     errors.name = "Nombre requerido";
+    // } else if (!regexName.test(input.name)) {
+    //     errors.name = "El nombre de debe contener solo letras";
+    // } else if (input.name.length > 20) {
+    //     errors.name = "El nombre no puede superar los 20 caracteres";
+    // }
 
 
     if (!input.password) {
@@ -36,6 +34,10 @@ export const validationApa = (input: InputData) => {
     } else if (!regexEmail.test(input.email)) {
         errors.email = "El email ingresado es inválido"
     }
+    if (!input.provincia) {
+        errors.provincia = "Selecciona una provincia"
+    }
+
 
 
     return errors;

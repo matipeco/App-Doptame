@@ -11,6 +11,9 @@ import Avatar from "../../assets/avatarUser.png"
 
 
 
+// import { useState } from 'react';
+
+
 
 
 function Users() {
@@ -19,13 +22,10 @@ function Users() {
   const user = useSelector((state: Reducer) => state.detailUser);
 
 
-
   useEffect(() => {
     dispatch(getDetailUsers(id!) as unknown as AnyAction)
     dispatch(clearDetail());
   }, [id, dispatch])
-
-
 
 
   return (
@@ -39,12 +39,6 @@ function Users() {
         <div className="infoUser">
           <h2>{user?.username} {user.last_name}</h2>
           <p>Email:{user?.email}</p>
-          {user?.location ? (<p>Ubicacion: {user?.location}</p>) : (
-            <p></p>
-          )
-
-          }
-
           {user?.location ? (<p>Ubicacion: {user?.location}</p>) : (
             <p></p>
           )
