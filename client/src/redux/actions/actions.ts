@@ -153,7 +153,7 @@ export const clearDetail = () => {
 };
 
 
-export const postPet = (id: string, payload: Pet) => {
+export const postPet = (id: string, payload: Pet, accessToken: string) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
     const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
     return dispatch({

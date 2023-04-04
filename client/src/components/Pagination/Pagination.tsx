@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-
+import './Pagination.css';
 
 interface Props {
   totalItems: number;
@@ -24,11 +24,13 @@ const PaginationControlled: React.FC<Props> = ({
     onPageChange(value);
   };
 
+  
+
   return (
     <>
       {totalItems > 0 ? (
         <Stack spacing={2}>
-          <Pagination count={totalPages} page={currentPage} onChange={handleChange} />
+          <Pagination className='paginado' count={totalPages} page={currentPage} onChange={handleChange} />
         </Stack>
       ) : (
         <Typography>No items found.</Typography>
