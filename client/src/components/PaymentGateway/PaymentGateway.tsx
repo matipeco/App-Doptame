@@ -5,10 +5,11 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Reducer } from '../../redux/store/store';
-import { getDetailPets } from '../../redux/actions/actions';
+import { getDetailPets, botonAyudar } from '../../redux/actions/actions';
 import { AnyAction } from 'redux';
 import './PaymentGateway.css'
 import { ApaDashboard } from '../ApaDashboard/ApaDashboard';
+import { User } from "../../redux/types";
 
 const stripePromise: Promise<Stripe | null> = loadStripe("pk_test_51Ms60fDepZWv3l5INkzkVIdajrEumIaxlTdMp7tlnRl5qawy33qKVjYyH90HwrFBxj5ew4tUXYxVPGatdhpD4Wib00MRtIg4p8");
 
@@ -60,6 +61,16 @@ const CheckoutForm = () => {
 
     }
 
+    const dispatch = useDispatch();
+    const handleDonateButtonClick = async (user: User) => {
+      try {
+        await dispatch(botonAyudar(pet._id, user._id!) as any as AnyAction);
+        //navigate("/home")
+      } catch (error: any) {
+        alert(error.message);
+      }
+    };
+
     return (
       <div>
       <form onSubmit={handleSubmit} >
@@ -68,10 +79,10 @@ const CheckoutForm = () => {
         <div >
           <label id='labelPay'>Ingrese monto a donar en dólares($)</label>
         <input min={0} className="input" type="number" value={input} onChange={(e) => setInput(parseInt(e.target.value))} onFocus={(e) => e.target.value === '0' && (e.target.value = '')}/>          
-        <button type="submit" className="btnPay" disabled={!stripe || input <= 0}> {loading ? 'Cargando...' : 'Donar' } </button>
+        <button onClick={() => handleDonateButtonClick(user_id)} type="submit" className="btnPay" disabled={!stripe || input <= 0}> {loading ? 'Cargando...' : 'Donar' } </button>
         </div>
         {paymentError && (
-          <div className="alert alert-danger" role="alert">
+          <div className="alert alert-danger" role="alert"> 
             {paymentError}
           </div>
         )}

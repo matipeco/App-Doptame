@@ -16,7 +16,14 @@ const sendDonationNotification = async (req, res) => {
             auth: { // Diego: En mi archivo .env aún no tengo los datos de EMAIL_ADMIN e EMAIL_PASS
                 user: process.env.EMAIL_ADMIN,
                 pass: process.env.EMAIL_PASSWORD
-            }
+            },
+            secure: true, // Usa SSL
+            pool: true, // Permite la reutilización de conexiones
+            maxConnections: 5, // Limita el número máximo de conexiones simultáneas
+            maxMessages: 100, // Limita el número máximo de mensajes enviados por conexión
+            rateLimit: true, // Habilita la limitación de velocidad
+            rateDelta: 1000, // Tiempo mínimo (en milisegundos) entre envíos
+            rateLimitInterval: 300000, // Intervalo de tiempo (en milisegundos) para restablecer la tasa
         });
 
         const mailOptions = {
