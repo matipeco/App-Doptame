@@ -99,9 +99,12 @@ function NavBar() {
                     <img src={avatarUser} alt="Avatar" />
                     <div className="dropdown">
                       <div className="dropdown-content">
-                        <Link to={`/usuario/${logueados?.userFound?._id}`}>
-                          <button className='dropbtn'>Mi Perfil</button>
-                        </Link>
+                        
+                          <button className='dropbtn'>
+                            <Link to={`/usuario/${logueados?.userFound?._id}`}>
+                              Mi Perfil
+                            </Link>
+                          </button>
                         <button className='dropbtn' onClick={handleFavoritesClick}>Favoritos</button>
                         <button className='dropbtn' onClick={handleLogout}>Salir</button>
                       </div>
@@ -138,9 +141,11 @@ function NavBar() {
                     <img src={avatarApa} alt="Avatar" />
                     <div className="dropdown">
                       <div className="dropdown-content">
-                        <Link to={`/myProfileApa/${logueados?.apaFound?._id}`}>
-                          <button className='dropbtn'>Mi Perfil</button>
-                        </Link>
+                          <button className='dropbtnPerfil'>
+                            <Link className='links' to={`/myProfileApa/${logueados?.apaFound?._id}`}>
+                              Mi Perfil 
+                            </Link>
+                          </button>
                         <button className='dropbtn' onClick={handleLogout}>Salir</button>
                       </div>
                     </div>
