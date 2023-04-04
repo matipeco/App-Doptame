@@ -69,7 +69,7 @@ export const Cards = () => {
       return pet.type === category;
     }
   });
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
   const totalItems = filteredPets.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -82,8 +82,6 @@ export const Cards = () => {
     <>
       <div className="container-pets">
         <div className="containerFiltros">
-
-
           <select value={orderBy} onChange={e => HandlerOrderByAge(e)}>
             <option value="" disabled>(Seleccionar por edad)</option>
             <option value="asc">Menor</option>
@@ -98,7 +96,6 @@ export const Cards = () => {
               <option value="grande">Grande</option>
             </select>
           )}
-          <label>
             <select onChange={HandlerFilteredLocation}>
               <option value="" disabled>(Seleccionar por localidad)</option>
               <option value="All">Todos</option>
@@ -106,7 +103,6 @@ export const Cards = () => {
                 <option key={el} value={el}>{el}</option>
               ))}
             </select>
-          </label>
 
         </div>
         <div className='container-cards-pets-wrapper'>
@@ -115,14 +111,15 @@ export const Cards = () => {
               <Card key={pet._id} pet={pet} />
             ))}
           </div>
-          <div className="pagination-wrapper">
+          
+        </div>
+        <div className="pagination-wrapper">
             <PaginationControlled
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
               onPageChange={PageChange}
             />
           </div>
-        </div>
       </div>
     </>
   );
