@@ -17,6 +17,7 @@ import img4 from '../../assets/assetosCarruselPrueba/img5.jpg'
 import img5 from '../../assets/assetosCarruselPrueba/img6.jpg'
 import fb from '../../assets/logofb.png'
 import ig from '../../assets/logoig.png'
+import Opinion from './opinion/Opinion'
 import {AiFillStar, AiOutlineStar} from 'react-icons/ai'
 
 export default function ProfileApas() {
@@ -68,9 +69,15 @@ export default function ProfileApas() {
     const filledStars = promRating ? parseInt(promRating) : 0;
     const emptyStars = promRating ? 5 - parseInt(promRating) : 5;
 
-
+    const opinions = [
+        { id: "1", user: 'Juan', opinion: 'Excelente servicio, lo recomiendo.' },
+        { id: "2", user: 'Maria', opinion: 'Muy buen trato con las mascotas.' },
+        { id: "3", user: 'Pedro', opinion: 'Un lugar genial para cuidar a mi mascota.' }
+      ];
+      
 
     return (
+        <>
         <div className='containerApaProfile'>
             <div className="containerTitleApa">
                 <h1 >{apa.name}</h1>
@@ -98,7 +105,7 @@ export default function ProfileApas() {
                         <img className='logoigfb' src={fb} alt="Logo de Facebook" />
                         <img className='logoigfb' src={ig} alt="Logo de Instagram" />
                     </a>
-                    <h4>Telefono: {apa.provincia} </h4>
+                    <h4>Telefono: {apa.telephone} </h4>
                     <h4 className='rating'>Rating: {[...Array(filledStars)].map((_, index) => (
                                     <AiFillStar key={index}  />
                                 ))}
@@ -149,7 +156,13 @@ export default function ProfileApas() {
                 )
             }
             
+            <div className='opinion'>
+                <h3>Nuestros usuarios opinan</h3>
+                <Opinion opinions={opinions} />
+            </div>
 
         </div>
+
+        </>
     )
 }
