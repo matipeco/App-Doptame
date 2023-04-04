@@ -51,7 +51,7 @@ function LoginWithGoogle() {
   });
 
   return (
-    <div className="center">
+    <div className={style.conatiner}>
       <h3 className={style.tituloLoginGoogle}>Continuar como usuario</h3>
 
       <div className={style.divButton}>

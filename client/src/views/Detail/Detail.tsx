@@ -47,10 +47,10 @@ export const Detail = () => {
         <h2>{pet?.name}</h2>
         <p>{pet?.size}</p>
         <p>{pet?.description}</p>
-        <div>
+        {logueados.userType === "user" && <div>
           <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
-          <Link to={`/paymentsDonate`}><button>Ayudame</button></Link>
-        </div> 
+          <Link to={`/paymentsDonate`}>Ayudame</Link>
+        </div>}
       </article>
     </div>
   );

@@ -25,7 +25,7 @@ function App() {
   const dispatch = useDispatch()
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
-  const isHomePage = location.pathname === "/login"
+  const isLoginPage = location.pathname === "/login";
 
 
   console.log(logueados)
@@ -46,7 +46,7 @@ function App() {
   return (
 
     <div className='app'>
-      {!isLandingPage && !isHomePage && <NavBar />}
+      {!isLandingPage && !isLoginPage && <NavBar />}
 
 
       <main className='main'>
@@ -100,7 +100,7 @@ function App() {
       </main>
 
 
-      {!isLandingPage && <Footer />}
+      {!isLandingPage && !isLoginPage && <Footer />}
     </div>
 
 
