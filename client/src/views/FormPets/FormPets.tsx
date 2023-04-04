@@ -7,17 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { validation } from "../../validation/validationPets"
 import { useNavigate, useParams } from "react-router-dom";
 import { Reducer } from '../../redux/store/store';
-// import { ApaId } from '../../redux/types';
+
 
 
 function FormPets() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const logueados = useSelector((state: Reducer) => state.Loguins);
-
-    //const apaId = "642ad754520155fdbdab1b61"
-    const apaId = logueados.apaFound?._id
-    const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
+    const apaId: any = logueados.apaFound?._id
 
 
     const [input, setInput] = useState({
@@ -52,71 +49,71 @@ function FormPets() {
         const { name, value } = e.target;
         const files = (e.target as HTMLInputElement).files;
         if (files) {
-          const data = new FormData();
-          data.append("file", files[0]);
-          data.append("upload_preset", "presetImage");
-      
-          try {
-            const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
-              method: "POST",
-              body: data
-            });
-      
-            const file = await res.json();
-            setInput(prevInput => ({
-              ...prevInput,
-              [name]: value,
-              image: file.secure_url
-            }));
-            console.log(file.secure_url);
-      
-            // Envia la URL de la imagen al backend
-            if(apaId){
-                const apaIdEncoded = encodeURIComponent(apaId);
-                const url = `/pets/create/${apaIdEncoded}`;
-                const formData = new FormData();
-                formData.append("image", files[0]);
-                await fetch(url, {
-                  method: "POST",
-                  body: formData
+            const data = new FormData();
+            data.append("file", files[0]);
+            data.append("upload_preset", "presetImage");
+
+            try {
+                const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+                    method: "POST",
+                    body: data
                 });
+
+                const file = await res.json();
+                setInput(prevInput => ({
+                    ...prevInput,
+                    [name]: value,
+                    image: file.secure_url
+                }));
+                console.log(file.secure_url);
+
+                // Envia la URL de la imagen al backend
+                if (apaId) {
+                    const apaIdEncoded = encodeURIComponent(apaId);
+                    const url = `/pets/create/${apaIdEncoded}`;
+                    const formData = new FormData();
+                    formData.append("image", files[0]);
+                    await fetch(url, {
+                        method: "POST",
+                        body: formData
+                    });
+                }
+
+            } catch (err) {
+                console.log(err);
             }
-      
-          } catch (err) {
-            console.log(err);
-          }
         } else {
-          setInput(prevInput => ({
-            ...prevInput,
-            [name]: value
-          }));
+            setInput(prevInput => ({
+                ...prevInput,
+                [name]: value
+            }));
         }
-      };
+    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    if (Object.keys(errorsInput).length === 0) {
-      console.log(accessToken);
-      if(apaId){
-          dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
-      }
-  
-      setInput({
-        name: "",
-        age: 0,
-        size: "",
-        type: "",
-        image: "",
-        description: "",
-        status: true,
-        adoption: false,
-      });
-      navigate("/home");
-    }
-    alert('Mascota creada correctamente')
-  };
-  
+        if (Object.keys(errorsInput).length === 0) {
+
+            if (apaId) {
+                dispatch(postPet(apaId, input) as unknown as AnyAction);
+            }
+
+            setInput({
+                name: "",
+                age: 0,
+                size: "",
+                type: "",
+                image: "",
+                description: "",
+                status: true,
+                adoption: false,
+            });
+            navigate("/home");
+        }
+        alert('Mascota creada correctamente')
+    };
+
     return (
         <div className="container">
             <div className="containerForm">

@@ -1,3 +1,4 @@
+import { error } from "console";
 import { errorsInput, InputData } from "../redux/types";
 
 
@@ -37,6 +38,10 @@ export const validationApa = (input: InputData) => {
     if (!input.provincia) {
         errors.provincia = "Selecciona una provincia"
     }
+    if (!input.telephone || !/^[0-9]{1,20}$/.test(input.telephone)) {
+        errors.telephone = "Ingresar número de teléfono válido"
+    }
+
 
 
 
