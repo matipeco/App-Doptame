@@ -41,7 +41,7 @@ const columnsApa = [
         dataIndex: 'name',
         key: 'name',
         render: (text: string, record: any) => (
-            <Link to={`/myProfileApa/${record._id}`}>{text}</Link>
+            <Link to={`/myProfileApa/${record.key}`}>{text}</Link>
         )
     },
     {

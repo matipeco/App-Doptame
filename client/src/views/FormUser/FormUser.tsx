@@ -75,13 +75,9 @@ function FormUser() {
 
     return (
         <div className="containerUser">
-            <div className="containerTitle">
-                <h1>Nuevo Usuario</h1>
-                {/* <div className="containerImg">
-                    <img className="img" src={img} alt="thor" />
-                </div> */}
-            </div>
-            <div className="containerForm">
+
+            <div className="containerFormUser">
+                <h2 className="tituloFormUser">Nuevo Usuario</h2>
                 <form onSubmit={handleSubmit}>
 
                     <div className="containerInputs">
@@ -94,7 +90,7 @@ function FormUser() {
                             required
                         />
                         <label className="label" htmlFor="username">Nombre de usuario</label>
-                        {touched.username && errorsInput.username && <p className="error">{errorsInput.username}</p>}
+                        {touched.username && errorsInput.username && <p className="errorInput">{errorsInput.username}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -106,7 +102,7 @@ function FormUser() {
                             required
                         />
                         <label className="label" htmlFor="email">Email</label>
-                        {touched.email && errorsInput.email && <p className="error">{errorsInput.email}</p>}
+                        {touched.email && errorsInput.email && <p className="errorInput">{errorsInput.email}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -118,10 +114,10 @@ function FormUser() {
                             required
                         />
                         <label className="label" htmlFor="password">Contraseña</label>
-                        {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
+                        {touched.password && errorsInput.password && <p className="errorInput">{errorsInput.password}</p>}
                     </div>
 
-                    <button disabled={Object.keys(errorsInput).length !== 0} className="botoncitoCrear">Crear</button>
+                    <button disabled={Object.keys(errorsInput).length !== 0} className='buttonFormApa'>Crear</button>
                 </form>
             </div>
         </div>

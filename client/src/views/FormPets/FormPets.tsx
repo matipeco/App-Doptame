@@ -94,9 +94,9 @@ function FormPets() {
         e.preventDefault();
 
         if (Object.keys(errorsInput).length === 0) {
-
             if (apaId) {
                 dispatch(postPet(apaId, input) as unknown as AnyAction);
+
             }
 
             setInput({

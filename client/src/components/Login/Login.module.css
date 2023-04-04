@@ -10,6 +10,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .containerFormLogin {
@@ -48,14 +49,50 @@
 .parrafosErrorsLogin {
     display: flex;
     font-size: 10px;
-    margin-bottom: 10px;
-    margin-left: 2px;
+    margin-top: 10px;
+}
+
+.inputLogin:focus {
+    outline: none;
 }
 
 .labelLogin {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    font-family: 'Arvo', serif;
+}
+
+.inputLogin:focus~label,
+.inputLogin:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: black;
+}
+
+.containerInput {
+    position: relative;
+    width: 100%;
+}
+
+.containerInput:first-of-type {
+    margin-bottom: 30px;
+}
+
+.inputLogin {
     display: flex;
-    font-weight: 600;
-    margin-bottom: 5px
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
 }
 
 .linkOlvidasteContraseña {
@@ -65,12 +102,6 @@
     text-decoration: underline;
     /* align-self: center; */
     margin: 10px 0 5px 0;
-}
-
-.inputLogin {
-    display: flex;
-    margin-bottom: 5px;
-    width: 80%;
 }
 
 .buttonLogin:enabled:hover {
