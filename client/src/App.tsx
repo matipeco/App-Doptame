@@ -97,6 +97,8 @@ function App() {
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
           <Route path='/paymentsDonate' element={<PaymentGateway />} ></Route>
+          <Route path='/paymentsDonate/nothing' element={<PaymentGateway />} ></Route>
+          <Route path='/paymentsDonate/apa' element={<PaymentGateway />} ></Route>
           <Route path="/seeApas" element={<SeeApas />}></Route>
         </Routes>
 

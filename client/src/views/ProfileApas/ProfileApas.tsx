@@ -114,7 +114,7 @@ export default function ProfileApas() {
 
             {logueados.userType === "user" &&
                 <div className='containerBtnDonate'>
-                    <button><h5> Donar </h5></button>
+                   <Link to={'/paymentsDonate/apa'}> <button><h5> Donar </h5></button></Link>
                 </div>}
 
             {
