@@ -6,17 +6,17 @@
     justify-content: center;
     background-color: #f6be68;
     border-radius: 5px;
-    width: 280px;
-    height: 320px;
-    margin: 10px;
+    width: 240px;
+    height: 280px;
+    /* margin: 50px; */
     transition: all 0.3s ease-in-out;
     box-shadow: 0 10px 12px rgba(0, 0, 0, 0.3);
     margin: 10px 15px;
 }
 
 .img {
-    width: 280px;
-    height: 215px;
+    width: 240px;
+    height: 173px;
     border-radius: 5px 5px 0 0;
     /* border-bottom: 1px solid black; */
 }
@@ -36,6 +36,7 @@
 .card p,
 .card h3 {
     margin: 2px;
+
     /* padding: 5px */
 }
 
@@ -45,8 +46,8 @@
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    font-size: 1.2rem;
-    padding: 10px 20px;
+    font-size: 14px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s ease-in-out;
