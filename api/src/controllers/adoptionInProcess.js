@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const Pet = require("../models/Pet");
 const User = require("../models/User");
 require("dotenv").config();
+const Apa = require("../models/Apa");
 
 const sendAdoptEmail = async (user, pet) => {
   try {
@@ -27,7 +28,7 @@ const sendAdoptEmail = async (user, pet) => {
       from: process.env.EMAIL_ADMIN,
       to: pet.apa.email,
       subject: "Solicitud de adopción recibida",
-      text: `Se ha recibido una solicitud de adopción para:\n\n${petList},\nde parte de ${user.username} (${user.email}).`,
+      text: `Se ha recibido una solicitud de adopción para:\n\n${petList},\nde parte de ${user.username} (${user.email} ).`,
     };
     console.log(user);
 
@@ -35,7 +36,9 @@ const sendAdoptEmail = async (user, pet) => {
       from: process.env.EMAIL_ADMIN,
       to: user.email,
       subject: "Solicitud de adopción recibida",
-      text: `Tu solicitud de adopción para:\n\n${petList},\nha sido recibida y está siendo evaluada. Te notificaremos en cuanto tengamos una respuesta. Gracias por tu interés.`,
+      text: `Tu solicitud de adopción para:\n\n${petList},\nha sido recibida y está siendo evaluada. Te notificaremos en cuanto tengamos una respuesta. 
+      Por favor no olvide comunicarse al ${pet.apa.telephone} en caso de arrepentise.
+      Muchas Gracias `,
     };
     console.log("email mandado al usuario" + user.email);
 

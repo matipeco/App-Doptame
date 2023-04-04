@@ -31,7 +31,7 @@ export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
         }
     }, [favorites, pet?._id]);
 
-    console.log("some" + favorites?.some(fav => fav?.pet?._id === pet?._id))
+    // console.log("some" + favorites?.some(fav => fav?.pet?._id === pet?._id))
 
 
     const handlerIsFav = async (userId: string) => {
@@ -68,7 +68,7 @@ export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
         console.log(petId, user_id)
     };
 
-    
+
 
     const showXButton = location.pathname.startsWith("/favorites");
 

@@ -7,17 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { validation } from "../../validation/validationPets"
 import { useNavigate, useParams } from "react-router-dom";
 import { Reducer } from '../../redux/store/store';
-// import { ApaId } from '../../redux/types';
+
 
 
 function FormPets() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const logueados = useSelector((state: Reducer) => state.Loguins);
-
-    //const apaId = "642ad754520155fdbdab1b61"
-    const apaId = logueados.apaFound?._id
-    const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
+    const apaId: any = logueados.apaFound?._id
 
 
     const [input, setInput] = useState({
@@ -97,9 +94,9 @@ function FormPets() {
         e.preventDefault();
 
         if (Object.keys(errorsInput).length === 0) {
-            console.log(accessToken);
             if (apaId) {
-                dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
+                dispatch(postPet(apaId, input) as unknown as AnyAction);
+
             }
 
             setInput({

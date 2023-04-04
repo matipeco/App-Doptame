@@ -45,7 +45,8 @@ function FormApa() {
         email: "",
         password: "",
         location: "",
-        provincia: ""
+        provincia: "",
+        telephone: ""
 
     })
 
@@ -53,7 +54,8 @@ function FormApa() {
         name: false,
         password: false,
         email: false,
-        provincia: false
+        provincia: false,
+        telephone: false,
 
     });
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -93,7 +95,8 @@ function FormApa() {
                         email: "",
                         password: "",
                         location: "",
-                        provincia: ""
+                        provincia: "",
+                        telephone: ""
                     });
 
                     alert("Apa creada correctamente")
@@ -156,6 +159,18 @@ function FormApa() {
                         />
                         <label className="label" htmlFor="password">Contraseña</label>
                         {touched.password && errorsInput.password && <p className="errorInput">{errorsInput.password}</p>}
+                    </div>
+                    <div className="containerInputs">
+                        <input
+                            className="input"
+                            onBlur={handleBlur}
+                            onChange={handleInputChange}
+                            type='telephone'
+                            name="telephone"
+                            required
+                        />
+                        <label className="label" htmlFor="teléfono">Teléfono</label>
+                        {touched.telephone && errorsInput.telephone && <p className="error">{errorsInput.telephone}</p>}
                     </div>
                     <div className="containerInputs">
                         <select

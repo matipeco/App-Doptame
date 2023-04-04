@@ -17,7 +17,7 @@ import img4 from '../../assets/assetosCarruselPrueba/img5.jpg'
 import img5 from '../../assets/assetosCarruselPrueba/img6.jpg'
 import fb from '../../assets/logofb.png'
 import ig from '../../assets/logoig.png'
-
+import {AiFillStar, AiOutlineStar} from 'react-icons/ai'
 
 export default function ProfileApas() {
     const dispatch = useDispatch();
@@ -51,6 +51,25 @@ export default function ProfileApas() {
    
     console.log(apa.pets, "pets?")
     console.log(apa)
+
+    //sumo los rating
+    let sum = apa.reviews?.reduce((total, review) => total + Number(review.rating), 0)
+
+    // Verificar que sum sea un número o undefined
+    if (typeof sum !== "number") {
+        sum = undefined;
+    }
+    //Saco el promedio
+    const prom = apa.reviews?.length && sum !== undefined ? sum / apa.reviews.length : undefined;
+
+    //guardo el promedio
+    const promRating = prom?.toFixed(2);
+
+    const filledStars = promRating ? parseInt(promRating) : 0;
+    const emptyStars = promRating ? 5 - parseInt(promRating) : 5;
+
+
+
     return (
         <div className='containerApaProfile'>
             <div className="containerTitleApa">
@@ -80,6 +99,12 @@ export default function ProfileApas() {
                         <img className='logoigfb' src={ig} alt="Logo de Instagram" />
                     </a>
                     <h4>Telefono: {apa.provincia} </h4>
+                    <h4 className='rating'>Rating: {[...Array(filledStars)].map((_, index) => (
+                                    <AiFillStar key={index}  />
+                                ))}
+                                {[...Array(emptyStars)].map((_, index) => (
+                                    <AiOutlineStar key={index} />
+                                ))} </h4>
                 </div>
             </div>
             <div className="containerDescription">

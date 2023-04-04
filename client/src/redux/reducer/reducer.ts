@@ -1,4 +1,4 @@
-import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, CREATE_REVIEW  } from "../actions/actionsTypes"
+import { ADD_PET, GET_APA, POST_APA, GET_DETAIL_PET, CLEAN_DETAIL, GET_PETS, POST_USER, GET_USER, GET_DETAIL_USERS, GET_APA_DETAIL, ORDER_BY_AGE, FILTER_BY_SIZE, FILTER_BY_LOCATION, DELETE_USER, DELETE_APA, GET_FAVORITE, DELETE_PET, LOGUEADOS, CLEAN_LOGUEADOS, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, CREATE_REVIEW } from "../actions/actionsTypes"
 
 import { Pet, Apa, User, Admin } from "../types"
 
@@ -40,7 +40,7 @@ const emptyDetailApa = {
   telephone: "",
   provincia: "",
   cuit: "",
-  reviews:[{
+  reviews: [{
     rating: "",
     opinion: "",
     user: ""
@@ -212,7 +212,7 @@ const reducer = (
 
       const selectedLocation = action.payload === 'All'
         ? state.petsFilter
-        : state.petsFilter.filter(el => el.apa?.location?.includes(action.payload))
+        : state.petsFilter.filter(el => el.apa?.provincia?.includes(action.payload))
 
       return {
         ...state,
