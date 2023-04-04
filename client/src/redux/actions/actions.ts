@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW  } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW } from "./actionsTypes"; import { Dispatch } from "react";
 
 
 type dispatchApa = {
@@ -84,6 +84,9 @@ export const getApas = () => {
     });
   };
 };
+
+
+
 
 export const getApaById = (id: string) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
@@ -322,14 +325,13 @@ export const postFavorite = (petId: string, userId: string) => {
         payload: response.data,
       });
     } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+      console.log(error)
 
 
-      }
     }
-  };
+  }
 };
+
 export const updateFavorites = (favorites: any) => {
   return {
     type: 'UPDATE_FAVORITES',

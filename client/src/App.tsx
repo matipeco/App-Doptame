@@ -17,6 +17,7 @@ import FormReviewApa from './views/FormReviewApa/FormReviewApa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Reducer } from "./redux/store/store"
 import { updateLogueados } from './redux/actions/actions';
+import SeeApas from './components/SeeApas/SeeApas';
 
 // import { Navigate } from 'react-router-dom';
 
@@ -76,6 +77,7 @@ function App() {
 
         <Routes>
 
+
           <Route path="/" element={<Landing />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
@@ -95,6 +97,7 @@ function App() {
           <Route path='/dashboardAdmin' element={<AdminDashboard />}></Route>
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
           <Route path='/paymentsDonate' element={<PaymentGateway />} ></Route>
+          <Route path="/seeApas" element={<SeeApas />}></Route>
         </Routes>
 
 
