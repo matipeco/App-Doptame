@@ -7,6 +7,8 @@ import { getDetailPets, clearDetail, botonAdopt } from '../../redux/actions/acti
 import { AnyAction } from 'redux';
 import { Reducer } from '../../redux/store/store';
 import { User } from "../../redux/types";
+import { FiArrowRight } from "react-icons/fi"
+
 export interface StateType {
   currentUser: User;
   allUsers: User[];
@@ -39,20 +41,25 @@ export const Detail = () => {
       alert(error.message);
     }
   };
+  // console.log(pet.apa?.name)
 
   return (
     <div className={style.container}>
       <article className={style.card}>
+
+
         <img src={pet?.image} alt={pet?.name} />
+
         <h2>{pet?.name}</h2>
-        <p>{pet?.size}</p>
+        {/* <p>{pet?.size}</p> */}
         <p>{pet?.description}</p>
-        <div>
+        {logueados.userType === "user" && <div>
           <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
-          <Link to={`/paymentsDonate`}><button>Ayudame</button></Link>
-        </div> 
+          <Link to={`/paymentsDonate`}>Ayudame</Link>
+        </div>}
+
       </article>
-    </div>
+    </div >
   );
 };
 

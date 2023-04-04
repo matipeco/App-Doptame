@@ -93,6 +93,9 @@ export const getApas = () => {
   };
 };
 
+
+
+
 export const getApaById = (id: string) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
 
@@ -330,14 +333,13 @@ export const postFavorite = (petId: string, userId: string) => {
         payload: response.data,
       });
     } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        alert(error.response.data.message);
+      console.log(error)
 
 
-      }
     }
-  };
+  }
 };
+
 export const updateFavorites = (favorites: any) => {
   return {
     type: 'UPDATE_FAVORITES',

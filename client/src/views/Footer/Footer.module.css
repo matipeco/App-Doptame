@@ -16,6 +16,7 @@
     background-color: transparent;
     height: 35px;
     width: 35px;
+    margin-top:10px;
     align-self: center;
     font-size: 30px;
     transition: 300ms;
@@ -30,7 +31,7 @@
 }
 
 .iconsP {
-    font-size: 15px;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
     font-weight: 600;

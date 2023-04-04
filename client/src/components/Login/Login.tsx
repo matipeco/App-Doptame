@@ -6,17 +6,14 @@ import style from './Login.module.css'
 import { RegistroApaUser } from "../RegistroApaUser/RegistroApaUser";
 import { useNavigate } from "react-router-dom";
 import LogInWithGoogle from "../LoginGoogle/LoginGoogle";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { Reducer } from '../../redux/store/store';
 import { updateLogueados } from "../../redux/actions/actions";
 
 
 export const Login = () => {
-
-
     const dispatch = useDispatch()
     // const logueados = useSelector((state: Reducer) => state.Loguins);
-
 
     type SignInData = {
         email: string;
@@ -57,8 +54,6 @@ export const Login = () => {
             .catch((error) => {
                 alert(error.response.data.message)
             });
-
-
     };
 
     const [touched, setTouched] = useState({
@@ -80,11 +75,11 @@ export const Login = () => {
 
 
     const handleClickRegistro = () => {
-
         setShowLogin(false);
     };
+
     return (
-        <>
+        <div className={style.hero}>
             {showLogin && <div className={style.containerFormLogin}>
                 <form onSubmit={handleSubmit} className={style.formLogin}>
                     <h2 className={style.tituloRegistro}>Bienvenidos</h2>
@@ -113,9 +108,6 @@ export const Login = () => {
                     {touched.password && errorsInput.password &&
                         <p className={style.parrafosErrorsLogin}>{errorsInput.passwordLogin}</p>}
 
-
-
-
                     <Link className={style.linkOlvidasteContraseña} to="/restore-password">¿Olvidaste tu contraseña?</Link>
 
                     <button className={style.buttonLogin} disabled={!signInData.email || !signInData.password}>Continuar</button>
@@ -126,7 +118,6 @@ export const Login = () => {
 
                     <div className={style.linea}></div>
 
-
                     <div className={style.buttonRegisterContainer}>
                         <p className={style.noRegister}>¿No estás registrado?</p>
                         <button className={style.buttonRegister} type="button" onClick={handleClickRegistro}>Registrate</button>
@@ -136,7 +127,8 @@ export const Login = () => {
             </div>}
 
             {!showLogin && <RegistroApaUser setShowLogin={setShowLogin} />}
-        </>
 
+
+        </div>
     );
 };
