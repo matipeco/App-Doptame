@@ -107,7 +107,7 @@ function Home() {
                 la diferencia!
               </p>
 
-              <Link className="boton_home" to="/donate">
+              <Link className="boton_home" to="/paymentsDonate/nothing">
                 Donar ahora
               </Link>
             </div>

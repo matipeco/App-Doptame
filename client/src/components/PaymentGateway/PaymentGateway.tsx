@@ -22,6 +22,7 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
     const cardElement = elements ? elements.getElement(CardElement) : null;
     const [input, setInput] = useState(0)
     const pet = useSelector((state:Reducer)=> state.detail);
+    const apa = useSelector((state: Reducer)=> state.detailApa)
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +53,7 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
                 const {data} = await axios.post('http://localhost:3001/api/checkout', {
                 id,
                 amount: input*100, //Va en centavos!
-                description: pet.apa?.name
+                description: pet.apa?.name || "todas las apas"
              })
                 console.log(data)
                 cardElement.clear()
@@ -69,7 +70,7 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
             setLoading(false)
         }
   alert("Muchas gracias por su donación")
-  navigate("/home");
+  navigate(-1);
     }
 
     const user = useSelector((state: Reducer) => state.detailUser)
@@ -79,7 +80,19 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
     //onClick={() => handleDonateButtonClick(userId)}
 
     return (
+      <>
       <div>
+        {window.location.pathname === "/paymentsDonate" && (
+          <p id='textPay'>Estás por donar a {pet.apa?.name} que cuidan a {pet.name} </p>  
+        )}
+        {window.location.pathname === "/paymentsDonate/nothing" && (
+          <p id='textPay'>¡Estás a punto de hacer una donación general! </p>  
+        )}
+       {window.location.pathname === "/paymentsDonate/apa" && (
+          <p id='textPay'>¡Estás a punto de hacer una donación a {apa.name}! </p>  
+        )}
+
+
       <form onSubmit={handleSubmit} >
         <div className="form-group">
           <CardElement className="form-control"/>
@@ -96,6 +109,7 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
         </div>
       </form>
         </div>
+        </>
     );
   };
 
@@ -113,10 +127,9 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
   
     return (
       <div className='containerPrincipal'>
-        <p id='textPay'>Estás por donar a {pet.apa?.name} que cuidan a {pet.name} </p>  
         <Elements stripe={stripePromise}>
           <div className='cardPay'>
-            <img id='imgPay' src={pet.image}/>
+            <img id='imgPay' src={pet.image ? pet.image : "https://imagenes.elpais.com/resizer/3Te8-EEwo6Q2IhPOOLZe5KGu-78=/1200x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/AMH2ADNVDVDZBOLV2UVWWV4I4E.jpg"}/>
             <CheckoutForm user_id = {userId} /> 
           </div>
         </Elements>
