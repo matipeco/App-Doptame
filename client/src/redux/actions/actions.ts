@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW  } from "./actionsTypes"; import { Dispatch } from "react";
 
 
 type dispatchApa = {
@@ -67,10 +67,7 @@ interface UpdateFavoritesAction {
   payload: Favs[];
 }
 
-interface PostFavoritePayload {
-  userId: string;
-  petId: string;
-}
+
 
 type DeleteFavorite = {
   type: string
@@ -199,7 +196,7 @@ export const getDetailUsers = (id: string) => {
 
 
 export const putPet = (id: string, payload: Pet) => {
-  console.log(payload)
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchPet>) => {
     const editPet = await axios.put<Pet>(`http://localhost:3001/pets/edit/${id}`, payload);
     return dispatch({
@@ -210,7 +207,7 @@ export const putPet = (id: string, payload: Pet) => {
 };
 
 export const putApa = (id: string, payload: Apa) => {
-  console.log(payload)
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchApa>) => {
     const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${id}`, payload);
     return dispatch({
@@ -230,6 +227,19 @@ export const putUser = (id: string, payload: User) => {
     });
   };
 };
+
+
+export const createReview = (apaId: string, payload: Apa) => {
+  // console.log(payload)
+  return async (dispatch: Dispatch<dispatchApa>) => {
+    const editApa = await axios.put<Apa>(`http://localhost:3001/apa/${apaId}`, payload);
+    return dispatch({
+      type: CREATE_REVIEW,
+      payload: editApa.data
+    });
+  };
+};
+
 
 
 export const OrderByAge = (payload: string): filtros => {
@@ -306,17 +316,26 @@ export const getFavorite = (id: string) => {
 export const postFavorite = (petId: string, userId: string) => {
   return async (dispatch: Dispatch<PostFavorite>) => {
     try {
-
       const response = await axios.post<Pet>(`http://localhost:3001/favorites`, { petId, userId });
       dispatch({
         type: ADD_FAVORITE,
         payload: response.data,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+
+
+      }
     }
   };
 };
+export const updateFavorites = (favorites: any) => {
+  return {
+    type: 'UPDATE_FAVORITES',
+    payload: favorites
+  }
+}
 
 export type FavoriteAction = UpdateFavoritesAction;
 

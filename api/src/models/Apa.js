@@ -25,6 +25,11 @@ const apaSchema = new Schema(
         type: Schema.Types.ObjectId,
       },
     ],
+    reviews: [{
+      opinion: String,
+      rating: String,
+      user: String
+    }],
   },
   {
     timestamps: true,

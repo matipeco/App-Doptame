@@ -31,7 +31,7 @@ const postFavorite = async (req, res) => {
     await user.save();
 
     // llamada a la función sendFavoritesEmail
-    await sendFavoritesEmail(user);
+    // await sendFavoritesEmail(user);
 
     // respuesta exitosa
     res.status(201).json({ message: "Mascota agregada a favoritos" });
@@ -43,39 +43,39 @@ const postFavorite = async (req, res) => {
   }
 };
 
-const sendFavoritesEmail = async (user) => {
-  try {
-    const petIds = user.favorites;
-    const pets = await Pet.find({ _id: { $in: petIds } });
+// const sendFavoritesEmail = async (user) => {
+//   try {
+//     const petIds = user.favorites;
+//     const pets = await Pet.find({ _id: { $in: petIds } });
 
-    const petList = pets
-      .map(
-        (pet) =>
-          `${pet.name}, ${pet.age}, ${pet.size}, ${pet.image}, ${pet.description}`
-      )
-      .join("\n");
+//     const petList = pets
+//       .map(
+//         (pet) =>
+//           `${pet.name}, ${pet.age}, ${pet.size}, ${pet.image}, ${pet.description}`
+//       )
+//       .join("\n");
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_ADMIN,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
+//     const transporter = nodemailer.createTransport({
+//       service: "gmail",
+//       auth: {
+//         user: process.env.EMAIL_ADMIN,
+//         pass: process.env.EMAIL_PASSWORD,
+//       },
+//     });
 
-    const mailOptions = {
-      from: process.env.EMAIL_ADMIN,
-      to: user.email,
-      subject: "Tus mascotas favoritas",
-      text: `Estas son tus mascotas favoritas de AppDoptame: \n\n${petList}`,
-    };
+//     const mailOptions = {
+//       from: process.env.EMAIL_ADMIN,
+//       to: user.email,
+//       subject: "Tus mascotas favoritas",
+//       text: `Estas son tus mascotas favoritas de AppDoptame: \n\n${petList}`,
+//     };
 
-    await transporter.sendMail(mailOptions);
-  } catch (error) {
-    console.error(error);
-    throw new Error("No se pudo enviar el email de mascotas favoritas");
-  }
-};
+//     await transporter.sendMail(mailOptions);
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error("No se pudo enviar el email de mascotas favoritas");
+//   }
+// };
 
 const deleteFavorite = async (req, res) => {
   try {
@@ -127,5 +127,4 @@ module.exports = {
   postFavorite,
   deleteFavorite,
   getFavorite,
-  sendFavoritesEmail,
 };
