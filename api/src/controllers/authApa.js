@@ -9,7 +9,7 @@ const crypto = require("crypto");
 require("dotenv").config();
 
 const signUpApa = async (req, res) => {
-  const { name, email, password, provincia, role } = req.body;
+  const { name, email, password, provincia, telephone, role } = req.body;
 
   // // Buscar si el nombre de usuario ya existe
   const existingApa = await Apa.findOne({ name });
@@ -32,6 +32,7 @@ const signUpApa = async (req, res) => {
     name,
     email,
     provincia,
+    telephone,
     password: await Apa.encryptPasswordApa(password),
   });
 
@@ -67,97 +68,14 @@ const sendVerificationEmail = async (email, name) => {
   const mailOptions = {
     from: process.env.EMAIL_ADMIN,
     to: email,
-    subject: "Verify your email",
-    html: `<h1>Welcome to our platform, Appdoptame!</h1>
-          <p>Please click on the following link to verify your email:</p>
-          <a href="${process.env.BASE_URL}/verify-email?email=${email}">Verify email</a>`,
+    subject: "Bienvenido",
+    html: `<h1>Bienvenido a Appdoptame!</h1>
+          <p>Gracias por formar parte de nuestra app.</p>`,
+    // <a href="${process.env.BASE_URL}/verify-email?email=${email}">Verify email</a>`,
   };
 
   await transporter.sendMail(mailOptions);
 };
-
-// const forgotPassword = async (req, res) => {
-//   const { email } = req.body;
-//   console.log(
-//     `Email del usuario que solicitó restablecer contraseña: ${email}`
-//   );
-
-//   const apa = await Apa.findOne({ email });
-//   console.log(`Apa no encontradoa: ${apa}`);
-
-//   if (!apa) {
-//     console.log("Apa no encontrada");
-//     return res.status(404).json({ message: "Apa no encontrado" });
-//   }
-
-//   // Generar una clave aleatoria para restablecer la contraseña y guardarla en la base de datos
-//   const resetKey = crypto.randomBytes(6).toString("hex");
-//   apa.resetPasswordKey = resetKey;
-//   apa.resetPasswordExpires = Date.now() + 3600000; // La expiración es en 1 hora
-//   await apa.save();
-
-//   // Enviar correo electrónico con las instrucciones para restablecer la contraseña
-//   const transporter = nodemailer.createTransport({
-//     service: "gmail",
-//     auth: {
-//       user: process.env.EMAIL_ADMIN,
-//       pass: process.env.EMAIL_PASSWORD,
-//     },
-//   });
-
-//   const mailOptions = {
-//     from: process.env.EMAIL_ADMIN,
-//     to: email,
-//     subject: "Restablecer contraseña",
-//     html: `<h1>Restablecer contraseña</h1>
-//           <p>Para restablecer su contraseña, use la siguiente clave:</p>
-//           <p>${resetKey}</p>`,
-//   };
-
-//   await transporter.sendMail(mailOptions);
-
-//   console.log("Correo electrónico enviado");
-//   res.json({
-//     message:
-//       "Se ha enviado un correo electrónico con una clave de restablecimiento.",
-//     resetKey: resetKey,
-//   });
-// };
-
-// const resetPasswordWithEmail = async (req, res) => {
-//   const { email, resetPasswordKey, password } = req.body;
-//   console.log(
-//     `Email del usuario que desea restablecer su contraseña: ${email}`
-//   );
-//   console.log(
-//     `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
-//   );
-
-//   try {
-//     // Buscar el usuario por el correo electrónico
-//     const apa = await Apa.findOne({ email });
-
-//     console.log(`Apa encontrado: ${apa}`);
-
-//     if (!apa || apa.resetPasswordKey !== resetPasswordKey) {
-//       console.log("Clave de restablecimiento inválida o expirada");
-//       return res
-//         .status(400)
-//         .json({ message: "Clave de restablecimiento inválida o expirada" });
-//     }
-
-//     // Actualizar la contraseña y eliminar la clave de restablecimiento de contraseña
-//     apa.password = password;
-//     apa.resetPasswordKey = undefined;
-//     await apa.save();
-
-//     console.log("Contraseña actualizada");
-//     res.json({ message: "La contraseña se ha restablecido correctamente." });
-//   } catch (err) {
-//     console.error(`Error al buscar usuario: ${err}`);
-//     return res.status(500).json({ message: "Error al buscar usuario" });
-//   }
-// };
 
 module.exports = {
   signUpApa,

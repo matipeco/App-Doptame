@@ -11,6 +11,7 @@ export interface Pet {
     _id?: string
     location?: string
     name?: string
+    provincia?: string
   }
   description?: string
   usuario?: UserType

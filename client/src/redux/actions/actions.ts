@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW, BOTON_DONATE  } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW, BOTON_DONATE } from "./actionsTypes"; import { Dispatch } from "react";
 import { useSelector } from "react-redux";
 import { Reducer } from "../store/store";
 
@@ -156,7 +156,7 @@ export const clearDetail = () => {
 };
 
 
-export const postPet = (id: string, payload: Pet, accessToken: string) => {
+export const postPet = (id: string, payload: Pet) => {
   return async (dispatch: Dispatch<dispatchPet>) => {
     const createPet = await axios.post<Pet>(`http://localhost:3001/pets/create/${id}`, payload);
     return dispatch({
@@ -434,7 +434,7 @@ export const botonAdopt = (petId: any, userId: string) => {
     try {
       const response = await axios.post<Pet[]>("http://localhost:3001/adopt/pet", { petId, userId });
       if (response.status === 200) {
-        alert("Solicitud de adopción enviada correctamente");
+        alert("Gracias por solicitar la adopción, te estará llegando un mail con indicaciones.");
       }
       return dispatch({
         type: BOTON_ADOPT,
@@ -467,4 +467,5 @@ export const botonAyudar = (petId: any, userId: string) => {
     } catch (error) {
       alert("No se pudo realizar la donación");
     }
-  }}
+  }
+}
