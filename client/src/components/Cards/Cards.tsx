@@ -22,7 +22,8 @@ export const Cards = () => {
   const [currentPage, setCurrentPage] = useState(1); // Agregamos estado para currentPage
   const [orden, setOrden] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
-
+  const originalArray = allPets.map((el: Pet) => el.apa?.location).filter(Boolean);
+  const uniqueArray = Array.from(new Set(originalArray));
   const PageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber); // Actualizamos el estado de currentPage al seleccionar una pÃ¡gina
   };
@@ -75,8 +76,6 @@ export const Cards = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentItems = filteredPets.slice(startIndex, endIndex);
 
-  const originalArray = allPets.map((el: Pet) => el.apa?.location).filter(Boolean);
-  const uniqueArray = Array.from(new Set(originalArray));
 
   return (
 

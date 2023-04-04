@@ -9,7 +9,7 @@ const crypto = require("crypto");
 require("dotenv").config();
 
 const signUpApa = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, provincia, role } = req.body;
 
   // // Buscar si el nombre de usuario ya existe
   const existingApa = await Apa.findOne({ name });
@@ -31,6 +31,7 @@ const signUpApa = async (req, res) => {
   const newApa = new Apa({
     name,
     email,
+    provincia,
     password: await Apa.encryptPasswordApa(password),
   });
 
