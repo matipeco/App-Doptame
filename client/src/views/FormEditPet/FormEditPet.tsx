@@ -51,43 +51,48 @@ function FormEditPet() {
     const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const files = (e.target as HTMLInputElement).files;
-        if (files) {
-            const data = new FormData();
-            data.append("file", files[0]);
-            data.append("upload_preset", "presetImage");
-            try {
-                const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
-                  method: "POST",
-                  body: data
-                });
-          
-                const file = await res.json();
-                setInput(prevInput => ({
-                  ...prevInput,
-                  [name]: value,
-                  image: file.secure_url
-                }));
-                console.log(file.secure_url);
-                if(apaId){
-                    const apaIdEncoded = encodeURIComponent(apaId);
-                    const url = `/pets/create/${apaIdEncoded}`;
-                    const formData = new FormData();
-                    formData.append("image", files[0]);
-                    await fetch(url, {
-                      method: "POST",
-                      body: formData
-                    });
-                }
 
-        }catch (err) {
+        if(files){
+        const data = new FormData();
+          data.append("file", files[0]);
+          data.append("upload_preset", "presetImage");
+
+          try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+              method: "POST",
+              body: data
+            });
+      
+            const file = await res.json();
+            setInput(prevInput => ({
+              ...prevInput,
+              [name]: value,
+              image: file.secure_url
+            }));
+            console.log(file.secure_url);
+            if(petId){
+                const petIdEncoded = encodeURIComponent(petId);
+                const url = `/pets/edit/${petIdEncoded}`;
+                const formData = new FormData();
+                formData.append("image", files[0]);
+                await fetch(url, {
+                  method: "PUT",
+                  body: formData
+                });
+            }
+      
+          } catch (err) {
             console.log(err);
-        }
+          } 
+
         } else {
             setInput(prevInput => ({
-                ...prevInput,
-                [name]: value
-              }));
-        }
+              ...prevInput,
+              [name]: value
+            }));
+          }
+
+
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
