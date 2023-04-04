@@ -68,7 +68,8 @@ const CheckoutForm = ({ user_id }: { user_id: string | undefined }) => {
             }
             setLoading(false)
         }
-
+  alert("Muchas gracias por su donación")
+  navigate("/home");
     }
 
     const user = useSelector((state: Reducer) => state.detailUser)

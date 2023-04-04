@@ -5,10 +5,10 @@ require("dotenv").config();
 
 const sendDonationNotification = async (donationData) => {
   try {
-      const { apaId, userId } = donationData;
+      const { apaId, userId, amount } = donationData;
       const apa = await Apa.findById(apaId);
       const user = await User.findById(userId);
-
+    console.log(user)
       // Enviar notificación a la APA:
       const transporter = nodemailer.createTransport({
           service: "gmail",
@@ -29,7 +29,7 @@ const sendDonationNotification = async (donationData) => {
           from: process.env.EMAIL_ADMIN,
           to: apa.email,
           subject: "Ha recibido una nueva donación",
-          text: `Hola ${apa.name},\n\nTe informamos que has recibido una nueva donación de ${user.name}. \n\n¡Gracias por tu enorme trabajo apoyando animalitos que lo necesitan!\n\nAtentamente,\nEl equipo de AppDoptame`,
+          text: `Hola ${apa.name},\n\nTe informamos que has recibido una nueva donación de ${user.email} de ${amount/100}$. \n\n¡Gracias por tu enorme trabajo apoyando animalitos que lo necesitan!\n\nAtentamente,\nEl equipo de AppDoptame`,
       };
 
       await transporter.sendMail(mailOptions);
@@ -39,7 +39,7 @@ const sendDonationNotification = async (donationData) => {
           from: process.env.EMAIL_ADMIN,
           to: user.email,
           subject: "Ha realizado una donación",
-          text: `Hola ${user.name},\n\nGracias por tu donación a ${apa.name}. \n\nTu compromiso hace posible la labor de quienes apoyan a estos animalitos indefensos.\n\nAtentamente,\nEl equipo de AppDoptame`,
+          text: `Hola, gracias por tu donación a ${apa.name}. \n\nTu compromiso hace posible la labor de quienes apoyan a estos animalitos indefensos.\n\nAtentamente,\nEl equipo de AppDoptame`,
       };
 
       await transporter.sendMail(userMessage);
