@@ -1,39 +1,59 @@
+
+.buttonLogin {
+    padding: 30px 0 0 0px;
+    display: block;
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    font-size: 30px;
+    transition: 300ms;
+    background: transparent;
+    border: none;
+    transition: 300ms ease-out;
+}
+
+.buttonLogin:hover {
+    transform: translateX(-5px);
+}
+
+
 .containerUser{
+
     display: flex;
     margin: 25px;
 }
 
-.containerForm{
+.containerForm {
     flex: 1 1 50%;
     display: flex;
-    flex-wrap: wrap ;
+    flex-wrap: wrap;
     margin-top: 50px;
     margin-left: 50px;
     padding: 30px;
 }
 
-.containerTitle{
+.containerTitle {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.containerImg{
+/* .containerImg {
     margin-left: 100px;
     padding: 30px;
-}
+} */
 
-.img{
+/* .img{
     width: 400px;
     height: 450px;
     display: block;
     margin: auto;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
+} */
 
 
-.botoncitoCrear{
+.botoncitoCrear {
     border: none;
     padding: 5px;
     border-radius: 8px;
