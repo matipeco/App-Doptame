@@ -23,7 +23,7 @@
 
 .registroApa {
     background-color: #dde67fbf;
-    height: 350px;
+    height: 340px;
     width: 40%;
     border-radius: 5px;
     transition: 300ms ease-in-out;
@@ -37,7 +37,7 @@
 
 .registroUser {
     background-color: #9aacd4d2;
-    height: 350px;
+    height: 340px;
     width: 40%;
     border-radius: 5px;
     transition: 300ms ease-in-out;
@@ -75,6 +75,7 @@
     border: none;
     transition: 300ms ease-in-out;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 
 }
 
@@ -90,6 +91,8 @@
     color: black;
     transition: 300ms ease-in-out;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
 }
 
 .linkButtonApa:active {

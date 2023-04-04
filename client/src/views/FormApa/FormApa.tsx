@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './FormApa.css'
-import imgForm from '../../assets/perrito2.png';
+// import imgForm from '../../assets/perrito2.png';
 // import { useDispatch } from "react-redux";
 // import { postApa } from "../../redux/actions/actions";
 // import { AnyAction } from "redux";
@@ -117,11 +117,8 @@ function FormApa() {
 
     return (
         <div className="container">
-            <div className="containerTitle">
-                <h1>Formulario Carga Nueva Asociacion Protectora</h1>
-                <img className="imgPerrito" src={imgForm} alt="foto perrito" />
-            </div>
             <div className="containerForm">
+                <h2 className="tituloFormApa">Nueva Asociación</h2>
                 <form onSubmit={handleSubmit}>
 
                     <div className="containerInputs">
@@ -134,7 +131,7 @@ function FormApa() {
                             required
                         />
                         <label className="label" htmlFor="username">Nombre</label>
-                        {touched.name && errorsInput.name && <p className="error">{errorsInput.name}</p>}
+                        {touched.name && errorsInput.name && <p className="errorInput">{errorsInput.name}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -146,7 +143,7 @@ function FormApa() {
                             required
                         />
                         <label className="label" htmlFor="email">Email</label>
-                        {touched.email && errorsInput.email && <p className="error">{errorsInput.email}</p>}
+                        {touched.email && errorsInput.email && <p className="errorInput">{errorsInput.email}</p>}
                     </div>
                     <div className="containerInputs">
                         <input
@@ -158,7 +155,7 @@ function FormApa() {
                             required
                         />
                         <label className="label" htmlFor="password">Contraseña</label>
-                        {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
+                        {touched.password && errorsInput.password && <p className="errorInput">{errorsInput.password}</p>}
                     </div>
                     <div className="containerInputs">
                         <select
@@ -180,10 +177,10 @@ function FormApa() {
 
                         </label>
                         {touched.provincia && errorsInput.provincia && (
-                            <p className="error">{errorsInput.provincia}</p>
+                            <p className="errorInput">{errorsInput.provincia}</p>
                         )}
                     </div>
-                    <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
+                    <button disabled={Object.keys(errorsInput).length !== 0} className='buttonFormApa'>Crear</button>
                 </form>
             </div>
         </div >

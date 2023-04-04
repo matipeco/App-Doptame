@@ -73,7 +73,6 @@ export const Login = () => {
 
     const [showLogin, setShowLogin] = useState(true);
 
-
     const handleClickRegistro = () => {
         setShowLogin(false);
     };
@@ -83,30 +82,38 @@ export const Login = () => {
             {showLogin && <div className={style.containerFormLogin}>
                 <form onSubmit={handleSubmit} className={style.formLogin}>
                     <h2 className={style.tituloRegistro}>Bienvenidos</h2>
-                    <label htmlFor="email" className={style.labelLogin}>Email</label>
-                    <input
-                        className={style.inputLogin}
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={signInData.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    {touched.email && errorsInput.email && <p className={style.parrafosErrorsLogin}>{errorsInput.email}</p>}
 
-                    <label htmlFor="password" className={style.labelLogin}>Password</label>
-                    <input
-                        className={style.inputLogin}
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={signInData.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    {touched.password && errorsInput.password &&
-                        <p className={style.parrafosErrorsLogin}>{errorsInput.passwordLogin}</p>}
+                    <div className={style.containerInput}>
+                        <input
+                            required
+                            className={style.inputLogin}
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={signInData.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                        <label htmlFor="email" className={style.labelLogin}>Email</label>
+                        {touched.email && errorsInput.email && <p className={style.parrafosErrorsLogin}>{errorsInput.email}</p>}
+                    </div>
+
+                    <div className={style.containerInput}>
+                        <input
+                            required
+                            className={style.inputLogin}
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={signInData.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
+                        <label htmlFor="password" className={style.labelLogin}>Contraseña</label>
+
+                        {touched.password && errorsInput.password &&
+                            <p className={style.parrafosErrorsLogin}>{errorsInput.passwordLogin}</p>}
+                    </div>
 
                     <Link className={style.linkOlvidasteContraseña} to="/restore-password">¿Olvidaste tu contraseña?</Link>
 
