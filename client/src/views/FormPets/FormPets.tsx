@@ -1,28 +1,23 @@
-
 import './FormPets.css';
 import petCat from '../../assets/perritoFormPet.png'
 import { postPet } from "../../redux/actions/actions";
-import React, { useState, } from "react";
+import React, { useEffect, useState, } from "react";
 import { AnyAction } from 'redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { validation } from "../../validation/validationPets"
-import { useNavigate } from "react-router-dom"; import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Reducer } from "../../redux/store/store"
-
-
-
-
+import { useNavigate, useParams } from "react-router-dom";
+import { Reducer } from '../../redux/store/store';
+// import { ApaId } from '../../redux/types';
 
 
 function FormPets() {
-    const logueados = useSelector((state: Reducer) => state.Loguins);
-    const apaId: any = logueados.apaFound?._id
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    console.log("apaId" + apaId)
+    const logueados = useSelector((state: Reducer) => state.Loguins);
 
-
+    //const apaId = "642ad754520155fdbdab1b61"
+    const apaId = logueados.apaFound?._id
+    const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjBmNWY1Y2NhZjk2NDM5ZTk4Mzk1NyIsImlhdCI6MTY3OTg4MTcxOX0.7AWgxTJFrbqxveQ2ZI_3oiNritTUfGKvnAP4Ijg4LGU"
 
 
     const [input, setInput] = useState({
@@ -54,41 +49,69 @@ function FormPets() {
     const errorsInput = validation(input);
 
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setInput((prevInput) => ({
+        const files = (e.target as HTMLInputElement).files;
+        if (files) {
+          const data = new FormData();
+          data.append("file", files[0]);
+          data.append("upload_preset", "presetImage");
+      
+          try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+              method: "POST",
+              body: data
+            });
+      
+            const file = await res.json();
+            setInput(prevInput => ({
+              ...prevInput,
+              [name]: value,
+              image: file.secure_url
+            }));
+            console.log(file.secure_url);
+      
+            // Envia la URL de la imagen al backend
+            await fetch(`/pets/create/:${apaId}`, {
+              method: "POST",
+              body: JSON.stringify({ image: file.secure_url }),
+              headers: { "Content-Type": "application/json" },
+            });
+
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          setInput(prevInput => ({
             ...prevInput,
             [name]: value
-        }));
-    };
-
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (Object.keys(errorsInput).length === 0) {
-
-            dispatch(postPet(apaId, input) as unknown as AnyAction);
-            alert("Mascota creada")
-
-            setInput({
-                name: "",
-                age: 0,
-                size: "",
-                type: "",
-                image: "",
-                description: "",
-                status: true,
-                adoption: false
-            });
-            navigate('/home')
-
+          }));
         }
-        alert("Mascota creada correctamente")
+      };
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (Object.keys(errorsInput).length === 0) {
+      console.log(accessToken);
+      dispatch(postPet(apaId!, input, accessToken) as unknown as AnyAction);
+      alert("Mascota creada");
+  
+      setInput({
+        name: "",
+        age: 0,
+        size: "",
+        type: "",
+        image: "",
+        description: "",
+        status: true,
+        adoption: false,
+      });
+      navigate("/home");
     }
-
-
-
+    alert('Mascota creada correctamente')
+  };
+  
     return (
         <div className="container">
             <div className="containerForm">
