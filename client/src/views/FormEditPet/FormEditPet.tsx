@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet } from "../../redux/types"
 import validate from './JSvalidationsFormEditPet';
-import { useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { AnyAaaaRecord } from 'dns';
 import { Reducer } from '../../redux/store/store';
 
@@ -19,7 +19,7 @@ function FormEditPet() {
     const { petId } = useParams<{ petId: any }>();
     const logueados = useSelector((state: Reducer) => state.Loguins);
     const apaId = logueados.apaFound?._id
-
+    const navigate = useNavigate();
 
     //Me guardo los details para meterselos al estado local "input"
     let petDetails: Pet = useSelector((state: StateType) => state.detail);
@@ -41,7 +41,6 @@ function FormEditPet() {
     const [errors, setErrors] = useState({
         name: 'Al menos 3 letras',
         description: 'Ingrese una Descripción',
-        image: 'Cargue una imagen',
         size: 'Seleccione un Tamaño',
         type: 'Seleccione un Tipo de Mascota',
         age: 'Ingrese una número'
@@ -102,7 +101,7 @@ function FormEditPet() {
         e.preventDefault();
         dispatch(putPet(petId, input) as unknown as AnyAction);
         alert("Mascota editada correctamente")
-        window.location.assign('/home');
+        navigate(-1);
     }
 
     const handleDisabledButton = () => {
@@ -205,7 +204,6 @@ function FormEditPet() {
                             {/* <label className="tam" htmlFor="image">Imagen</label> */}
 
                             <label className="label" htmlFor="image">Reemplace la Imagen Actual:</label>
-                            {errors.image && <p className='error'>{errors.image}</p>}
                         </div>
 
                     </div>

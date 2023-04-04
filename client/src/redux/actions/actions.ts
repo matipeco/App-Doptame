@@ -1,6 +1,8 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW, BOTON_DONATE  } from "./actionsTypes"; import { Dispatch } from "react";
+import { useSelector } from "react-redux";
+import { Reducer } from "../store/store";
 
 
 type dispatchApa = {
@@ -72,6 +74,12 @@ interface UpdateFavoritesAction {
 type DeleteFavorite = {
   type: string
   payload: string
+}
+
+type dispatchBotonAyudar = {
+  type: string;
+  payload: Pet[]
+
 }
 
 export const getApas = () => {
@@ -444,3 +452,19 @@ export const botonAdopt = (petId: any, userId: string) => {
     }
   }
 };
+
+export const botonAyudar = (petId: any, userId: string) => {
+  return async (dispatch: Dispatch<dispatchBotonAyudar>) => {
+    try {
+      const response = await axios.post<Pet[]>("http://localhost:3001/donate/pet", { petId, userId });
+      if (response.status === 200) {
+        alert("Donación enviada correctamente");
+      }
+      return dispatch({
+        type: BOTON_DONATE,
+        payload: response.data
+      });
+    } catch (error) {
+      alert("No se pudo realizar la donación");
+    }
+  }}

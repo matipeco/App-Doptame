@@ -19,7 +19,6 @@ type Props = {
 }
 export const Card: React.FunctionComponent<Props> = ({ pet, }) => {
     const logueados = useSelector((state: Reducer) => state.Loguins);
-    const favorites = useSelector((state: Reducer) => state.favoriteUser);
     const user_id: any = logueados.userFound?._id;
     const location = useLocation();
     const dispatch = useDispatch();
