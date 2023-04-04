@@ -31,7 +31,7 @@ function App() {
   const isLoginPage = location.pathname === "/login";
 
 
-  console.log(logueados)
+  // console.log(logueados)
   useEffect(() => {
     const storedLogueados = localStorage.getItem('logueados') || '{}';
     dispatch(updateLogueados(JSON.parse(storedLogueados)));
