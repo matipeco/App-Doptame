@@ -48,7 +48,6 @@ function FormPets() {
 
     const errorsInput = validation(input);
 
-
     const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const files = (e.target as HTMLInputElement).files;
@@ -72,12 +71,17 @@ function FormPets() {
             console.log(file.secure_url);
       
             // Envia la URL de la imagen al backend
-            await fetch(`/pets/create/:${apaId}`, {
-              method: "POST",
-              body: JSON.stringify({ image: file.secure_url }),
-              headers: { "Content-Type": "application/json" },
-            });
-
+            if(apaId){
+                const apaIdEncoded = encodeURIComponent(apaId);
+                const url = `/pets/create/${apaIdEncoded}`;
+                const formData = new FormData();
+                formData.append("image", files[0]);
+                await fetch(url, {
+                  method: "POST",
+                  body: formData
+                });
+            }
+      
           } catch (err) {
             console.log(err);
           }
@@ -94,7 +98,9 @@ function FormPets() {
 
     if (Object.keys(errorsInput).length === 0) {
       console.log(accessToken);
-      dispatch(postPet(apaId!, input, accessToken) as unknown as AnyAction);
+      if(apaId){
+          dispatch(postPet(apaId, input, accessToken) as unknown as AnyAction);
+      }
       alert("Mascota creada");
   
       setInput({
