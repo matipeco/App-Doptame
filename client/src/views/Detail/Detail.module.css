@@ -6,14 +6,17 @@
     align-items: center;
 }
 
+
+
 .card {
     font-family: 'Raleway', sans-serif;
     background-color: rgba(225, 225, 225, 0.681);
     /* border: 1px solid black; */
     width: 450px;
     height: 450px;
-    display: flex;
+  
     flex-direction: column;
+    display: flex;
     align-items: center;
     box-shadow: 0 8px 15px rgba(184, 184, 184, 0.6);
     transition: all 0.4s ease-in-out, background-color 0.5s ease-in-out;
@@ -120,4 +123,3 @@
 
     
    
- 

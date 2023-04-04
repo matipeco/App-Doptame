@@ -53,11 +53,10 @@ export const Detail = () => {
         <h2>{pet?.name}</h2>
         {/* <p>{pet?.size}</p> */}
         <p>{pet?.description}</p>
-        {logueados.userType === "user" && <div>
-          <button onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
-          <Link to={`/paymentsDonate`}>Ayudame</Link>
-        </div>}
-
+        <div className={style.divBotones}> <button className={style.botonDetail} onClick={() => handleAdoptButtonClick(user_id)} disabled={pet.adoption === true ? false : true}>{pet.adoption === true ? "Adoptar" : "Adoptado"}</button>
+          <Link to={`/paymentsDonate`}><button className={style.botonDetailAyudame}>Ayudame</button></Link>
+        </div>
+        <span className={style.spanDetail}><p className={style.pApaDetail}>Saber más<FiArrowRight style={{ marginRight: '15px', marginLeft: '8px' }}></FiArrowRight><Link to={`/myProfileApa/${pet.apa?._id}`} className={style.linkDetalle}>   {pet.apa?.name}</Link></p></span>
       </article>
     </div >
   );
