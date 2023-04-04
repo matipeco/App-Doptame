@@ -9,14 +9,43 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
+const provincias = ["Ciudad Autónoma de Buenos Aires",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Córdoba",
+    "Corrientes",
+    "Entre Ríos",
+    "Formosa",
+    "Jujuy",
+    "La Pampa",
+    "La Rioja",
+    "Mendoza",
+    "Misiones",
+    "Neuquén",
+    "Río Negro",
+    "Salta",
+    "San Juan",
+    "San Luis",
+    "Santa Cruz",
+    "Santa Fe",
+    "Santiago del Estero",
+    "Tierra del Fuego, Antártida e Islas del Atlántico Sur",
+    "Tucumán"]
+
+
+
 function FormApa() {
     // const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [selectedProvince, setSelectedProvince] = useState("");
 
     const [input, setInput] = useState({
         name: "",
         email: "",
         password: "",
+        location: "",
+        provincia: ""
 
     })
 
@@ -24,8 +53,17 @@ function FormApa() {
         name: false,
         password: false,
         email: false,
+        provincia: false
 
     });
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = e.target.value;
+        setSelectedProvince(selectedValue);
+        setInput((prevInput) => ({
+            ...prevInput,
+            provincia: selectedValue
+        }));
+    };
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
         const field = e.target.name;
@@ -41,7 +79,7 @@ function FormApa() {
     };
 
     const errorsInput = validationApa(input);
-
+    // console.log(errorsInput)
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -54,6 +92,8 @@ function FormApa() {
                         name: "",
                         email: "",
                         password: "",
+                        location: "",
+                        provincia: ""
                     });
 
                     alert("Apa creada correctamente")
@@ -119,6 +159,29 @@ function FormApa() {
                         />
                         <label className="label" htmlFor="password">Contraseña</label>
                         {touched.password && errorsInput.password && <p className="error">{errorsInput.password}</p>}
+                    </div>
+                    <div className="containerInputs">
+                        <select
+                            className="input"
+                            onBlur={handleBlur}
+                            onChange={handleSelectChange}
+                            name="provincia"
+                            required
+                            value={selectedProvince}
+                        >
+                            <option value="" disabled>-- Seleccionar provincia --</option>
+                            {provincias.map((provincia) => (
+                                <option key={provincia} value={provincia}>
+                                    {provincia}
+                                </option>
+                            ))}
+                        </select>
+                        <label className="label" htmlFor="provincia">
+
+                        </label>
+                        {touched.provincia && errorsInput.provincia && (
+                            <p className="error">{errorsInput.provincia}</p>
+                        )}
                     </div>
                     <button disabled={Object.keys(errorsInput).length !== 0}>Crear</button>
                 </form>

@@ -77,9 +77,10 @@ const adopPet = async (req, res) => {
 
     await sendAdoptEmail(user, pet);
 
-    res
-      .status(200)
-      .json({ message: "Tu solicitud de adopción ha sido enviada" });
+    res.status(200).json({
+      message:
+        "Se te ha enviado un mail con los pasos a seguir para la adopción",
+    });
   } catch (error) {
     console.error(error);
     res

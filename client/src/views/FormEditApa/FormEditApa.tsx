@@ -101,7 +101,7 @@ function FormEditApa() {
 
     return (
         <div className="container">
-                <h1>Editar APA:</h1>
+            <h1>Editar APA:</h1>
 
             <div className="containerForma">
                 <form className='forma' onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ function FormEditApa() {
                             {errors.description && <p className='errors'>{errors.description}</p>}
                         </div>
                     </div>
-                        
+
                     <div className="column3">
                         <div className="containerInputs">
                             <select name="provincia"
@@ -228,8 +228,8 @@ function FormEditApa() {
                             <label className="label" htmlFor="url"> Dirección Web o Red Social:</label>
                             {/* {errors.url && <p className='errors'>{errors.url}</p>} */}
                         </div>
-                    <button className='btnFormEdit' type="submit" disabled={handleDisabledButton()}>Guardar</button>
-                                
+                        <button className='btnFormEdit' type="submit" disabled={handleDisabledButton()}>Guardar</button>
+
                     </div>
 
                     {/* <div className="row">

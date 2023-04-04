@@ -87,7 +87,9 @@ function NavBar() {
             <img className='logo' src={imgLogo} alt='logo' />
           </Link>
           <ul>
+
             <li><Link to="/home" className='linkAbout'>Inicio</Link></li>
+            <li><Link to="/seeApas" className='linkAbout'>Refugios</Link></li>
             <li><Link to="/aboutUs" className='linkAbout'>Quienes somos</Link></li>
 
             {isUserLoggedIn ? (
