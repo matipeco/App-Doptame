@@ -17,7 +17,6 @@ import img4 from '../../assets/assetosCarruselPrueba/img5.jpg'
 import img5 from '../../assets/assetosCarruselPrueba/img6.jpg'
 import fb from '../../assets/logofb.png'
 import ig from '../../assets/logoig.png'
-import { SiMercadopago } from 'react-icons/si'
 
 
 export default function ProfileApas() {
@@ -31,7 +30,13 @@ export default function ProfileApas() {
         dispatch(getApaById(id!) as unknown as AnyAction)
     }, [id, dispatch])
 
+    const petImages = apa?.pets?.map(pet => pet.image);
+    const imagenes = petImages?.filter(image => image !== undefined);
+
+
     const images = [img1, img2, img3, img4, img5];
+
+
 
     const settings = {
         dots: true,
@@ -43,6 +48,9 @@ export default function ProfileApas() {
         slidesToScroll: 1
     }
 
+   
+    console.log(apa.pets, "pets?")
+    console.log(apa)
     return (
         <div className='containerApaProfile'>
             <div className="containerTitleApa">
@@ -78,13 +86,29 @@ export default function ProfileApas() {
                 <p>Descripcion: {apa.description}</p>
             </div>
 
+
             {logueados.userType === "user" &&
                 <div className='containerBtnDonate'>
                     <button><h5> Donar </h5></button>
                 </div>}
 
+            {
+                apa.pets && apa.pets.length > 0 ? (
+                    <div className='containerCarruselperros'>
+                <Slider {...settings}>
+                    {imagenes?.map((image, index) => (
+                        <div key={index}>
+                            <img className='imgCarrusel' src={image} alt={`image-${index}`} />
 
-            <div className='containerCarruselperros'>
+                        </div>
+                    ))}
+
+                </Slider>
+
+
+            </div>
+                ) : (
+                    <div className='containerCarruselperros'>
                 <Slider {...settings}>
                     {images.map((image, index) => (
                         <div key={index}>
@@ -97,6 +121,9 @@ export default function ProfileApas() {
 
 
             </div>
+                )
+            }
+            
 
         </div>
     )

@@ -52,7 +52,7 @@ export interface Apa {
   description?: string
   cbu_cvu?: string
   url?: string
-  pets?: []
+  pets?: Pet[]
   telephone?: string
   provincia?: string
   cuit?: string

@@ -9,12 +9,16 @@ import { Pet} from "../../redux/types"
 import validate from './JSvalidationsFormEditPet';
 import { useParams} from 'react-router-dom';
 import { AnyAaaaRecord } from 'dns';
+import { Reducer } from '../../redux/store/store';
 
 
 function FormEditPet() { 
 
     const dispatch = useDispatch()
     const { petId } = useParams<{ petId: any }>();
+    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const apaId = logueados.apaFound?._id
+
 
     //Me guardo los details para meterselos al estado local "input"
     let petDetails: Pet= useSelector((state: StateType) => state.detail); 
@@ -47,6 +51,7 @@ function FormEditPet() {
     const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         const files = (e.target as HTMLInputElement).files;
+
         if(files){
         const data = new FormData();
           data.append("file", files[0]);
@@ -86,6 +91,7 @@ function FormEditPet() {
               [name]: value
             }));
           }
+
 
         setErrors(validate({
             ...input,
