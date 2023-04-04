@@ -126,3 +126,9 @@
     height: 30px;
     font-size: 20px;
   }
+
+.rating{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
