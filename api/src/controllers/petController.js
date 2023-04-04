@@ -29,39 +29,30 @@ const getPetById = async (req, res) => {
         res.status(404).json(error)
     }
 }
-
 const createPet = async (req, res) => {
-
     try {
-
-        const { name, age, size, type, image, description } = req.body // Diego: sacamos apa, ya no la requerimos por body porque viene por params
-        console.log(req.body)
-        if (!name || !age || !size || !type || !description) {
-            res.status(400).json({ error: 'Falta información. La mascota no puede ser dada de alta en el sistema.' })
-        } else {
-            const { apaId } = req.params
-            const objeto = { ...req.body, apa: apaId }
-            const newPet = await Pet.create(objeto)
-            if(req.files?.image) {
-                const result = await uploadImage(req.files.image.tempFilePath)
-                newPet.image = result.secure_url
-
-                await fs.unlink(req.files.image.tempFilePath);
-            }
-            await newPet.save();
-            await Apa.findByIdAndUpdate(apaId, { $push: { pets: newPet._id } }, { useFindAndModify: false })
-
-            if (newPet) {
-                res.status(200).json({ message: 'La mascosta ha sido dada de alta con éxito' })
-            } else {
-                res.status(400).json({ error: 'La mascota no ha podido ser dada de alta' })
-            }
-        }
+      const { name, age, size, type, description } = req.body;
+      const { apaId } = req.params;
+      if (!name || !age || !size || !type || !description) {
+        res.status(400).json({ error: 'Falta información. La mascota no puede ser dada de alta en el sistema.' });
+        return;
+      }
+  
+      const newPet = await Pet.create({ ...req.body, apa: apaId });
+      if (req.files?.image) {
+        const result = await uploadImage(req.files.image.tempFilePath);
+        newPet.image = result.secure_url;
+        await fs.unlink(req.files.image.tempFilePath);
+      }
+      await newPet.save();
+      await Apa.findByIdAndUpdate(apaId, { $push: { pets: newPet._id } }, { useFindAndModify: false });
+  
+      res.status(200).json({ message: 'La mascota ha sido dada de alta con éxito' });
     } catch (error) {
-        console.log(error.message);
-        res.status(400).json(error)
+      console.log(error.message);
+      res.status(400).json(error);
     }
-}
+  };
 
 const editPet = async (req, res) => {
     try {
