@@ -31,7 +31,7 @@ const ForgotPassword = () => {
     const handleResetSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         axios
-            .post("http://localhost:3001/api/auth/users/resetPassword", { resetPasswordKey: input.resetPasswordKey, password, email })
+            .post("http://localhost:3001/auth/apa/user/resetPassword", { resetPasswordKey: input.resetPasswordKey, password, email })
             .then((response) => {
                 alert("La contraseña se ha restablecido correctamente.");
                 navigate("/login");

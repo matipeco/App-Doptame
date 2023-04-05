@@ -56,7 +56,7 @@ function FormUser() {
 
                     alert("Usuario creado correctamente")
                     // alert(response.data.message);
-                    navigate("/login")
+                    navigate(-1)
                 })
                 .catch((error) => {
                     if (error.response) {
