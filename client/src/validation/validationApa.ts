@@ -1,8 +1,8 @@
-import { error } from "console";
+
 import { errorsInput, InputData } from "../redux/types";
 
 
-const regexName = /^[a-zA-Z]+$/
+
 const regexPassword = /^(?=.*\d)(?=.*[A-Z]).{8,}$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^/s@]+$/
 export const validationApa = (input: InputData) => {

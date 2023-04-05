@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getApaById } from '../../redux/actions/actions';
+import { clearDetailApa, getApaById } from '../../redux/actions/actions';
 import './ProfileApas.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
@@ -17,8 +17,8 @@ import img4 from '../../assets/assetosCarruselPrueba/img5.jpg'
 import img5 from '../../assets/assetosCarruselPrueba/img6.jpg'
 import fb from '../../assets/logofb.png'
 import ig from '../../assets/logoig.png'
-import {AiFillStar, AiOutlineStar} from 'react-icons/ai'
-
+import { BsPencilSquare } from "react-icons/bs"
+import { BsFillEnvelopeAtFill } from "react-icons/bs"
 export default function ProfileApas() {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -28,6 +28,8 @@ export default function ProfileApas() {
 
     useEffect(() => {
         dispatch(getApaById(id!) as unknown as AnyAction)
+        dispatch(clearDetailApa())
+
     }, [id, dispatch])
 
     const petImages = apa?.pets?.map(pet => pet.image);
@@ -48,25 +50,25 @@ export default function ProfileApas() {
         slidesToScroll: 1
     }
 
-   
-    console.log(apa.pets, "pets?")
-    console.log(apa)
+
+    // console.log(apa.pets, "pets?")
+    // console.log(apa)
 
     //sumo los rating
-    let sum = apa.reviews?.reduce((total, review) => total + Number(review.rating), 0)
+    // let sum = apa.reviews?.reduce((total, review) => total + Number(review.rating), 0)
 
-    // Verificar que sum sea un número o undefined
-    if (typeof sum !== "number") {
-        sum = undefined;
-    }
-    //Saco el promedio
-    const prom = apa.reviews?.length && sum !== undefined ? sum / apa.reviews.length : undefined;
+    // // Verificar que sum sea un número o undefined
+    // if (typeof sum !== "number") {
+    //     sum = undefined;
+    // }
+    // //Saco el promedio
+    // const prom = apa.reviews?.length && sum !== undefined ? sum / apa.reviews.length : undefined;
 
-    //guardo el promedio
-    const promRating = prom?.toFixed(2);
+    // //guardo el promedio
+    // const promRating = prom?.toFixed(2);
 
-    const filledStars = promRating ? parseInt(promRating) : 0;
-    const emptyStars = promRating ? 5 - parseInt(promRating) : 5;
+    // const filledStars = promRating ? parseInt(promRating) : 0;
+    // const emptyStars = promRating ? 5 - parseInt(promRating) : 5;
 
 
 
@@ -75,41 +77,43 @@ export default function ProfileApas() {
             <div className="containerTitleApa">
                 <h1 >{apa.name}</h1>
                 <img className='imgApaProfile' src={avatarApa} alt='avatar apa' />
-               
+
             </div>
+            <Link to={`/formEditApa/${logueados.apaFound?._id}`}> <BsPencilSquare style={{ marginLeft: '5px', fontSize: "20px" }} /></Link>
             <div className="botonesProfile">
-            {logueados.userType === "apa" &&
+                {logueados.userType === "apa" &&
                     <>
-                        <button className='botonesApaProfile' ><Link className='letras' to={`/formEditApa/${logueados.apaFound?._id}`}>Editar Datos</Link></button>
+
                         <button className='botonesApaProfile' ><Link className='letras' to={`/formPet`}>Agregar Mascota</Link></button>
                         <button className='botonesApaProfile'><Link className='letras' to={'/dashboardApa'}>Editar Mascotas</Link></button>
                     </>
-            }
+                }
             </div>
 
             <div className='containerDescription'>
                 <div className='column'>
-                    <h4>Email: {apa.email}</h4>
-                    <h4>Cbu/Alias: {apa.cbu_cvu}</h4>
-                    <h4>Ubicacion: {apa.location}, {apa.provincia}</h4>
+                    <h4 className="h4ProfileApa">   <BsFillEnvelopeAtFill style={{ verticalAlign: 'middle' }} /> <span>{apa.email}</span></h4>
+                    <h4 className="h4ProfileApa">Cbu/Alias: <span>{apa.cbu_cvu}</span> </h4>
+                    <h4 className="h4ProfileApa">Ubicacion: <span>{apa.provincia}</span></h4>
                 </div>
-                <div className="column">
+                {/* <div className="column">
                     <a href={apa.url}>
                         <img className='logoigfb' src={fb} alt="Logo de Facebook" />
                         <img className='logoigfb' src={ig} alt="Logo de Instagram" />
                     </a>
                     <h4>Telefono: {apa.provincia} </h4>
                     <h4 className='rating'>Rating: {[...Array(filledStars)].map((_, index) => (
-                                    <AiFillStar key={index}  />
-                                ))}
-                                {[...Array(emptyStars)].map((_, index) => (
-                                    <AiOutlineStar key={index} />
-                                ))} </h4>
-                </div>
+                        <AiFillStar key={index} />
+                    ))}
+                        {[...Array(emptyStars)].map((_, index) => (
+                            <AiOutlineStar key={index} />
+                        ))} </h4>
+                </div> */}
             </div>
-            <div className="containerDescription">
-                <p>Descripcion: {apa.description}</p>
+            {apa.description ? (<div className="containerDescription">
+                <p>{apa.description}</p>
             </div>
+            ) : (<></>)}
 
 
             {logueados.userType === "user" &&
@@ -120,35 +124,35 @@ export default function ProfileApas() {
             {
                 apa.pets && apa.pets.length > 0 ? (
                     <div className='containerCarruselperros'>
-                <Slider {...settings}>
-                    {imagenes?.map((image, index) => (
-                        <div key={index}>
-                            <img className='imgCarrusel' src={image} alt={`image-${index}`} />
+                        <Slider {...settings}>
+                            {imagenes?.map((image, index) => (
+                                <div key={index}>
+                                    <img className='imgCarrusel' src={image} alt={`image-${index}`} />
 
-                        </div>
-                    ))}
+                                </div>
+                            ))}
 
-                </Slider>
+                        </Slider>
 
 
-            </div>
+                    </div>
                 ) : (
                     <div className='containerCarruselperros'>
-                <Slider {...settings}>
-                    {images.map((image, index) => (
-                        <div key={index}>
-                            <img className='imgCarrusel' src={image} alt={`image-${index}`} />
+                        <Slider {...settings}>
+                            {images.map((image, index) => (
+                                <div key={index}>
+                                    <img className='imgCarrusel' src={image} alt={`image-${index}`} />
 
-                        </div>
-                    ))}
+                                </div>
+                            ))}
 
-                </Slider>
+                        </Slider>
 
 
-            </div>
+                    </div>
                 )
             }
-            
+
 
         </div>
     )

@@ -3,7 +3,7 @@ const User = require("../models/User");
 
 const suspendUserOrApa = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
 
   // Buscar usuario y APA por ID
   const user = await User.findById(id);

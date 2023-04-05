@@ -6,14 +6,8 @@ import { Reducer } from '../../redux/store/store';
 import './User.css'
 import { AnyAction } from 'redux'
 import Avatar from "../../assets/avatarUser.png"
-
-
-
-
-
-// import { useState } from 'react';
-
-
+import { BsFillEnvelopeAtFill } from "react-icons/bs"
+// import { BsPencilSquare } from "react-icons/bs"
 
 
 function Users() {
@@ -33,12 +27,15 @@ function Users() {
       <article className='CartaUsuario'>
         <div className="imgUser">
           <img src={Avatar} alt={user?.name} />
+
         </div>
+
 
 
         <div className="infoUser">
           <h2>{user?.username} {user.last_name}</h2>
-          <p>Email:{user?.email}</p>
+          <p><BsFillEnvelopeAtFill style={{ verticalAlign: 'middle', marginRight: '5px' }} />{user?.email}</p>
+
           {user?.location ? (<p>Ubicacion: {user?.location}</p>) : (
             <p></p>
           )
@@ -53,6 +50,7 @@ function Users() {
               Mis Favoritos
             </button>
           </Link>
+
         </div>
       </article>
     </div>

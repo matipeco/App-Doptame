@@ -64,7 +64,7 @@ const Login = async (req, res) => {
 };
 const LoginWithGoogle = async (req, res) => {
   const { tokenId, role } = req.body;
-  console.log(tokenId);
+  // console.log(tokenId);
 
   let userType = "user"; // Asignar "user" como valor por defecto
 
@@ -133,17 +133,17 @@ const LoginWithGoogle = async (req, res) => {
 };
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  console.log(
-    `Email del usuario que solicitó restablecer contraseña: ${email}`
-  );
+  // console.log(
+  //   `Email del usuario que solicitó restablecer contraseña: ${email}`
+  // );
 
   const user = await User.findOne({ email });
-  console.log(`Usuario encontrado: ${user}`);
+  // console.log(`Usuario encontrado: ${user}`);
   const apa = await Apa.findOne({ email });
-  console.log(`Apa encontrado: ${apa}`);
+  // console.log(`Apa encontrado: ${apa}`);
   let resetKey = crypto.randomBytes(6).toString("hex");
   if (!user && !apa) {
-    console.log("no encontrado");
+    // console.log("no encontrado");
     return res.status(404).json({ message: "email no encontrado" });
   }
   if (user) {
@@ -190,12 +190,12 @@ const forgotPassword = async (req, res) => {
 
 const resetPasswordWithEmail = async (req, res) => {
   const { email, resetPasswordKey, password } = req.body;
-  console.log(
-    `Email del usuario que desea restablecer su contraseña: ${email}`
-  );
-  console.log(
-    `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
-  );
+  // console.log(
+  // //   `Email del usuario que desea restablecer su contraseña: ${email}`
+  // // );
+  // // console.log(
+  // //   `Clave de restablecimiento proporcionada por el usuario: ${resetPasswordKey}`
+  // // );
 
   try {
     const [user, apa] = await Promise.all([
@@ -214,7 +214,7 @@ const resetPasswordWithEmail = async (req, res) => {
     }
 
     if (apa && apa.resetPasswordKey !== resetPasswordKey) {
-      console.log(apa, apa.resetPasswordKey);
+      // console.log(apa, apa.resetPasswordKey);
       return res
         .status(400)
         .json({ message: "Clave de restablecimiento inválida o expirada" });

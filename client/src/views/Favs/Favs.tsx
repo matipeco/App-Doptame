@@ -12,11 +12,11 @@ export const Favs = () => {
     const logueados = useSelector((state: Reducer) => state.Loguins);
     const user_id: any = logueados.userFound?._id;
     const { favorites } = useSelector((state: Reducer) => state.favoriteUser);
-    console.log(favorites)
+    // console.log(favorites)
     useEffect(() => {
         if (user_id) {
             dispatch(getFavorite(user_id) as unknown as AnyAction);
-            console.log("primer useeffect" + user_id)
+            // console.log("primer useeffect" + user_id)
         }
     }, [dispatch, user_id]);
     useEffect(() => {
@@ -25,12 +25,12 @@ export const Favs = () => {
             dispatch(updateFavorites(JSON.parse(storedFavorites)));
         } else {
             dispatch(getFavorite(user_id) as unknown as AnyAction);
-            console.log("segundo useeffect" + user_id)
+            // console.log("segundo useeffect" + user_id)
         }
 
         const storedLogueados = localStorage.getItem('logueados') || '{}';
         dispatch(updateLogueados(JSON.parse(storedLogueados)));
-        console.log(storedFavorites, "storedlogueados" + storedLogueados)
+        // console.log(storedFavorites, "storedlogueados" + storedLogueados)
     }, []);
 
     useEffect(() => {

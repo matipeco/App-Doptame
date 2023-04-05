@@ -31,8 +31,8 @@ const createAdmins = async () => {
       admin.token = tokens[index];
     });
 
-    console.log(tokens);
-    console.log(createdAdmins);
+    // console.log(tokens);
+    // console.log(createdAdmins);
   } catch (error) {
     console.log(error);
   }

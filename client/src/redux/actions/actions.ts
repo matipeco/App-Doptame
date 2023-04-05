@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Apa, Pet, User, Favs } from "../types";
-import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW, BOTON_DONATE } from "./actionsTypes"; import { Dispatch } from "react";
+import { POST_APA, ADD_PET, GET_APA, GET_PETS, GET_DETAIL_PET, CLEAN_DETAIL, POST_USER, GET_USER, GET_DETAIL_USERS, ORDER_BY_AGE, FILTER_BY_SIZE, GET_APA_DETAIL, FILTER_BY_LOCATION, DELETE_APA, DELETE_USER, DELETE_PET, EDIT_PET, EDIT_APA, EDIT_USER, GET_FAVORITE, SUSPENDED, LOGUEADOS, ADOPT_PET, CLEAN_LOGUEADOS, BOTON_ADOPT, ADD_FAVORITE, DELETE_FAVORITE, UPDATE_FAVORITES, SET_ADOPTION, CREATE_REVIEW, BOTON_DONATE, CLEAN_DETAIL_APA } from "./actionsTypes"; import { Dispatch } from "react";
 import { useSelector } from "react-redux";
 import { Reducer } from "../store/store";
 
@@ -112,7 +112,7 @@ export const getApaById = (id: string) => {
 
 export const postApa = (payload: Apa) => {
   return async (dispatch: Dispatch<dispatchApa>) => {
-    console.log(payload)
+    // console.log(payload)
     const createApa = await axios.post<Apa>("http://localhost:3001/apa", payload);
     return dispatch({
       type: POST_APA,
@@ -154,6 +154,11 @@ export const getDetailPets = (id: string) => {
 export const clearDetail = () => {
   return { type: CLEAN_DETAIL };
 };
+export const clearDetailApa = () => ({
+  type: CLEAN_DETAIL_APA,
+
+});
+
 
 
 export const postPet = (id: string, payload: Pet) => {
@@ -170,7 +175,7 @@ export const postPet = (id: string, payload: Pet) => {
 
 
 export const postUser = (payload: User) => {
-  console.log(payload)
+  // console.log(payload)
   return async (dispatch: Dispatch<dispatchUser>) => {
     const createUser = await axios.post<User>(`http://localhost:3001/users`, payload);
     return dispatch({

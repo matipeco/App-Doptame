@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Reducer } from "./redux/store/store"
 import { updateLogueados } from './redux/actions/actions';
 import SeeApas from './components/SeeApas/SeeApas';
+import { EditUser } from './views/User/EditUser';
 
 // import { Navigate } from 'react-router-dom';
 
@@ -29,7 +30,7 @@ function App() {
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
   const isLoginPage = location.pathname === "/login";
-
+  const isResetPassword = location.pathname === "/restore-password"
 
   // console.log(logueados)
   useEffect(() => {
@@ -98,15 +99,12 @@ function App() {
           <Route path='/dashboardApa' element={<ApaDashboard />}></Route>
           <Route path='/paymentsDonate' element={<PaymentGateway />} ></Route>
           <Route path="/seeApas" element={<SeeApas />}></Route>
+          {/* <Route path="/editUser/:id" element={<EditUser />}></Route> */}
+
         </Routes>
 
-
-
-
       </main>
-
-
-      {!isLandingPage && !isLoginPage && <Footer />}
+      {!isLandingPage && !isLoginPage && !isResetPassword && <Footer />}
     </div>
 
 

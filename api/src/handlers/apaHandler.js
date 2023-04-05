@@ -45,8 +45,20 @@ const createApaHandler = async (req, res) => {
 const putApaHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, password, email, cbu_cvu, description, location, url, telephone, provincia, cuit, pets, reviews } =
-      req.body;
+    const {
+      name,
+      password,
+      email,
+      cbu_cvu,
+      description,
+      location,
+      url,
+      telephone,
+      provincia,
+      cuit,
+      pets,
+      reviews,
+    } = req.body;
     const modApa = await putApa(
       id,
       name,
@@ -71,7 +83,7 @@ const putApaHandler = async (req, res) => {
 // GET BY ID| /:id
 const getApaByIdHandler = async (req, res) => {
   const { id } = req.params;
-  console.log(req.params);
+  // console.log(req.params);
   try {
     const apaById = await getApaById(id);
     if (!apaById) throw new Error("La APA que buscas no existe :(");

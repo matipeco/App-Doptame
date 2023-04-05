@@ -8,7 +8,7 @@
 }
 
 .CartaUsuario {
-  margin: 50px;
+
   display: flex;
   flex-direction: column;
   width: 600px;
@@ -20,7 +20,7 @@
 }
 
 .imgUser {
-
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +28,7 @@
   border-radius: 50%;
   width: 140px;
   height: 140px;
-  margin: 0 auto;
+  margin: 25px auto;
 }
 
 .imgUser img {
@@ -68,7 +68,8 @@
   border: none;
   border-radius: 12px;
   color: white;
-  background-color: #ff6b6b;
+  
+ background-color: rgb(0, 179, 255);
   padding: 12px 25px;
   font-size: 18px;
   font-weight: 700;
@@ -79,4 +80,5 @@
 .contenedorBtn button:hover {
   transform: translateY(-2px);
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: #0056b3;
 }

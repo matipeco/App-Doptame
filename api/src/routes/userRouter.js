@@ -17,7 +17,7 @@ const {
 // userRouter.post("/", createUser);
 userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getUserById);
-userRouter.put("/:id", [verifyToken, isUserOrAdmin], putUser);
+userRouter.put("/:id", putUser);
 userRouter.delete("/:id", deleteUser);
 // userRouter.delete("/:id", [verifyToken, isUserOrAdmin], deleteUser);
 
