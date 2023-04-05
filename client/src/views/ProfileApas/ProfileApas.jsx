@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getApaById } from '../../redux/actions/actions';
+import { getApaById, getUsers } from '../../redux/actions/actions';
 import './ProfileApas.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
@@ -23,13 +23,16 @@ import {AiFillStar, AiOutlineStar} from 'react-icons/ai'
 export default function ProfileApas() {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const apa = useSelector((state: Reducer) => state.detailApa)
-
-    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const apa = useSelector((state) => state.detailApa)
+    const users = useSelector((state) => state.allUsers)
+    const logueados = useSelector((state) => state.Loguins);
 
     useEffect(() => {
-        dispatch(getApaById(id!) as unknown as AnyAction)
+        dispatch(getApaById(id))
+        dispatch(getUsers)
     }, [id, dispatch])
+
+
 
     const petImages = apa?.pets?.map(pet => pet.image);
     const imagenes = petImages?.filter(image => image !== undefined);
@@ -48,20 +51,20 @@ export default function ProfileApas() {
         slidesToShow: 1,
         slidesToScroll: 1
     }
-
+const reviewsFiltered= apa.reviews?.slice(0,apa.reviews?.length-1).filter(r=>Object.keys(r).length>1)
    
     console.log(apa.pets, "pets?")
     console.log(apa)
 
     //sumo los rating
-    let sum = apa.reviews?.reduce((total, review) => total + Number(review.rating), 0)
+    let sum = reviewsFiltered?.reduce((total, review) => total + Number(review.rating), 0)
 
     // Verificar que sum sea un número o undefined
     if (typeof sum !== "number") {
         sum = undefined;
     }
     //Saco el promedio
-    const prom = apa.reviews?.length && sum !== undefined ? sum / apa.reviews.length : undefined;
+    const prom = reviewsFiltered?.length && sum !== undefined ? sum / reviewsFiltered.length : undefined;
 
     //guardo el promedio
     const promRating = prom?.toFixed(2);
@@ -69,13 +72,17 @@ export default function ProfileApas() {
     const filledStars = promRating ? parseInt(promRating) : 0;
     const emptyStars = promRating ? 5 - parseInt(promRating) : 5;
 
-    const opinions = [
-        { id: "1", user: 'Juan', opinion: 'Excelente servicio, lo recomiendo.' },
-        { id: "2", user: 'Maria', opinion: 'Muy buen trato con las mascotas.' },
-        { id: "3", user: 'Pedro', opinion: 'Un lugar genial para cuidar a mi mascota.' }
-      ];
-      
+    
+    const opinions = reviewsFiltered
+    console.log("esto es reviews", reviewsFiltered)
 
+    // const opinions = [
+    //     { id: "1", user: 'Juan', opinion: 'Excelente servicio, lo recomiendo.' },
+    //     { id: "2", user: 'Maria', opinion: 'Muy buen trato con las mascotas.' },
+    //     { id: "3", user: 'Pedro', opinion: 'Un lugar genial para cuidar a mi mascota.' }
+    //   ];
+      
+const link = `/formReviewApa/${id}`
     return (
         <>
         <div className='containerApaProfile'>
@@ -158,8 +165,10 @@ export default function ProfileApas() {
             
             <div className='opinion'>
                 <h3>Nuestros usuarios opinan</h3>
-                <Opinion opinions={opinions} />
+                    <Opinion opinions={opinions} />
             </div>
+
+           <a href={link}><button>¡Deja tu opinion!</button></a> 
 
         </div>
 

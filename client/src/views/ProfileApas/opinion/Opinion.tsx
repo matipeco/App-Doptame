@@ -3,13 +3,14 @@ import Slider from 'react-slick';
 import './Opinion.css'
 
 interface Opinion {
-  id: string;
+  _id: string;
   user: string;
   opinion: string;
+  rating: string; 
 }
 
 interface OpinionCarouselProps {
-  opinions: Opinion[];
+  opinions: Opinion[] ;
 }
 
 const OpinionCarousel = ({ opinions }: OpinionCarouselProps) => {
@@ -24,7 +25,7 @@ const OpinionCarousel = ({ opinions }: OpinionCarouselProps) => {
   return (
     <Slider {...settings}>
       {opinions.map((opinion) => (
-        <div className='opiniones' key={opinion.id}>
+        <div className='opiniones' key={opinion._id}>
           <h3>{opinion.user}</h3>
           <p>{opinion.opinion}</p>
         </div>

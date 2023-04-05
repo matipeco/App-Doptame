@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Apa} from "../../redux/types"
 import validate from './JSvalidationsFormReviewApa';
-import { useParams} from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { Reducer } from '../../redux/store/store';
 
 
@@ -16,11 +16,11 @@ function FormReviewApa() {
     const dispatch = useDispatch()
     const { apaId } = useParams<{ apaId: any }>()
     
-    // const logueados = useSelector((state: Reducer) => state.Loguins);
-    // const userId: string= logueados.userFound?.username
-
+    const logueados = useSelector((state: Reducer) => state.Loguins);
+    const userId: string= logueados.userFound?.email ?? '' 
+    const navigate = useNavigate();
     //userId hardcodeadeo, no 03/04/23: logueados aparece vacío en el Estado Global.
-    const userId: string= '641a281b656802d8aa7a9eed'
+    //const userId: string= '641a281b656802d8aa7a9eed'
     
 
     useEffect (()=>{
@@ -79,7 +79,7 @@ const allReviews = {
         e.preventDefault();
         dispatch(createReview(apaId, allReviews) as unknown as AnyAction);
         alert("Muchas gracias por su feedback!")
-        window.location.assign('/home');
+        navigate(-1);
     }
 
     const handleDisabledButton = ()=>{
