@@ -101,7 +101,7 @@ function FormApa() {
 
                     alert("Apa creada correctamente")
                     // alert(response.data.message);
-                    navigate("/login")
+                    navigate(-1)
                 })
                 .catch((error) => {
                     if (error.response) {
@@ -170,7 +170,7 @@ function FormApa() {
                             required
                         />
                         <label className="label" htmlFor="teléfono">Teléfono</label>
-                        {touched.telephone && errorsInput.telephone && <p className="error">{errorsInput.telephone}</p>}
+                        {touched.telephone && errorsInput.telephone && <p className="errorInput">{errorsInput.telephone}</p>}
                     </div>
                     <div className="containerInputs">
                         <select
