@@ -149,13 +149,7 @@ nav ul ul .liOp:hover {
     border-radius: 5px 0;
 }
 
-.dropbtn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-}
+
 
 .dropdown-content {
     display: flex;
@@ -174,10 +168,7 @@ nav ul ul .liOp:hover {
     cursor: pointer;
 }
 
-.dropdown-content a:hover,
-.dropdown-content button:hover {
-    background-color: #f1f1f1;
-}
+
 
 .hoverAvatar:hover .dropdown {
     display: block;
@@ -187,6 +178,31 @@ nav ul ul .liOp:hover {
 .avatar:hover img {
     opacity: 0.7;
     /* Añadido para indicar que el avatar está siendo hover */
+}
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 10px;
+    margin: 5px 3px;
+    height: 20px;
+}
+
+
+.dropbtnPerfil {
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 10px;
+    margin: 3px 2px;
+    height: 20px;
+}
+
+.dropbtnPerfil:hover, .dropbtn:hover{
+    background: #b1ffff;
+    
 }
 
 /* responsive */

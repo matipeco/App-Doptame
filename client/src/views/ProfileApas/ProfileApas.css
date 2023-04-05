@@ -132,3 +132,13 @@
   flex-direction: row;
   align-items: center;
 }
+
+.opinion{
+  display: flexbox;
+  align-content: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color:antiquewhite;
+  border-radius: 15px;
+}
