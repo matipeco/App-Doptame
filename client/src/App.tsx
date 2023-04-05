@@ -29,6 +29,7 @@ function App() {
   // Verifica si la ruta actual es la ruta de inicio ("/")
   const isLandingPage = location.pathname === "/";
   const isLoginPage = location.pathname === "/login";
+  const isResetPassword = location.pathname === "/restore-password"
 
 
   // console.log(logueados)
@@ -76,8 +77,6 @@ function App() {
         </Routes> */}
 
         <Routes>
-
-
           <Route path="/" element={<Landing />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
@@ -107,8 +106,7 @@ function App() {
 
       </main>
 
-
-      {!isLandingPage && !isLoginPage && <Footer />}
+      {!isLandingPage && !isLoginPage && !isResetPassword && <Footer />}
     </div>
 
 

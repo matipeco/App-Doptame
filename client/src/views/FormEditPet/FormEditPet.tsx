@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StateType } from '../../redux/reducer/reducer'
 import { Pet } from "../../redux/types"
 import validate from './JSvalidationsFormEditPet';
-import {useNavigate, useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AnyAaaaRecord } from 'dns';
 import { Reducer } from '../../redux/store/store';
 
@@ -51,45 +51,45 @@ function FormEditPet() {
         const { name, value } = e.target;
         const files = (e.target as HTMLInputElement).files;
 
-        if(files){
-        const data = new FormData();
-          data.append("file", files[0]);
-          data.append("upload_preset", "presetImage");
+        if (files) {
+            const data = new FormData();
+            data.append("file", files[0]);
+            data.append("upload_preset", "presetImage");
 
-          try {
-            const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
-              method: "POST",
-              body: data
-            });
-      
-            const file = await res.json();
-            setInput(prevInput => ({
-              ...prevInput,
-              [name]: value,
-              image: file.secure_url
-            }));
-            console.log(file.secure_url);
-            if(petId){
-                const petIdEncoded = encodeURIComponent(petId);
-                const url = `/pets/edit/${petIdEncoded}`;
-                const formData = new FormData();
-                formData.append("image", files[0]);
-                await fetch(url, {
-                  method: "PUT",
-                  body: formData
+            try {
+                const res = await fetch("https://api.cloudinary.com/v1_1/do1buub4f/image/upload", {
+                    method: "POST",
+                    body: data
                 });
+
+                const file = await res.json();
+                setInput(prevInput => ({
+                    ...prevInput,
+                    [name]: value,
+                    image: file.secure_url
+                }));
+                console.log(file.secure_url);
+                if (petId) {
+                    const petIdEncoded = encodeURIComponent(petId);
+                    const url = `/pets/edit/${petIdEncoded}`;
+                    const formData = new FormData();
+                    formData.append("image", files[0]);
+                    await fetch(url, {
+                        method: "PUT",
+                        body: formData
+                    });
+                }
+
+            } catch (err) {
+                console.log(err);
             }
-      
-          } catch (err) {
-            console.log(err);
-          } 
 
         } else {
             setInput(prevInput => ({
-              ...prevInput,
-              [name]: value
+                ...prevInput,
+                [name]: value
             }));
-          }
+        }
 
 
         setErrors(validate({
@@ -119,7 +119,7 @@ function FormEditPet() {
         <div className="container">
 
             <div className="containerForm">
-                <h1>Editar Mascota:</h1>
+                <h1>Editar Mascota</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
@@ -142,7 +142,7 @@ function FormEditPet() {
                                 value={input.age}
                             />
                             <label className="label" htmlFor="age">Edad (años)</label>
-                            {errors.age && <p className='errors'>{errors.age}</p>}
+                            {errors.age && <p className='errorInput'>{errors.age}</p>}
                         </div>
                         <div className="containerInputs">
                             <input
@@ -153,7 +153,7 @@ function FormEditPet() {
                                 value={input.description}
                             />
                             <label className="label" htmlFor="descripcion">Descripción</label>
-                            {errors.description && <p className='errors'>{errors.description}</p>}
+                            {errors.description && <p className='errorInput'>{errors.description}</p>}
                         </div>
                     </div>
                     <div className="row">
@@ -167,7 +167,7 @@ function FormEditPet() {
                                 <option value="grande">Grande</option>
                             </select>
                             <label className="tam" htmlFor="size">Tamaño</label>
-                            {errors.size && <p className='error'>{errors.size}</p>}
+                            {errors.size && <p className='errorInput'>{errors.size}</p>}
                         </div>
 
                         <div className="containerInputs">
@@ -180,7 +180,7 @@ function FormEditPet() {
                                 <option value="otros">Otro</option>
                             </select>
                             <label className="tam" htmlFor="size">Tipo</label>
-                            {errors.type && <p className='error'>{errors.type}</p>}
+                            {errors.type && <p className='errorInput'>{errors.type}</p>}
                         </div>
                     </div>
                     <div className="row">
