@@ -25,6 +25,7 @@ function FormEditPet() {
     let petDetails: Pet = useSelector((state: StateType) => state.detail);
 
     const [input, setInput] = useState(petDetails)
+    console.log(input)
 
 
     //Me aseguro de q los details de la pet esten cargados en el State Global
@@ -107,7 +108,7 @@ function FormEditPet() {
     const handleDisabledButton = () => {
         if (Object.values(input)[0] === "") {
             return true;
-        } else if (Object.keys(errors).length > 0) {
+        } else if (Object.keys(errors).length > 1) {
             return true
         } else {
             return false;
