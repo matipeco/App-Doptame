@@ -11,7 +11,9 @@ nav {
     background: #2fcdcd;
     height: 80px;
     width: 100%;
-
+    position: fixed;
+    top: 0;
+    z-index: 1;
 }
 
 /* .link{

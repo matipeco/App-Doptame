@@ -6,6 +6,8 @@
 }
 .pagination-wrapper nav{
     height: 40px;
+    position: relative;
+    z-index: 0;
 }
 
 .pagination-wrapper nav ul li{
@@ -17,6 +19,5 @@
     display: flex;
     align-content: center;
     height: 20px;
-    
 }
 

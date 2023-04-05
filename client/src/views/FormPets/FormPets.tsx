@@ -115,9 +115,9 @@ function FormPets() {
     };
 
     return (
-        <div className="container">
-            <div className="containerForm">
-                <form onSubmit={handleSubmit}>
+        <div className="containerTodo">
+            <div className="containerDelForm">
+                <form className="sosElForm" onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="containerInputs">
                             <input
