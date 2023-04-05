@@ -1,8 +1,9 @@
-.container{
+.containerTodo{
     display: flex;
     margin: 25px;
+    margin-top: 90px;
     font-family: 'Arvo', serif;
-
+    flex-direction: row;
 }
 
 .containerTitle{
@@ -14,10 +15,11 @@
     height: 30rem;
 }
 
-.containerForm{
+.containerDelForm{
     flex: 1 1 50%;
     display: flex;
     flex-wrap: wrap ;
+    justify-content: center;
 }
 
 select{
