@@ -1,76 +1,79 @@
-.error{
-    font-size: medium;
-    color: rgb(219, 27, 27);
-    /* font-weight: bold; */
+.containerReview {
+  margin: 7% auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 600px;
+  text-align: center; /* Agregar esta propiedad */
+
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.requirements{
-    color: rgb(63, 102, 72);
-    /* font-weight: bold; */
-    font-size: medium;
+.h1Review {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.container{
-    display: flex;
-    margin: 25px;
-    font-family: 'Arvo', serif;
-
+.row {
+  display: flex;
+  flex-direction: column;
 }
 
-.containerTitle{
-    flex: 1 1 50%;
+.containerInputs {
+  margin-bottom: 20px;
 }
 
-.imgPerrito{
-    width: 40rem;
-    height: 30rem;
+#selectReview {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-.containerForm{
-    flex: 1 1 50%;
-    display: flex;
-    flex-wrap: wrap ;
+.labelReview {
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
 }
 
-select{
-    font-size:18px;
-    padding:10px 10px 10px 5px;
-    display:block;
-    width:300px;
-    border:none;
-    border-bottom:3px solid #F6BE68;
-    font-family: 'Arvo', serif;
+.inputReview {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-select:focus 		{ outline:none; }
+.errors {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
+.buttonReview[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
 
+.buttonReview[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .tam{
-    color:#999; 
-    font-size:18px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
-    left:5px;
-    top:-20px;
-    transition:0.2s ease all; 
-    -moz-transition:0.2s ease all; 
-    -webkit-transition:0.2s ease all;
-    font-family: 'Arvo', serif;
-  }
-
-  
- .fil{
-    color: rgb(0, 0, 0);
-    border-radius: 20px;
-    font-size: 18px;
-    padding: 10px 10px 10px 5px;
-    display: block;
-    width: 300px;
-    border: none;
-    border-bottom: 3px solid #F6BE68;
-    font-family: 'Arvo', serif;
- }
- 
-
+.buttonReview[type="submit"]:hover:not([disabled]) {
+  background-color: #3e8e41;
+}

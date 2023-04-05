@@ -95,13 +95,13 @@ const allReviews = {
 
     return (
    <div>
-            <div className="containerForm">
-                <h1>Su experiencia con {apaDetails.name}:</h1>
+            <div className="containerReview">
+                <h1 className='h1Review'>Su experiencia con {apaDetails.name}:</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
 
                     <div className="containerInputs">
-                            <select name="rating"
+                            <select id='selectReview' name="rating"
                                 onChange={handleInputChange}
                                 >
                                     <option value="5" >5</option>
@@ -120,11 +120,11 @@ const allReviews = {
                             <input
                                 onChange={handleInputChange}
                                 type='text'
-                                className="input"
+                                className="inputReview"
                                 name="opinion"
                                 value={input.opinion}
                             />
-                            <label className="label" htmlFor="opinion">Sus comentarios:</label>
+                            <label className="labelReview" htmlFor="opinion">Sus comentarios:</label>
                             {errors.opinion && <p className='errors'>{errors.opinion}</p>}
                         </div>
 
@@ -145,15 +145,7 @@ const allReviews = {
 
                     
                     </div>
-                    <div className="row">
-
-                    
-                        
-                    </div>
-                    
-                
-
-                        <button type="submit" disabled={handleDisabledButton()}>Enviar</button>
+                   <button className='buttonReview' type="submit" disabled={handleDisabledButton()}>Enviar</button>
                       
                     {/* </div> */}
                 </form>
